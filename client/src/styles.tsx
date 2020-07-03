@@ -14,5 +14,9 @@ export const Content = styled.div`
     color: white;
     padding: 1rem;
     border-radius: 99px;
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
   }
 `;
