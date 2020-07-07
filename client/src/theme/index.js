@@ -7,7 +7,6 @@ export const theme = {
     black: "#222831",
     gray: "#393e46",
     green: "#00adb5",
-
     white: "#eeeeee",
   },
 };
@@ -23,6 +22,6 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Open-Sans, Helvetica, Sans-Serif;
     background: white;
 
-  }
+  } 
 
 `;
