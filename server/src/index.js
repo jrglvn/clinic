@@ -1,5 +1,20 @@
 const { ApolloServer, gql } = require("apollo-server");
 
+var knex = require("knex")({
+  client: "pg",
+  connection: {
+    host: "134.107.71.33",
+    user: "postgres",
+    password: "postgres",
+    database: "postgres",
+  },
+});
+
+knex
+  .select()
+  .from("categories")
+  .then((data) => console.log(data));
+
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
