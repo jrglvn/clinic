@@ -45,6 +45,30 @@ const resolvers = {
       return data[0];
     },
   },
+  Mutation: {
+    addUser: async (_, { input }) => {
+      const result = await knex("users")
+        .returning("*")
+        .insert({ ...input });
+      return result[0];
+    },
+    addClient: async (_, { input }) => {
+      const result = await knex("clients")
+        .returning("*")
+        .insert({ ...input });
+      return result[0];
+    },
+    addCategory: async (_, { name }) => {
+      const result = await knex("categories").returning("*").insert({ name });
+      return result[0];
+    },
+    addAppointment: async (_, { input }) => {
+      const result = await knex("appointments")
+        .returning("*")
+        .insert({ ...input });
+      return result[0];
+    },
+  },
 };
 
 module.exports = resolvers;

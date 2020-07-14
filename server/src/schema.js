@@ -38,16 +38,40 @@ const typeDefs = gql`
   }
 
   input ClientInput {
-    first_name: String
-    last_name: String
+    first_name: String!
+    last_name: String!
+    email: String
+    address: String
+    phone_number: String
+  }
+
+  input UserInput {
+    first_name: String!
+    last_name: String!
+  }
+
+  input AppointmentInput {
+    users_id: ID!
+    clients_id: ID!
+    categories_id: ID!
+    date: String!
+    result: String
+    previous_appointment_id: ID
   }
 
   type Query {
-    clients(id: ID, input: ClientInput): [Client!]
+    clients(id: ID): [Client!]
     users: [User!]
     categories: [Category!]
     images: [Image!]
     appointments: [Appointment!]
+  }
+
+  type Mutation {
+    addClient(input: ClientInput!): Client!
+    addUser(input: UserInput!): User!
+    addCategory(name: String): Category!
+    addAppointment(input: AppointmentInput): Appointment!
   }
 `;
 
