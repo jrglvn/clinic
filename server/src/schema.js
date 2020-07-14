@@ -38,23 +38,23 @@ const typeDefs = gql`
   }
 
   input ClientInput {
-    first_name: String!
-    last_name: String!
+    first_name: String
+    last_name: String
     email: String
     address: String
     phone_number: String
   }
 
   input UserInput {
-    first_name: String!
-    last_name: String!
+    first_name: String
+    last_name: String
   }
 
   input AppointmentInput {
-    users_id: ID!
-    clients_id: ID!
-    categories_id: ID!
-    date: String!
+    users_id: ID
+    clients_id: ID
+    categories_id: ID
+    date: String
     result: String
     previous_appointment_id: ID
   }
@@ -70,8 +70,12 @@ const typeDefs = gql`
   type Mutation {
     addClient(input: ClientInput!): Client!
     addUser(input: UserInput!): User!
-    addCategory(name: String): Category!
+    addCategory(name: String!): Category!
     addAppointment(input: AppointmentInput): Appointment!
+    updateClient(id: ID!, input: ClientInput!): Client!
+    updateUser(id: ID!, input: UserInput!): User!
+    updateCategory(id: ID!, name: String!): Category!
+    updateAppointment(id: ID!, input: AppointmentInput): Appointment!
   }
 `;
 
