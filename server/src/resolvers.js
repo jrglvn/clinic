@@ -14,12 +14,16 @@ const resolvers = {
       const data = await knex("categories");
       return data;
     },
-    users: async () => {
-      const data = await knex("users");
+    users: async (_, args) => {
+      const data = args.id
+        ? await knex("users").where({ id: args.id })
+        : await knex("users");
       return data;
     },
-    clients: async () => {
-      const data = await knex("clients");
+    clients: async (_, args) => {
+      const data = args.id
+        ? await knex("clients").where({ id: args.id })
+        : await knex("clients");
       return data;
     },
     appointments: async () => {
@@ -29,24 +33,15 @@ const resolvers = {
   },
   Appointment: {
     client: async (parent) => {
-      const data = await knex
-        .select()
-        .from("clients")
-        .where({ id: parent.clients_id });
+      const data = await knex("clients").where({ id: parent.clients_id });
       return data[0];
     },
     user: async (parent) => {
-      const data = await knex
-        .select()
-        .from("users")
-        .where({ id: parent.users_id });
+      const data = await knex("users").where({ id: parent.users_id });
       return data[0];
     },
     category: async (parent) => {
-      const data = await knex
-        .select()
-        .from("clients")
-        .where({ id: parent.categories_id });
+      const data = await knex("categories").where({ id: parent.categories_id });
       return data[0];
     },
   },

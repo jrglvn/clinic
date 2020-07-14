@@ -37,8 +37,13 @@ const typeDefs = gql`
     previous_appointment: Appointment
   }
 
+  input ClientInput {
+    first_name: String
+    last_name: String
+  }
+
   type Query {
-    clients: [Client!]
+    clients(id: ID, input: ClientInput): [Client!]
     users: [User!]
     categories: [Category!]
     images: [Image!]
