@@ -58,7 +58,7 @@ const resolvers = {
     },
   },
   ClientsMutation: {
-    addClient: async (_, { input }) => {
+    createClient: async (_, { input }) => {
       const result = await knex("clients")
         .returning("*")
         .insert({ ...input });
@@ -77,7 +77,7 @@ const resolvers = {
     },
   },
   UsersMutation: {
-    addUser: async (_, { input }) => {
+    createUser: async (_, { input }) => {
       const result = await knex("users")
         .returning("*")
         .insert({ ...input });
@@ -96,7 +96,7 @@ const resolvers = {
     },
   },
   AppointmentsMutation: {
-    addAppointment: async (_, { input }) => {
+    createAppointment: async (_, { input }) => {
       const result = await knex("appointments")
         .returning("*")
         .insert({ ...input });
@@ -115,7 +115,7 @@ const resolvers = {
     },
   },
   CategoriesMutation: {
-    addCategory: async (_, { input }) => {
+    createCategory: async (_, { input }) => {
       const result = await knex("categories")
         .returning("*")
         .insert({ name: input.name });
@@ -135,7 +135,7 @@ const resolvers = {
     },
   },
   ImagesMutation: {
-    addImage: async (_, { input }) => {
+    createImage: async (_, { input }) => {
       const result = await knex("images")
         .returning("*")
         .insert({ ...input });

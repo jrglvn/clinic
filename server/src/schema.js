@@ -2,6 +2,9 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
+    """
+    provide any input or none
+    """
     clients(input: ClientSearchInput): [Client!]
     users(input: UserSearchInput): [User!]
     categories(input: CategorySearchInput): [Category!]
@@ -114,31 +117,31 @@ const typeDefs = gql`
   }
 
   type ClientsMutation {
-    addClient(input: ClientInput!): Client!
+    createClient(input: ClientInput!): Client!
     updateClient(id: ID!, input: ClientInput!): Client!
     deleteClient(id: ID!): Boolean
   }
 
   type UsersMutation {
-    addUser(input: UserInput!): User!
+    createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): Boolean
   }
 
   type AppointmentsMutation {
-    addAppointment(input: AppointmentInput!): Appointment!
+    createAppointment(input: AppointmentInput!): Appointment!
     updateAppointment(id: ID!, input: AppointmentInput): Appointment!
     deleteAppointment(id: ID!): Boolean
   }
 
   type CategoriesMutation {
-    addCategory(input: CategoryInput): Category!
+    createCategory(input: CategoryInput): Category!
     updateCategory(id: ID!, input: CategoryInput): Category!
-    deleteCategory(id: ID!): Boolean!
+    deleteCategory(id: ID!): Boolean
   }
 
   type ImagesMutation {
-    addImage(input: ImageInput!): [Image]!
+    createImage(input: ImageInput!): [Image]!
     deleteImage(id: ID!): Boolean
   }
 `;
