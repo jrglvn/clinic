@@ -10,27 +10,24 @@ var knex = require("knex")({
 
 const resolvers = {
   Query: {
-    categories: async () => {
-      const result = await knex("categories").orderBy("id");
+    categories: async (_, { input }) => {
+      const result = await knex("categories").where({ ...input });
       return result;
     },
-    users: async (_, args) => {
-      const result = args.id
-        ? await knex("users").where({ id: args.id })
-        : await knex("users");
+    users: async (_, { input }) => {
+      const result = await knex("users").where({ ...input });
       return result;
     },
-    clients: async (_, args) => {
-      const result = args.id
-        ? await knex("clients").where({ id: args.id })
-        : await knex("clients");
+    clients: async (_, { input }) => {
+      const result = await knex("clients").where({ ...input });
       return result;
     },
-    appointments: async () => {
-      const result = await knex("appointments");
+    appointments: async (_, { input }) => {
+      const result = await knex("appointments").where({ ...input });
       return result;
     },
   },
+
   Appointment: {
     client: async (parent) => {
       const result = await knex("clients").where({ id: parent.clients_id });
@@ -53,25 +50,28 @@ const resolvers = {
       return result[0];
     },
   },
-  Mutation: {
-    addUser: async (_, { input }) => {
-      const result = await knex("users")
-        .returning("*")
-        .insert({ ...input });
-      return result[0];
-    },
+  ClientsMutation: {
     addClient: async (_, { input }) => {
       const result = await knex("clients")
         .returning("*")
         .insert({ ...input });
       return result[0];
     },
-    addCategory: async (_, { name }) => {
-      const result = await knex("categories").returning("*").insert({ name });
+    updateClient: async (_, { id, input }) => {
+      const result = await knex("clients")
+        .returning("*")
+        .update({ ...input })
+        .where({ id });
       return result[0];
     },
-    addAppointment: async (_, { input }) => {
-      const result = await knex("appointments")
+    deleteClient: async (_, { id }) => {
+      const result = await knex("clients").where({ id }).del();
+      return result !== 0 ? true : false;
+    },
+  },
+  UsersMutation: {
+    addUser: async (_, { input }) => {
+      const result = await knex("users")
         .returning("*")
         .insert({ ...input });
       return result[0];
@@ -83,18 +83,16 @@ const resolvers = {
         .where({ id });
       return result[0];
     },
-    updateClient: async (_, { id, input }) => {
-      const result = await knex("clients")
-        .returning("*")
-        .update({ ...input })
-        .where({ id });
-      return result[0];
+    deleteUser: async (_, { id }) => {
+      const result = await knex("users").where({ id }).del();
+      return result !== 0 ? true : false;
     },
-    updateCategory: async (_, { id, name }) => {
-      const result = await knex("categories")
+  },
+  AppointmentsMutation: {
+    addAppointment: async (_, { input }) => {
+      const result = await knex("appointments")
         .returning("*")
-        .update({ name })
-        .where({ id });
+        .insert({ ...input });
       return result[0];
     },
     updateAppointment: async (_, { id, input }) => {
@@ -103,6 +101,43 @@ const resolvers = {
         .update({ ...input })
         .where({ id });
       return result[0];
+    },
+    deleteAppointment: async (_, { id }) => {
+      const result = await knex("appointments").where({ id }).del();
+      return result !== 0 ? true : false;
+    },
+  },
+  CategoriesMutation: {
+    addCategory: async (_, { input }) => {
+      const result = await knex("categories")
+        .returning("*")
+        .insert({ name: input.name });
+      return result[0];
+    },
+
+    updateCategory: async (_, { id, name }) => {
+      const result = await knex("categories")
+        .returning("*")
+        .update({ name })
+        .where({ id });
+      return result[0];
+    },
+    deleteCategory: async (_, { id }) => {
+      const result = await knex("categories").where({ id }).del();
+      return result !== 0 ? true : false;
+    },
+  },
+  ImagesMutation: {
+    addImage: async (_, { input }) => {
+      const result = await knex("images")
+        .returning("*")
+        .insert({ ...input });
+
+      return {};
+    },
+    deleteImage: async (_, { id }) => {
+      const result = await knex("images").where({ id }).del();
+      return result !== 0 ? true : false;
     },
   },
 };
