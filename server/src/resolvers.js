@@ -27,6 +27,13 @@ const resolvers = {
       return result;
     },
   },
+  Mutation: {
+    clients: () => ({}),
+    categories: () => ({}),
+    users: () => ({}),
+    appointments: () => ({}),
+    images: () => ({}),
+  },
 
   Appointment: {
     client: async (parent) => {

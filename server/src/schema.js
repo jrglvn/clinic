@@ -1,6 +1,22 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
+  type Query {
+    clients(input: ClientSearchInput): [Client!]
+    users(input: UserSearchInput): [User!]
+    categories(input: CategorySearchInput): [Category!]
+    images(id: ID): [Image!]
+    appointments(input: AppointmentSearchInput): [Appointment!]
+  }
+
+  type Mutation {
+    clients: ClientsMutation!
+    users: UsersMutation!
+    appointments: AppointmentsMutation!
+    categories: CategoriesMutation!
+    images: ImagesMutation!
+  }
+
   type Client {
     id: ID!
     first_name: String!
@@ -97,29 +113,6 @@ const typeDefs = gql`
     base64data: String!
   }
 
-  type Query {
-    """
-    if no input provided, returns all records
-    """
-    clients(input: ClientSearchInput): [Client!]
-    """
-    if no input provided, returns all records
-    """
-    users(input: UserSearchInput): [User!]
-    """
-    if no input provided, returns all records
-    """
-    categories(input: CategorySearchInput): [Category!]
-    """
-    if no input provided, returns all records
-    """
-    images(id: ID): [Image!]
-    """
-    if no input provided, returns all records
-    """
-    appointments(input: AppointmentSearchInput): [Appointment!]
-  }
-
   type ClientsMutation {
     addClient(input: ClientInput!): Client!
     updateClient(id: ID!, input: ClientInput!): Client!
@@ -139,24 +132,14 @@ const typeDefs = gql`
   }
 
   type CategoriesMutation {
-    addCategory(input: CategoryInput): [Category]!
-    updateCategory(id: ID!, input: CategoryInput): [Category]!
+    addCategory(input: CategoryInput): Category!
+    updateCategory(id: ID!, input: CategoryInput): Category!
     deleteCategory(id: ID!): Boolean!
   }
 
   type ImagesMutation {
     addImage(input: ImageInput!): [Image]!
     deleteImage(id: ID!): Boolean
-  }
-
-  type Mutation
-
-  extend type Mutation {
-    clients: ClientsMutation!
-    users: UsersMutation!
-    appointments: AppointmentsMutation!
-    categories: CategoriesMutation!
-    images: ImagesMutation!
   }
 `;
 
