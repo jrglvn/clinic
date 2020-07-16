@@ -145,5 +145,3 @@ const typeDefs = gql`
     deleteImage(id: ID!): Boolean
   }
 `;
-
-module.exports = typeDefs;
