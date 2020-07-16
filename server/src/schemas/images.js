@@ -2,10 +2,7 @@ const { gql } = require("apollo-server");
 
 const imagesTypeDefs = gql`
   type Query {
-    """
-    provide any input or none
-    """
-    images(id: ID): [Image!]
+    images(id: ID): [Image]!
   }
 
   type Mutation {

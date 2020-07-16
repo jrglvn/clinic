@@ -2,10 +2,7 @@ const { gql } = require("apollo-server");
 
 const appointmentsTypeDefs = gql`
   type Query {
-    """
-    provide any input or none
-    """
-    appointments(input: AppointmentSearchInput): [Appointment!]
+    appointments(input: AppointmentSearchInput): [Appointment]!
   }
 
   type Mutation {

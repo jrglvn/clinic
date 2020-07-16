@@ -2,10 +2,7 @@ const { gql } = require("apollo-server");
 
 const categoriesTypeDefs = gql`
   type Query {
-    """
-    provide any input or none
-    """
-    categories(input: CategorySearchInput): [Category!]
+    categories(input: CategorySearchInput): [Category]!
   }
 
   type Mutation {
@@ -23,10 +20,10 @@ const categoriesTypeDefs = gql`
     id: ID
     name: String
   }
-  type ClientsMutation {
-    createClient(input: ClientInput!): Client!
-    updateClient(id: ID!, input: ClientInput!): Client!
-    deleteClient(id: ID!): Boolean
+  type CategoriesMutation {
+    createCategory(input: CategoryInput): Category!
+    updateCategory(id: ID!, input: CategoryInput): Category!
+    deleteCategory(id: ID!): Boolean
   }
 `;
 

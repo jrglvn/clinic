@@ -2,10 +2,7 @@ const { gql } = require("apollo-server");
 
 const usersTypeDefs = gql`
   type Query {
-    """
-    provide any input or none
-    """
-    users(input: UserSearchInput): [User!]
+    users(input: UserSearchInput): [User]!
   }
 
   type Mutation {

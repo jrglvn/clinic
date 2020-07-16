@@ -1,6 +1,6 @@
 const { ApolloServer } = require("apollo-server");
 
-const { typeDefs, resolvers } = require("./schemas/index");
+const { typeDefs, resolvers } = require("./schemas");
 
 var knex = require("knex")({
   client: "pg",
