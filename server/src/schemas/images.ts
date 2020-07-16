@@ -1,6 +1,6 @@
-const { gql } = require("apollo-server");
+import { gql } from "apollo-server";
 
-const imagesTypeDefs = gql`
+export const imagesTypeDefs = gql`
   type Query {
     images(id: ID): [Image]!
   }
@@ -22,12 +22,12 @@ const imagesTypeDefs = gql`
   }
 
   type ImagesMutation {
-    createImage(input: ImageInput!): [Image]!
+    createImage(input: ImageInput!): Image!
     deleteImage(id: ID!): Boolean
   }
 `;
 
-const imagesResolvers = {
+export const imagesResolvers = {
   Mutation: {
     images: () => ({}),
   },
@@ -37,7 +37,7 @@ const imagesResolvers = {
         .returning("*")
         .insert({ ...input });
 
-      return {};
+      return result;
     },
     deleteImage: async (_, { id }, { knex }) => {
       const result = await knex("images").where({ id }).del();
@@ -45,5 +45,3 @@ const imagesResolvers = {
     },
   },
 };
-
-module.exports = { imagesTypeDefs, imagesResolvers };

@@ -1,6 +1,6 @@
-const { gql } = require("apollo-server");
+import { gql } from "apollo-server";
 
-const categoriesTypeDefs = gql`
+export const categoriesTypeDefs = gql`
   type Query {
     categories(input: CategorySearchInput): [Category]!
   }
@@ -27,7 +27,7 @@ const categoriesTypeDefs = gql`
   }
 `;
 
-const categoriesResolvers = {
+export const categoriesResolvers = {
   Query: {
     categories: async (_, { input }, { knex }) => {
       const result = await knex("categories").where({ ...input });
@@ -59,5 +59,3 @@ const categoriesResolvers = {
     },
   },
 };
-
-module.exports = { categoriesTypeDefs, categoriesResolvers };

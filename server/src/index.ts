@@ -1,6 +1,9 @@
-const { ApolloServer } = require("apollo-server");
+import { ApolloServer } from "apollo-server";
 
-const { typeDefs, resolvers } = require("./schemas");
+import {
+  mergedTypeDefs as typeDefs,
+  mergedResolvers as resolvers,
+} from "./schemas";
 
 var knex = require("knex")({
   client: "pg",
