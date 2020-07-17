@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server";
 import {
   mergedTypeDefs as typeDefs,
   mergedResolvers as resolvers,
-} from "./schemas";
+} from "./schema";
 
 var knex = require("knex")({
   client: "pg",

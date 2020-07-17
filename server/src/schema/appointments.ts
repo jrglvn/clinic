@@ -1,4 +1,10 @@
 import { gql } from "apollo-server";
+import {
+  AppointmentsMutationResolvers,
+  AppointmentInput,
+  AppointmentSearchInput,
+  Appointment,
+} from "./types";
 
 export const appointmentsTypeDefs = gql`
   type Query {
@@ -77,7 +83,7 @@ export const appointmentsResolvers = {
       return result[0];
     },
   },
-  AppointmentsMutation: {
+  AppointmentsMutation: <AppointmentsMutationResolvers>{
     createAppointment: async (_, { input }, { knex }) => {
       const result = await knex("appointments")
         .returning("*")
