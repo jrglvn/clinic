@@ -39,10 +39,8 @@ export const categoriesResolvers = {
   },
 
   CategoriesMutation: {
-    createCategory: async (_, { input }, { knex }) => {
-      const result = await knex("categories")
-        .returning("*")
-        .insert({ name: input.name });
+    createCategory: async (_, { input: { name } }, { knex }) => {
+      const result = await knex("categories").returning("*").insert({ name });
       return result[0];
     },
 
