@@ -72,7 +72,7 @@ export const usersResolvers = {
       const queryResults = await knex("users").where({ id }).del();
       return queryResults !== 0 ? true : false;
     },
-    login: async (_, { email, password }, { knex, bcrypt, jwt }) => {
+    login: async (_, { email, password }, { knex, bcrypt, jwt, res }) => {
       const queryResults = await knex("users").select("*").where({ email });
       if (queryResults === undefined || queryResults.length === 0)
         throw new UserInputError("Form Arguments invalid", {
@@ -97,6 +97,7 @@ export const usersResolvers = {
         { id: queryResults[0].id },
         process.env.REFRESH_TOKEN_SECRET
       );
+      res.cookie("BEARER", refresh_token);
       return { access_token, refresh_token };
     },
   },
