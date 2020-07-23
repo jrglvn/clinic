@@ -6,6 +6,14 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+function addTest(req, res, next) {
+  res.set("Access-Control-Expose-Headers", "x-access_token, x-refresh-token");
+  res.set("x-access_token", "access token t90tj34jt");
+  res.set("x-refresh-token", "refresh token 53igj5094ejg590i");
+  console.log(req.cookies);
+  next();
+}
+
 const app = express();
 app.use(cookieParser());
 app.use(cors());
@@ -14,6 +22,7 @@ app.use(
     extended: true,
   })
 );
+app.use(addTest);
 
 import {
   mergedTypeDefs as typeDefs,

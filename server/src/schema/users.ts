@@ -87,7 +87,6 @@ export const usersResolvers = {
         throw new UserInputError("Form Arguments invalid", {
           invalidArgs: "provided password does not match",
         });
-      console.log(queryResults[0]);
       const access_token = await jwt.sign(
         { id: queryResults[0].id },
         process.env.ACCESS_TOKEN_SECRET,
@@ -97,7 +96,6 @@ export const usersResolvers = {
         { id: queryResults[0].id },
         process.env.REFRESH_TOKEN_SECRET
       );
-      res.cookie("BEARER", refresh_token);
       return { access_token, refresh_token };
     },
   },
