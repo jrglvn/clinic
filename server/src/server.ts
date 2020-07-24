@@ -1,18 +1,9 @@
 const { ApolloServer } = require("apollo-server-express");
-import express from "express";
+import express, { Request, Response } from "express";
 import "dotenv/config";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
-function addTest(req, res, next) {
-  res.set("Access-Control-Expose-Headers", "x-access_token, x-refresh-token");
-  res.set("x-access_token", "access token t90tj34jt");
-  res.set("x-refresh-token", "refresh token 53igj5094ejg590i");
-  console.log(req.cookies);
-  next();
-}
 
 const app = express();
 app.use(cookieParser());
@@ -22,12 +13,11 @@ app.use(
     extended: true,
   })
 );
-app.use(addTest);
-
 import {
   mergedTypeDefs as typeDefs,
   mergedResolvers as resolvers,
 } from "./schema";
+import { ResolveOptions } from "dns";
 
 var knex = require("knex")({
   client: "pg",
@@ -42,10 +32,8 @@ var knex = require("knex")({
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: (req, res) => {
-    const token = req.headers?.authorization || "";
-
-    return { token, knex, bcrypt, jwt, res };
+  context: ({ req, res }: { req: Request; res: Response }) => {
+    return { knex, req, res };
   },
 });
 

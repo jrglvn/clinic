@@ -1,4 +1,6 @@
 import { gql, UserInputError } from "apollo-server";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export const usersTypeDefs = gql`
   type Query {
@@ -13,11 +15,6 @@ export const usersTypeDefs = gql`
     first_name: String!
     last_name: String!
     email: String!
-  }
-
-  type LoginqueryResults {
-    access_token: String
-    refresh_token: String
   }
 
   input UserInput {
@@ -37,8 +34,9 @@ export const usersTypeDefs = gql`
   type UsersMutation {
     createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
-    deleteUser(id: ID!): Boolean
-    login(email: String, password: String): LoginqueryResults!
+    deleteUser(id: ID!): Boolean!
+    login(email: String, password: String): Boolean!
+    logout: Boolean!
   }
 `;
 
@@ -54,7 +52,7 @@ export const usersResolvers = {
   },
 
   UsersMutation: {
-    createUser: async (_, { input }, { knex, bcrypt }) => {
+    createUser: async (_, { input }, { knex }) => {
       const hashedPassword = await bcrypt.hash(input.password, 10);
       const queryResults = await knex("users")
         .returning("*")
@@ -72,31 +70,49 @@ export const usersResolvers = {
       const queryResults = await knex("users").where({ id }).del();
       return queryResults !== 0 ? true : false;
     },
-    login: async (_, { email, password }, { knex, bcrypt, jwt, res }) => {
+    login: async (_, { email, password }, { knex, res }) => {
       const queryResults = await knex("users").select("*").where({ email });
       if (queryResults === undefined || queryResults.length === 0)
         throw new UserInputError("Form Arguments invalid", {
           invalidArgs: "no user with provided email",
         });
 
-      const samePasswords: boolean = await bcrypt.compare(
+      const isPasswordCorrect: boolean = await bcrypt.compare(
         password,
         queryResults[0].password
       );
-      if (!samePasswords)
+      if (!isPasswordCorrect)
         throw new UserInputError("Form Arguments invalid", {
           invalidArgs: "provided password does not match",
         });
       const access_token = await jwt.sign(
         { id: queryResults[0].id },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5m" }
+        process.env.ACCESS_TOKEN_SECRET
       );
       const refresh_token = await jwt.sign(
         { id: queryResults[0].id },
         process.env.REFRESH_TOKEN_SECRET
       );
-      return { access_token, refresh_token };
+      //add refresh token to database
+      await knex("refresh_tokens").insert({ token: refresh_token });
+
+      //add tokens to cookies
+      res.cookie("access_token", access_token, {
+        maxAge: 15 * 1000,
+      });
+      res.cookie("refresh_token", refresh_token, {
+        expires: new Date(Date.now() * 2),
+      });
+      return true;
+    },
+    logout: async (_, __, { req, knex }) => {
+      const queryResults = await knex("refresh_tokens")
+        .where({
+          token: req.cookies["refresh_token"],
+        })
+        .del();
+      console.log("logout delete refresh token = ", queryResults);
+      return true;
     },
   },
 };
