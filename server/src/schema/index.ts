@@ -4,8 +4,15 @@ import { usersTypeDefs, usersResolvers } from "./users";
 import { appointmentsTypeDefs, appointmentsResolvers } from "./appointments";
 import { imagesTypeDefs, imagesResolvers } from "./images";
 import { categoriesTypeDefs, categoriesResolvers } from "./categories";
+import { gql } from "apollo-server";
 
 const typeDefs = [
+  gql`
+    enum ROLES {
+      ADMIN
+      USER
+    }
+  `,
   clientsTypeDefs,
   usersTypeDefs,
   appointmentsTypeDefs,

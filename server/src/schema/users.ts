@@ -15,6 +15,7 @@ export const usersTypeDefs = gql`
     first_name: String!
     last_name: String!
     email: String!
+    role: ROLES!
   }
 
   input UserInput {
@@ -22,6 +23,7 @@ export const usersTypeDefs = gql`
     last_name: String
     email: String
     password: String
+    role: ROLES
   }
 
   input UserSearchInput {
@@ -29,6 +31,7 @@ export const usersTypeDefs = gql`
     first_name: String
     last_name: String
     email: String
+    role: ROLES
   }
 
   type UsersMutation {
@@ -101,8 +104,9 @@ export const usersResolvers = {
         maxAge: 15 * 1000,
       });
       res.cookie("refresh_token", refresh_token, {
-        expires: new Date(Date.now() * 2),
+        expires: new Date("2-2-2222"),
       });
+
       return true;
     },
     logout: async (_, __, { req, knex }) => {
