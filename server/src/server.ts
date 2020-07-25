@@ -4,6 +4,7 @@ import "dotenv/config";
 
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 const app = express();
 app.use(cookieParser());
@@ -17,7 +18,6 @@ import {
   mergedTypeDefs as typeDefs,
   mergedResolvers as resolvers,
 } from "./schema";
-import { ResolveOptions } from "dns";
 
 var knex = require("knex")({
   client: "pg",
@@ -32,7 +32,19 @@ var knex = require("knex")({
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req, res }: { req: Request; res: Response }) => {
+  context: async ({ req, res }: { req: any; res: Response }) => {
+    if (req.cookies["access_token"]) {
+      const data = await jwt.verify(
+        req.cookies["access_token"],
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      const queryResults = await knex("users")
+        .select("*")
+        .where({ id: data.id });
+      const user = queryResults[0];
+      req.user = user;
+      console.log(user);
+    }
     return { knex, req, res };
   },
 });

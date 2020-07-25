@@ -4,7 +4,12 @@ import bcrypt from "bcrypt";
 
 export const usersTypeDefs = gql`
   type Query {
-    users(input: UserSearchInput): [User]!
+    users: UsersQuery
+  }
+
+  type UsersQuery {
+    getUsers(input: UserSearchInput): [User]!
+    me: User!
   }
 
   type Mutation {
@@ -44,16 +49,19 @@ export const usersTypeDefs = gql`
 `;
 
 export const usersResolvers = {
-  Query: {
-    users: async (_, { input }, { knex }) => {
-      const queryResults = await knex("users").where({ ...input });
-      return queryResults;
-    },
-  },
+  Query: { users: () => {} },
   Mutation: {
     users: () => ({}),
   },
-
+  UsersQuery: {
+    getUsers: async (_, { input }, { knex }) => {
+      const queryResults = await knex("users").where({ ...input });
+      return queryResults;
+    },
+    me: (_, __, { req }) => {
+      return req.user;
+    },
+  },
   UsersMutation: {
     createUser: async (_, { input }, { knex }) => {
       const hashedPassword = await bcrypt.hash(input.password, 10);
@@ -101,7 +109,7 @@ export const usersResolvers = {
 
       //add tokens to cookies
       res.cookie("access_token", access_token, {
-        maxAge: 15 * 1000,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
       });
       res.cookie("refresh_token", refresh_token, {
         expires: new Date("2-2-2222"),
