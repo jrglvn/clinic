@@ -13,6 +13,8 @@ const typeDefs = [
       USER
     }
     directive @auth(requires: ROLES = ADMIN) on OBJECT | FIELD_DEFINITION
+
+    type Query @auth(requires: USER)
   `,
   clientsTypeDefs,
   usersTypeDefs,

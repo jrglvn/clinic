@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const usersTypeDefs = gql`
-  type Query @auth {
+  type Query {
     users: UsersQuery
   }
 
@@ -40,9 +40,9 @@ export const usersTypeDefs = gql`
   }
 
   type UsersMutation {
-    createUser(input: UserInput!): User!
-    updateUser(id: ID!, input: UserInput!): User!
-    deleteUser(id: ID!): Boolean!
+    createUser(input: UserInput!): User! @auth
+    updateUser(id: ID!, input: UserInput!): User! @auth
+    deleteUser(id: ID!): Boolean! @auth
     login(email: String, password: String): Boolean!
     logout: Boolean!
   }
@@ -118,11 +118,13 @@ export const usersResolvers = {
       return true;
     },
     logout: async (_, __, { req, res, knex }) => {
-      const queryResults = await knex("refresh_tokens")
-        .where({
-          token: req.cookies["refresh_token"],
-        })
-        .del();
+      if (req.cookies["refresh_token"]) {
+        const queryResults = await knex("refresh_tokens")
+          .where({
+            token: req.cookies["refresh_token"],
+          })
+          .del();
+      }
       res.clearCookie("refresh_token");
       res.clearCookie("access_token");
       console.log("deleted cookies & db.token");
