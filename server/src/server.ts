@@ -5,6 +5,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import { AuthDirective } from "./schema/directives";
 
 const app = express();
 app.use(cookieParser());
@@ -37,7 +38,7 @@ const server = new ApolloServer({
     //if access token is correct find  user in DB and add him to req.obj
     //if no access token check if refresh token is correct and check in DB if it's active
     //if refresh token still active, generate new access token and append it to res object, also add user to req. object
-
+    let user;
     if (req.cookies["access_token"]) {
       const data = await jwt.verify(
         req.cookies["access_token"],
@@ -47,8 +48,7 @@ const server = new ApolloServer({
         const queryResults = await knex("users")
           .select("*")
           .where({ id: data.id });
-        const user = queryResults[0];
-        req.user = user;
+        user = queryResults[0];
       } else res.status(400).send("tampered with token");
     } else if (req.cookies["refresh_token"]) {
       const data = await jwt.verify(
@@ -73,13 +73,15 @@ const server = new ApolloServer({
           const queryUsers = await knex("users")
             .select("*")
             .where({ id: data.id });
-          const user = queryUsers[0];
-          req.user = user;
+          user = queryUsers[0];
         }
       } else res.status(400).send("tampered with token");
     }
 
-    return { knex, req, res };
+    return { knex, req, res, user };
+  },
+  schemaDirectives: {
+    auth: AuthDirective,
   },
 });
 

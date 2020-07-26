@@ -1,6 +1,6 @@
 const { SchemaDirectiveVisitor } = require("apollo-server");
 
-class AuthDirective extends SchemaDirectiveVisitor {
+export class AuthDirective extends SchemaDirectiveVisitor {
   visitObject(type) {
     this.ensureFieldsWrapped(type);
     type._requiredAuthRole = this.args.requires;
@@ -35,7 +35,8 @@ class AuthDirective extends SchemaDirectiveVisitor {
 
         const context = args[2];
         const user = context.user;
-        if (!user.hasRole(requiredRole)) {
+
+        if (!user || user.role !== requiredRole) {
           throw new Error("not authorized");
         }
 

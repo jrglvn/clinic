@@ -12,6 +12,7 @@ const typeDefs = [
       ADMIN
       USER
     }
+    directive @auth(requires: ROLES = ADMIN) on OBJECT | FIELD_DEFINITION
   `,
   clientsTypeDefs,
   usersTypeDefs,

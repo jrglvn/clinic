@@ -3,12 +3,12 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const usersTypeDefs = gql`
-  type Query {
+  type Query @auth {
     users: UsersQuery
   }
 
   type UsersQuery {
-    getUsers(input: UserSearchInput): [User]!
+    getUsers(input: UserSearchInput): [User]! @auth
     me: User!
   }
 
@@ -58,9 +58,8 @@ export const usersResolvers = {
       const queryResults = await knex("users").where({ ...input });
       return queryResults;
     },
-    me: async (_, __, { req }) => {
-      console.log("me: ", req.user);
-      return await req.user;
+    me: (_, __, { user }) => {
+      return user;
     },
   },
   UsersMutation: {
