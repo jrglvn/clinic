@@ -49,7 +49,7 @@ export const usersTypeDefs = gql`
 `;
 
 export const usersResolvers = {
-  Query: { users: () => {} },
+  Query: { users: () => ({}) },
   Mutation: {
     users: () => ({}),
   },
@@ -58,8 +58,9 @@ export const usersResolvers = {
       const queryResults = await knex("users").where({ ...input });
       return queryResults;
     },
-    me: (_, __, { req }) => {
-      return req.user;
+    me: async (_, __, { req }) => {
+      console.log("me: ", req.user);
+      return await req.user;
     },
   },
   UsersMutation: {
@@ -109,7 +110,7 @@ export const usersResolvers = {
 
       //add tokens to cookies
       res.cookie("access_token", access_token, {
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24,
       });
       res.cookie("refresh_token", refresh_token, {
         expires: new Date("2-2-2222"),
@@ -117,13 +118,15 @@ export const usersResolvers = {
 
       return true;
     },
-    logout: async (_, __, { req, knex }) => {
+    logout: async (_, __, { req, res, knex }) => {
       const queryResults = await knex("refresh_tokens")
         .where({
           token: req.cookies["refresh_token"],
         })
         .del();
-      console.log("logout delete refresh token = ", queryResults);
+      res.clearCookie("refresh_token");
+      res.clearCookie("access_token");
+      console.log("deleted cookies & db.token");
       return true;
     },
   },
