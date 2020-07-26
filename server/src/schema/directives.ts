@@ -36,11 +36,14 @@ export class AuthDirective extends SchemaDirectiveVisitor {
         const context = args[2];
         const user = context.user;
 
-        if (!user || user.role !== requiredRole) {
+        if (!user) {
           throw new Error("not authorized");
         }
 
-        return resolve.apply(this, args);
+        if (user.role === "ADMIN" || requiredRole === "USER") {
+          return resolve.apply(this, args);
+        }
+        throw new Error("not authorized");
       };
     });
   }
