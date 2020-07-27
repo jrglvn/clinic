@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as RightArrow } from "./assets/icons/arrow_right.svg";
-
+import { ReactComponent as RightArrow } from "../assets/icons/arrow_right.svg";
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,34 +59,41 @@ export const StyledArrow = styled(RightArrow)<{
   transition: all 0.2s;
 `;
 
-export const StyledMainContainer = styled.div`
+export const MainContainer = styled.div`
+  margin: 0 auto;
   display: grid;
-  width: 100vw;
+  width: 60vw;
   height: 100vh;
   grid-template-columns: 200px auto;
-  grid-template-rows: 40px auto 40px;
+  grid-template-rows: 100px auto 40px;
   grid-gap: 2px;
-  * {
-    background-color: ${(props) => props.theme.colors.white};
-  }
-  color: black;
 `;
 
-export const StyledHeader = styled.div`
+export const HeaderContainer = styled.div`
+  grid-column: span 2;
+  overflow: hidden;
+`;
+export const FooterContainer = styled.div`
   grid-column: span 2;
 `;
-export const StyledFooter = styled.div`
-  grid-column: span 2;
-`;
-export const StyledSiderbar = styled.div`
+export const SiderbarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 0.5rem 0;
 `;
 
-export const StyledContent = styled.div`
+export const ContentContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
+`;
+
+export const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Header = styled(Flex)`
+  padding: 1rem;
 `;

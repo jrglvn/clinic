@@ -10,6 +10,7 @@ import { AuthDirective } from "./schema/directives";
 const app = express();
 app.use(cookieParser());
 app.use(cors());
+app.options("http://localhost:3000", cors());
 app.use(
   express.urlencoded({
     extended: true,

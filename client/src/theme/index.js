@@ -17,11 +17,10 @@ export const GlobalStyle = createGlobalStyle`
     } 
 
     body,html {
+      
     margin: 0;
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    background: white;
-
-  } 
-
+    background: #f0f8ff;
+    }
 `;
