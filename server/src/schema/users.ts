@@ -8,7 +8,7 @@ export const usersTypeDefs = gql`
   }
 
   type UsersQuery {
-    getUsers(input: UserSearchInput): [User]! @auth
+    getUsers(input: UserSearchInput): [User]!
     me: User!
   }
 

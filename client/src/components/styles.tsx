@@ -67,6 +67,8 @@ export const MainContainer = styled.div`
   grid-template-columns: 200px auto;
   grid-template-rows: 100px auto 40px;
   grid-gap: 2px;
+  background-color: white;
+  box-shadow: 0 0 8px 0 gray;
 `;
 
 export const HeaderContainer = styled.div`
@@ -92,6 +94,10 @@ export const Flex = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const FlexColumn = styled(Flex)`
+  flex-direction: column;
 `;
 
 export const Header = styled(Flex)`

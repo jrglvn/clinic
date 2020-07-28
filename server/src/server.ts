@@ -9,8 +9,8 @@ import { AuthDirective } from "./schema/directives";
 
 const app = express();
 app.use(cookieParser());
+app.options("*", cors());
 app.use(cors());
-app.options("http://localhost:3000", cors());
 app.use(
   express.urlencoded({
     extended: true,
@@ -37,7 +37,7 @@ const server = new ApolloServer({
   context: async ({ req, res }: { req: any; res: Response }) => {
     //need to clean this up >> move to @authorization directive
     //if access token is correct find  user in DB and add him to req.obj
-    //if no access token check if refresh token is correct and check in DB if it's active
+    //if no access token, check if refresh token is correct and check in DB if it's active
     //if refresh token still active, generate new access token and append it to res object, also add user to req. object
     let user;
     if (req.cookies["access_token"]) {
