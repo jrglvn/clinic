@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as Ui from "../styles";
+import * as Ui from "./styles";
 import { Link } from "@reach/router";
 
 export const Sidebar = (props) => {

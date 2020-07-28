@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import * as Ui from "../../styles";
+import React, { useEffect } from "react";
+import * as Ui from "../common/styles";
 import { useQuery, gql } from "@apollo/client";
-import { MainComponent } from "../../index";
+import { MainComponent } from "../common/MainComponent";
 
 export const Users = (props) => {
   const { data, error, loading } = useQuery(QUERYUSERS);
@@ -10,14 +10,12 @@ export const Users = (props) => {
     console.log(data);
   }, [data]);
 
-  if (!data) return null;
-
   return (
     <Ui.FlexColumn>
-      users
-      {/* {data?.users?.getUsers.map((user) => (
+      {loading && <div>loading users...</div>}
+      {data?.users?.getUsers.map((user) => (
         <div>{user.first_name}</div>
-      ))} */}
+      ))}
     </Ui.FlexColumn>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as Ui from "./styles";
+import * as Ui from "./common/styles";
 interface ITool {
   name: string;
   children?: ITool[];

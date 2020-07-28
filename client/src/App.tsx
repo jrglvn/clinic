@@ -3,12 +3,8 @@ import { ThemeProvider } from "styled-components";
 import { Router } from "@reach/router";
 import { theme, GlobalStyle } from "./theme";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { MainComponent } from "./components";
-import { Header } from "./components/common/Header";
-import { Sidebar } from "./components/common/Sidebar";
-import { Content } from "./components/common/Content";
-import { Clients } from "./components/common/contentComponents/Clients";
-import { Users } from "./components/common/contentComponents/Users";
+import { Clients, Home, Users } from "./components/routes";
+import { MainComponent } from "./components/common/MainComponent";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -21,16 +17,13 @@ export const App = (props) => {
     <ApolloProvider client={client}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Router>
-          <MainComponent path="/">
-            <Header />
-            <Sidebar />
-            <Content>
-              <Users path="users" />
-              <Clients path="clients" />
-            </Content>
-          </MainComponent>
-        </Router>
+        <MainComponent>
+          <Router>
+            <Home path="/" />
+            <Users path="/users" />
+            <Clients path="/clients" />
+          </Router>
+        </MainComponent>
       </ThemeProvider>
     </ApolloProvider>
   );

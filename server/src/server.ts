@@ -9,7 +9,7 @@ import { AuthDirective } from "./schema/directives";
 
 const app = express();
 app.use(cookieParser());
-app.options("*", cors());
+
 app.use(cors());
 app.use(
   express.urlencoded({

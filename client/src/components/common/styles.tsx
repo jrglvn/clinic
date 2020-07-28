@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as RightArrow } from "../assets/icons/arrow_right.svg";
+import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,18 +65,19 @@ export const MainContainer = styled.div`
   width: 60vw;
   height: 100vh;
   grid-template-columns: 200px auto;
-  grid-template-rows: 100px auto 40px;
+  grid-template-rows: 100px auto 100px;
   grid-gap: 2px;
   background-color: white;
   box-shadow: 0 0 8px 0 gray;
 `;
 
 export const HeaderContainer = styled.div`
-  grid-column: span 2;
+  grid-column: 1/-1;
   overflow: hidden;
 `;
 export const FooterContainer = styled.div`
-  grid-column: span 2;
+  grid-column: 1/-1;
+  overflow: hidden;
 `;
 export const SiderbarContainer = styled.div`
   display: flex;
