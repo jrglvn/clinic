@@ -104,3 +104,13 @@ export const FlexColumn = styled(Flex)`
 export const Header = styled(Flex)`
   padding: 1rem;
 `;
+
+export const UsersGrid = styled.div`
+  width: 100%;
+  display: grid;
+  background-color: #eee;
+  grid-template-columns: repeat(4, 1fr);
+  & > div {
+    padding: 1rem 0.5rem;
+  }
+`;
