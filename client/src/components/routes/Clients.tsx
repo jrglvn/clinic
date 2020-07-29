@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import * as Ui from "../common/styles";
 import { useQuery, gql } from "@apollo/client";
-import { MainComponent } from "../common/MainComponent";
 
 export const Clients = (props) => {
   const { data, error, loading } = useQuery(QUERYCLIENTS);
@@ -11,12 +10,18 @@ export const Clients = (props) => {
   }, [data]);
 
   return (
-    <Ui.FlexColumn>
-      {loading && <div>loading clients...</div>}
-      {data?.users?.getUsers.map((user) => (
-        <div>{user.first_name}</div>
+    <Ui.ClientsContainer>
+      {loading && <div>loading users...</div>}
+      {data?.clients?.map((client) => (
+        <Ui.ClientsGrid>
+          <div>{client.first_name}</div>
+          <div>{client.last_name}</div>
+          <div>{client.email}</div>
+          <div>{client.address}</div>
+          <div>{client.phone_number}</div>
+        </Ui.ClientsGrid>
       ))}
-    </Ui.FlexColumn>
+    </Ui.ClientsContainer>
   );
 };
 

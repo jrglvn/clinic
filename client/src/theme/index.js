@@ -4,10 +4,12 @@ import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   colors: {
-    black: "#222831",
-    gray: "#393e46",
-    green: "#00adb5",
-    white: "#eeeeee",
+    color1: "#222831", //black
+    color2: "#393e46", //gray
+    color3: "#00adb5", //green
+    color4: "#eeeeee", //white
+    color5: "#3f72af", //blueish
+    color6: "#e23e57", //redish
   },
 };
 
@@ -21,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    background: aliceblue ;
+    background: steelblue ;
     }
+    a {
+      color: inherit; 
+       text-decoration: inherit;
+}
 `;

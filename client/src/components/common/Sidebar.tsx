@@ -4,8 +4,13 @@ import { Link } from "@reach/router";
 
 export const Sidebar = (props) => {
   return (
-    <Ui.SiderbarContainer>
-      <Link to="/users">Korisnici aplikacije</Link>
-    </Ui.SiderbarContainer>
+    <Ui.SidebarContainer>
+      <Link to="/users">
+        <div>Korisnici</div>
+      </Link>
+      <Link to="/clients">
+        <div>Klijenti</div>
+      </Link>
+    </Ui.SidebarContainer>
   );
 };

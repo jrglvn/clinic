@@ -64,11 +64,10 @@ export const MainContainer = styled.div`
   display: grid;
   width: 60vw;
   height: 100vh;
-  grid-template-columns: 200px auto;
-  grid-template-rows: 100px auto 100px;
+  grid-template-columns: 160px auto;
+  grid-template-rows: 80px auto 40px;
   grid-gap: 2px;
   background-color: white;
-  box-shadow: 0 0 8px 0 gray;
 `;
 
 export const HeaderContainer = styled.div`
@@ -79,10 +78,19 @@ export const FooterContainer = styled.div`
   grid-column: 1/-1;
   overflow: hidden;
 `;
-export const SiderbarContainer = styled.div`
+export const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: stretch;
+  padding: 0 0.5rem;
+  padding-top: 4rem;
+  box-shadow: 0 0 4px 0 gray;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  width: 100%;
+  & div {
+    padding: 1rem;
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -105,6 +113,13 @@ export const Header = styled(Flex)`
   padding: 1rem;
 `;
 
+export const UsersContainer = styled(FlexColumn)`
+  justify-content: start;
+  align-items: start;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+  padding-top: 4rem;
+`;
 export const UsersGrid = styled.div`
   display: grid;
   width: 80%;
@@ -115,15 +130,38 @@ export const UsersGrid = styled.div`
   border-radius: 0.5rem;
   cursor: pointer;
   &:hover {
-    box-shadow: 0 0 4px 0 dodgerblue;
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
   }
 
   & > div {
-    padding: 1rem 1rem;
+    padding: 0.5rem;
   }
+  transition: 0.1s;
 `;
 
-export const UsersContainer = styled(FlexColumn)`
+export const ClientsContainer = styled(FlexColumn)`
+  justify-content: start;
   align-items: start;
+  overflow-y: auto;
+  padding: 0 0.5rem;
   padding-top: 4rem;
+`;
+
+export const ClientsGrid = styled.div`
+  display: grid;
+  width: 80%;
+  margin: 0.5rem 0;
+
+  grid-template-columns: repeat(6, 1fr);
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+  }
+
+  & > div {
+    padding: 0.5rem;
+  }
+  transition: 0.1s;
 `;

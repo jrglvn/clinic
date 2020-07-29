@@ -6,7 +6,7 @@ export const Header = (props) => {
   return (
     <Ui.HeaderContainer>
       <Ui.Header>
-        <img src={logo} alt="logo" height="80px" />
+        <img src={logo} alt="logo" style={{ height: "64px" }} />
       </Ui.Header>
     </Ui.HeaderContainer>
   );
