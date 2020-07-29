@@ -106,11 +106,24 @@ export const Header = styled(Flex)`
 `;
 
 export const UsersGrid = styled.div`
-  width: 100%;
   display: grid;
-  background-color: #eee;
+  width: 80%;
+  margin: 0.5rem 0;
+  background-color: #fff;
   grid-template-columns: repeat(4, 1fr);
-  & > div {
-    padding: 1rem 0.5rem;
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 4px 0 dodgerblue;
   }
+
+  & > div {
+    padding: 1rem 1rem;
+  }
+`;
+
+export const UsersContainer = styled(FlexColumn)`
+  align-items: start;
+  padding-top: 4rem;
 `;

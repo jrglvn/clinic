@@ -11,19 +11,17 @@ export const Users = (props) => {
   }, [data]);
 
   return (
-    <Ui.FlexColumn>
+    <Ui.UsersContainer>
       {loading && <div>loading users...</div>}
-      <Ui.UsersGrid>
-        {data?.users?.getUsers.map((user) => (
-          <>
-            <div>{user.first_name}</div>
-            <div>{user.last_name}</div>
-            <div>{user.email}</div>
-            <div>{user.role}</div>
-          </>
-        ))}
-      </Ui.UsersGrid>
-    </Ui.FlexColumn>
+      {data?.users?.getUsers.map((user) => (
+        <Ui.UsersGrid>
+          <div>{user.first_name}</div>
+          <div>{user.last_name}</div>
+          <div>{user.email}</div>
+          <div>{user.role}</div>
+        </Ui.UsersGrid>
+      ))}
+    </Ui.UsersContainer>
   );
 };
 
