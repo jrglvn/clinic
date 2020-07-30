@@ -82,14 +82,18 @@ export const LeftSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 0 0.5rem;
-  padding-top: 4rem;
   box-shadow: 0 0 4px 0 gray;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  margin-top: 4rem;
   width: 100%;
-  & div {
+  & > div {
     padding: 1rem;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+
+  & > div[is-active="true"] {
+    background-color: #eee;
+    transition: 0.25s;
   }
 `;
 export const RightSidebarContainer = styled.div`
@@ -97,11 +101,9 @@ export const RightSidebarContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
   padding: 0 0.5rem;
-  padding-top: 4rem;
   box-shadow: 0 0 4px 0 gray;
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
   width: 100%;
+  margin-top: 4rem;
   & div {
     padding: 1rem;
   }
@@ -140,7 +142,7 @@ export const UsersGrid = styled.div`
   background-color: #fff;
   grid-template-columns: repeat(4, 1fr);
   box-shadow: 0 0 4px 0 gray;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
@@ -166,7 +168,7 @@ export const ClientsGrid = styled.div`
 
   grid-template-columns: repeat(4, 1fr);
   box-shadow: 0 0 4px 0 gray;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
@@ -192,7 +194,7 @@ export const AppointmentsGrid = styled.div`
 
   grid-template-columns: repeat(5, 1fr);
   box-shadow: 0 0 4px 0 gray;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};

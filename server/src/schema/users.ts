@@ -1,6 +1,7 @@
 import { gql, UserInputError } from "apollo-server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { query } from "express";
 
 export const usersTypeDefs = gql`
   type Query {
@@ -21,6 +22,7 @@ export const usersTypeDefs = gql`
     last_name: String!
     email: String!
     role: ROLES!
+    assigned_categories: [Category]
   }
 
   input UserInput {
@@ -60,6 +62,20 @@ export const usersResolvers = {
     },
     me: (_, __, { user }) => {
       return user;
+    },
+  },
+  User: {
+    assigned_categories: async ({ id }, _, { knex }) => {
+      let queryResults = await knex("users_categories")
+        .select("categories_id")
+        .where({
+          users_id: id,
+        });
+      queryResults = queryResults.map((item) => item.categories_id);
+      console.log(queryResults);
+      const queryResults2 = await knex("categories").where("id", queryResults);
+      console.log(queryResults2);
+      return queryResults2;
     },
   },
   UsersMutation: {

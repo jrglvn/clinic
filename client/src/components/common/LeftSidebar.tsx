@@ -1,19 +1,31 @@
 import React, { useEffect } from "react";
 import * as Ui from "./styles";
-import { Link, useNavigate, useLocation } from "@reach/router";
+import { Link, useLocation, useNavigate } from "@reach/router";
 
 export const LeftSidebar = (props) => {
+  const location = useLocation();
   const navigate = useNavigate();
+
   return (
     <Ui.LeftSidebarContainer>
-      <div onClick={() => navigate("/appointments")}>Termini</div>
-
-      <Link to="/users">
-        <div>Korisnici</div>
-      </Link>
-      <Link to="/clients">
-        <div>Klijenti</div>
-      </Link>
+      <div
+        is-active={location.pathname === "/appointments" ? "true" : "false"}
+        onClick={() => navigate("/appointments")}
+      >
+        Termini
+      </div>
+      <div
+        is-active={location.pathname === "/users" ? "true" : "false"}
+        onClick={() => navigate("/users")}
+      >
+        Korisnici
+      </div>
+      <div
+        is-active={location.pathname === "/clients" ? "true" : "false"}
+        onClick={() => navigate("/clients")}
+      >
+        Klijenti
+      </div>
     </Ui.LeftSidebarContainer>
   );
 };

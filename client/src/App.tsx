@@ -17,14 +17,14 @@ export const App = (props) => {
     <ApolloProvider client={client}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <MainComponent>
-          <Router>
+        <Router>
+          <MainComponent path="/">
             <Home path="/" />
             <Users path="/users" />
             <Clients path="/clients" />
-            <Appointments path="/termini" />
-          </Router>
-        </MainComponent>
+            <Appointments path="/appointments" />
+          </MainComponent>
+        </Router>
       </ThemeProvider>
     </ApolloProvider>
   );
