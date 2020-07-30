@@ -6,15 +6,11 @@ import { MainComponent } from "../common/MainComponent";
 export const Users = (props) => {
   const { data, error, loading } = useQuery(QUERYUSERS);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Ui.UsersContainer>
       {loading && <div>loading users...</div>}
       {data?.users?.getUsers.map((user) => (
-        <Ui.UsersGrid>
+        <Ui.UsersGrid key={user.id}>
           <div>{user.first_name}</div>
           <div>{user.last_name}</div>
           <div>{user.email}</div>

@@ -1,10 +1,5 @@
 import { gql } from "apollo-server";
-import {
-  AppointmentsMutationResolvers,
-  AppointmentInput,
-  AppointmentSearchInput,
-  Appointment,
-} from "./types";
+import { AppointmentsMutationResolvers } from "./types";
 
 export const appointmentsTypeDefs = gql`
   type Query {
@@ -18,8 +13,9 @@ export const appointmentsTypeDefs = gql`
     id: ID!
     user: User!
     client: Client!
-    category: Category!
-    date: String!
+    category: Category
+    created_at: String!
+    scheduled_for: String!
     result: String
     previous_appointment: Appointment
   }
@@ -28,7 +24,8 @@ export const appointmentsTypeDefs = gql`
     users_id: ID
     clients_id: ID
     categories_id: ID
-    date: String
+    created_at: String
+    scheduled_for: String
     result: String
     previous_appointment_id: ID
   }
@@ -38,7 +35,8 @@ export const appointmentsTypeDefs = gql`
     users_id: ID
     clients_id: ID
     categories_id: ID
-    date: String
+    created_at: String
+    scheduled_for: String
     result: String
     previous_appointment_id: ID
   }

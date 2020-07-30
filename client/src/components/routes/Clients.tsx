@@ -5,17 +5,12 @@ import { useQuery, gql } from "@apollo/client";
 export const Clients = (props) => {
   const { data, error, loading } = useQuery(QUERYCLIENTS);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Ui.ClientsContainer>
       {loading && <div>loading users...</div>}
       {data?.clients?.map((client) => (
-        <Ui.ClientsGrid>
-          <div>{client.first_name}</div>
-          <div>{client.last_name}</div>
+        <Ui.ClientsGrid key={client.id}>
+          <div>{`${client.first_name} ${client.last_name}`}</div>
           <div>{client.email}</div>
           <div>{client.address}</div>
           <div>{client.phone_number}</div>

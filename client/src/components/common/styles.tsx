@@ -62,9 +62,9 @@ export const StyledArrow = styled(RightArrow)<{
 export const MainContainer = styled.div`
   margin: 0 auto;
   display: grid;
-  width: 60vw;
+  width: 70vw;
   height: 100vh;
-  grid-template-columns: 160px auto;
+  grid-template-columns: 160px auto 160px;
   grid-template-rows: 80px auto 40px;
   grid-gap: 2px;
   background-color: white;
@@ -78,7 +78,7 @@ export const FooterContainer = styled.div`
   grid-column: 1/-1;
   overflow: hidden;
 `;
-export const SidebarContainer = styled.div`
+export const LeftSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -87,6 +87,20 @@ export const SidebarContainer = styled.div`
   box-shadow: 0 0 4px 0 gray;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  width: 100%;
+  & div {
+    padding: 1rem;
+  }
+`;
+export const RightSidebarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 0.5rem;
+  padding-top: 4rem;
+  box-shadow: 0 0 4px 0 gray;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   width: 100%;
   & div {
     padding: 1rem;
@@ -109,13 +123,12 @@ export const FlexColumn = styled(Flex)`
   flex-direction: column;
 `;
 
-export const Header = styled(Flex)`
-  padding: 1rem;
+export const Header = styled(FlexColumn)`
+  padding: 0.5rem;
 `;
 
 export const UsersContainer = styled(FlexColumn)`
   justify-content: start;
-  align-items: start;
   overflow-y: auto;
   padding: 0 0.5rem;
   padding-top: 4rem;
@@ -141,7 +154,6 @@ export const UsersGrid = styled.div`
 
 export const ClientsContainer = styled(FlexColumn)`
   justify-content: start;
-  align-items: start;
   overflow-y: auto;
   padding: 0 0.5rem;
   padding-top: 4rem;
@@ -152,7 +164,33 @@ export const ClientsGrid = styled.div`
   width: 80%;
   margin: 0.5rem 0;
 
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+  }
+
+  & > div {
+    padding: 0.5rem;
+  }
+  transition: 0.1s;
+`;
+
+export const AppointmentsContainer = styled(FlexColumn)`
+  justify-content: start;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+  padding-top: 4rem;
+`;
+
+export const AppointmentsGrid = styled.div`
+  display: grid;
+  width: 80%;
+  margin: 0.5rem 0;
+
+  grid-template-columns: repeat(5, 1fr);
   box-shadow: 0 0 4px 0 gray;
   border-radius: 0.5rem;
   cursor: pointer;
