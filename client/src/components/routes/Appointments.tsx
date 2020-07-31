@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as Ui from "../common/styles";
 import { useQuery, gql } from "@apollo/client";
 import { parseServerDate } from "../../sdk";
+import { Modal } from "../common/Modal";
 
 export const Appointments = (props) => {
   const { data, error, loading } = useQuery(QUERYAPPOINTMENTS);
+
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <Ui.AppointmentsContainer>
@@ -20,6 +23,8 @@ export const Appointments = (props) => {
           <div>{parseServerDate(appointment.created_at)}</div>
         </Ui.AppointmentsGrid>
       ))}
+      <button onClick={() => setShowModal(!showModal)}>showmodal</button>
+      {showModal && <Modal />}
     </Ui.AppointmentsContainer>
   );
 };

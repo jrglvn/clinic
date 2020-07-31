@@ -82,9 +82,11 @@ export const LeftSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  box-shadow: 0 0 4px 0 gray;
+  box-shadow: 4px 0 4px 0 lightgray;
   margin-top: 4rem;
   width: 100%;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
   & > div {
     padding: 1rem;
     cursor: pointer;
@@ -101,9 +103,11 @@ export const RightSidebarContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
   padding: 0 0.5rem;
-  box-shadow: 0 0 4px 0 gray;
+  box-shadow: -4px 0 4px 0 lightgray;
   width: 100%;
   margin-top: 4rem;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   & div {
     padding: 1rem;
   }
@@ -204,4 +208,12 @@ export const AppointmentsGrid = styled.div`
     padding: 0.5rem;
   }
   transition: 0.1s;
+`;
+
+export const Modal = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  backdrop-filter: grayscale(80%);
 `;
