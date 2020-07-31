@@ -1,4 +1,4 @@
-import { gql, UserInputError } from "apollo-server";
+import { gql, UserInputError, AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { query } from "express";
@@ -63,6 +63,7 @@ export const usersResolvers = {
       return queryResults;
     },
     me: (_, __, { user }) => {
+      if (!user) throw new AuthenticationError("not authenticated (loged in)");
       return user;
     },
   },

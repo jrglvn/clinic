@@ -212,8 +212,28 @@ export const AppointmentsGrid = styled.div`
 
 export const Modal = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 999;
-  backdrop-filter: grayscale(80%);
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  backdrop-filter: blur(2px);
+  cursor: default;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  width: 400px;
+  height: 400px;
+  background: white;
+  border: 4px solid dodgerblue;
+`;
+
+export const AppointmentDetails = styled.div`
+  display: grid;
 `;
