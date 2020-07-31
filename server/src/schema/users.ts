@@ -31,6 +31,7 @@ export const usersTypeDefs = gql`
     email: String
     password: String
     role: ROLES
+    assigned_categories: [Int]
   }
 
   input UserSearchInput {
@@ -39,6 +40,7 @@ export const usersTypeDefs = gql`
     last_name: String
     email: String
     role: ROLES
+    assigned_categories: [Int]
   }
 
   type UsersMutation {
@@ -66,14 +68,15 @@ export const usersResolvers = {
   },
   User: {
     assigned_categories: async ({ id }, _, { knex }) => {
-      let queryResults = await knex("users_categories")
+      const queryResults = await knex("users_categories")
         .select("categories_id")
         .where({
           users_id: id,
         });
-      queryResults = queryResults.map((item) => item.categories_id);
-      console.log(queryResults);
-      const queryResults2 = await knex("categories").where("id", queryResults);
+      const queryResults2 = await knex("categories").whereIn(
+        "id",
+        queryResults.map((item) => parseInt(item.categories_id))
+      );
       console.log(queryResults2);
       return queryResults2;
     },
