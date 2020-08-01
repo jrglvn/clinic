@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { parseServerDate } from "../../sdk";
-import { Modal, useModal } from "../common/Modal";
+import { Modal, useModal } from "../../sdk";
 import * as Ui from "../common/styles";
 
 export const Appointments = (props) => {
@@ -54,23 +54,18 @@ const AppointmentDetails = (props) => {
         }}
         onSubmit={() => {}}
       >
-        <Form>
-          <label htmlFor="firstName">First Name</label>
-          <Field id="firstName" name="firstName" placeholder="John" />
+        <Ui.Form>
+          <label htmlFor="firstName">ime</label>
+          <Field id="firstName" name="firstName" placeholder="" />
 
-          <label htmlFor="lastName">Last Name</label>
-          <Field id="lastName" name="lastName" placeholder="Doe" />
+          <label htmlFor="lastName">prezime</label>
+          <Field id="lastName" name="lastName" placeholder="" />
 
-          <label htmlFor="email">Email</label>
-          <Field
-            id="email"
-            name="email"
-            placeholder="john@acme.com"
-            type="email"
-          />
+          <label htmlFor="email">email</label>
+          <Field id="email" name="email" placeholder="" type="email" />
 
           <button type="submit">Submit</button>
-        </Form>
+        </Ui.Form>
       </Formik>
     </Ui.AppointmentDetails>
   );

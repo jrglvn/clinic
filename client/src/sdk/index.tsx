@@ -1,8 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useClickOutside } from "../../sdk";
+import moment from "moment";
 
-import * as Ui from "./styles";
+import * as Ui from "../components/common/styles";
+
+export const parseServerDate = (date: number): string => {
+  return moment(date, "x").format("DD.MM.YYYY hh:mm");
+};
+
+export const useClickOutside = (ref, onClickOutside, refExtra?) => {
+  /**
+   * Alert if clicked on outside of element
+   */
+  function handleClickOutside(event) {
+    if (refExtra) {
+      if (
+        ref.current &&
+        !ref.current.contains(event.target) &&
+        !refExtra.current.contains(event.target)
+      ) {
+        onClickOutside && onClickOutside();
+      }
+    } else if (ref.current && !ref.current.contains(event.target)) {
+      onClickOutside && onClickOutside();
+    }
+  }
+
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+};
 
 export const useModal = () => {
   const [showModal, setShowModal] = useState(false);

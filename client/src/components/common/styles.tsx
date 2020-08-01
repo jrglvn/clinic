@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
+import { Formik, Field, Form as FormikForm, FormikHelpers } from "formik";
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -143,7 +144,6 @@ export const UsersGrid = styled.div`
   display: grid;
   width: 80%;
   margin: 0.5rem 0;
-  background-color: #fff;
   grid-template-columns: repeat(4, 1fr);
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
@@ -220,7 +220,7 @@ export const Modal = styled.div`
   outline: 0;
   margin: 0;
   padding: 0;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   cursor: default;
   display: grid;
   justify-content: center;
@@ -231,9 +231,14 @@ export const ModalContent = styled.div`
   width: 400px;
   height: 400px;
   background: white;
-  border: 4px solid dodgerblue;
+  border: 4px solid ${(props) => props.theme.colors.primary};
 `;
 
-export const AppointmentDetails = styled.div`
-  display: grid;
+export const AppointmentDetails = styled(FlexColumn)``;
+
+export const Form = styled(FormikForm)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
 `;

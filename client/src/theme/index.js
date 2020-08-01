@@ -4,12 +4,7 @@ import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   colors: {
-    color1: "#222831", //black
-    color2: "#393e46", //gray
-    color3: "#00adb5", //green
-    color4: "#eeeeee", //white
-    color5: "#3f72af", //blueish
-    color6: "#e23e57", //redish
+    primary: "#3f72af", //blueish
   },
 };
 
@@ -22,10 +17,33 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    background: steelblue ;
+    background: #3f72af ;
     }
     a {
       color: inherit; 
-       text-decoration: inherit;
-}
+      text-decoration: inherit;
+    }
+
+  button {
+    padding:.5rem;
+    border-radius:4px;
+    outline:none;
+    border:0;
+    cursor:pointer;
+    background: #ccc;
+    color:white;
+  }
+  button:hover {
+    background-color: #bbb;
+    box-shadow:0 0 4px 0 #ccc;
+  }
+
+  textarea, input {   
+    outline: none; 
+    padding:.5rem;
+  }
+
+
+
+
 `;
