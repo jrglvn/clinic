@@ -76,7 +76,7 @@ export const usersResolvers = {
         });
       const queryResults2 = await knex("categories").whereIn(
         "id",
-        queryResults.map((item) => parseInt(item.categories_id))
+        queryResults.map((item) => item.categories_id)
       );
       console.log(queryResults2);
       return queryResults2;

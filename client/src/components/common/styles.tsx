@@ -241,4 +241,7 @@ export const Form = styled(FormikForm)`
   flex-direction: column;
   width: 100%;
   padding: 1rem;
+  & > input {
+    margin-bottom: 0.5rem;
+  }
 `;

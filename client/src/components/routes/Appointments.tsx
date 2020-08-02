@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Field } from "formik";
 import { parseServerDate } from "../../sdk";
 import { Modal, useModal } from "../../sdk";
 import * as Ui from "../common/styles";
@@ -63,6 +63,8 @@ const AppointmentDetails = (props) => {
 
           <label htmlFor="email">email</label>
           <Field id="email" name="email" placeholder="" type="email" />
+
+          <Field options={[{ label: "test" }]} />
 
           <button type="submit">Submit</button>
         </Ui.Form>
