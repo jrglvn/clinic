@@ -229,7 +229,6 @@ export const Modal = styled.div`
 
 export const ModalContent = styled.div`
   width: 400px;
-  height: 400px;
   background: white;
   border: 4px solid ${(props) => props.theme.colors.primary};
 `;
@@ -241,7 +240,8 @@ export const Form = styled(FormikForm)`
   flex-direction: column;
   width: 100%;
   padding: 1rem;
-  & > input {
-    margin-bottom: 0.5rem;
+  & > input,
+  select {
+    margin-bottom: 1rem;
   }
 `;

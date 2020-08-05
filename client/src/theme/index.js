@@ -30,7 +30,7 @@ export const GlobalStyle = createGlobalStyle`
     outline:none;
     border:0;
     cursor:pointer;
-    background: #ccc;
+    background: #aaa;
     color:white;
   }
   button:hover {
@@ -38,7 +38,7 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow:0 0 4px 0 #ccc;
   }
 
-  textarea, input {   
+  textarea, input, select {   
     outline: none; 
     padding:.5rem;
   }
