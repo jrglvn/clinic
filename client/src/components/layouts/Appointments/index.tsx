@@ -5,6 +5,7 @@ import { Modal, useModal } from "../../../sdk";
 import { QUERYAPPOINTMENTS } from "./gql";
 import { AppointmentDetails } from "./AppointmentDetails";
 import * as Ui from "../../common/styles";
+import DatePicker from "react-datepicker";
 
 export const Appointments = (props) => {
   const { data, error, loading } = useQuery(QUERYAPPOINTMENTS);

@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import moment from "moment";
+import { useField, useFormikContext } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import * as Ui from "../components/common/styles";
 
@@ -77,4 +80,22 @@ export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
         document.body
       )
     : null;
+};
+
+export const DatePickerField = ({ ...props }) => {
+  const { setFieldValue } = useFormikContext();
+  const [field] = useField(props as any);
+  return (
+    <DatePicker
+      {...field}
+      {...props}
+      dateFormat="dd.MM.yyyy"
+      autocomplete="off"
+      name="fake"
+      selected={(field.value && new Date(field.value)) || null}
+      onChange={(val) => {
+        setFieldValue(field.name, val);
+      }}
+    />
+  );
 };

@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { Router } from "@reach/router";
 import { theme, GlobalStyle } from "./theme";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Clients, Home, Users, Appointments } from "./components/routes";
+import { Clients, Home, Users, Appointments } from "./components/layouts";
 import { MainComponent } from "./components/common/MainComponent";
 
 const client = new ApolloClient({

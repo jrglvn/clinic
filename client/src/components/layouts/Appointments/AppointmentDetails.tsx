@@ -3,6 +3,13 @@ import { Formik, Field } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
+import { DatePickerField } from "../../../sdk";
+
+import * as yup from "yup";
+
+const appointmentSchema = yup.object().shape({
+  schedule_date: yup.date().required("obavezno polje"),
+});
 
 export const AppointmentDetails = ({ appointment }) => {
   const { data, error, loading } = useQuery(QUERYALL);
@@ -20,14 +27,20 @@ export const AppointmentDetails = ({ appointment }) => {
   return (
     <Ui.AppointmentDetails>
       <Formik
+        validationSchema={appointmentSchema}
         initialValues={{
           users: appointment?.user.id,
           clients: appointment?.client.id,
           categories: appointment?.category.id,
         }}
-        onSubmit={() => {}}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
       >
         <Ui.Form>
+          <label htmlFor="schedule_date">vrijeme termina</label>
+          <DatePickerField name="schedule_date" />
+
           <label htmlFor="users">doktor</label>
           <Field
             name="users"
@@ -35,17 +48,19 @@ export const AppointmentDetails = ({ appointment }) => {
             placeholder="izaberite dr."
             onChange={(e) => setUserId(e.target.value)}
           >
-            {data?.users?.getUsers.map((user) => (
+            {data?.users?.getUsers.map((user, index) => (
               <option
+                key={index}
                 value={user.id}
               >{`${user.first_name} ${user.last_name}`}</option>
             ))}
           </Field>
 
-          <label htmlFor="users">pacijent</label>
+          <label htmlFor="clients">pacijent</label>
           <Field name="clients" as="select" placeholder="izaberite pacijenta">
-            {data?.clients?.map((client) => (
+            {data?.clients?.map((client, index) => (
               <option
+                key={index}
                 value={client.id}
               >{`${client.first_name} ${client.last_name}`}</option>
             ))}
@@ -59,8 +74,10 @@ export const AppointmentDetails = ({ appointment }) => {
           >
             {data?.categories
               ?.filter((category) => userCategories?.includes(category.id))
-              .map((category) => (
-                <option value={category.id}>{category.name}</option>
+              .map((category, index) => (
+                <option key={index} value={category.id}>
+                  {category.name}
+                </option>
               ))}
           </Field>
 

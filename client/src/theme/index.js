@@ -43,6 +43,9 @@ export const GlobalStyle = createGlobalStyle`
     padding:.5rem;
   }
 
+label {
+  color:gray;
+}
 
 
 

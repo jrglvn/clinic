@@ -236,12 +236,16 @@ export const ModalContent = styled.div`
 export const AppointmentDetails = styled(FlexColumn)``;
 
 export const Form = styled(FormikForm)`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 1rem;
-  & > input,
-  select {
-    margin-bottom: 1rem;
+  & label:not(:first-child),
+  button {
+    margin-top: 1rem;
+  }
+  input {
+    width: 100%;
   }
 `;
