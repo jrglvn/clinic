@@ -245,7 +245,7 @@ export const Form = styled(FormikForm)`
   button {
     margin-top: 1rem;
   }
-  input {
+  & input {
     width: 100%;
   }
 `;

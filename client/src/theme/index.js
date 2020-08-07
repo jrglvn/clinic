@@ -41,6 +41,7 @@ export const GlobalStyle = createGlobalStyle`
   textarea, input, select {   
     outline: none; 
     padding:.5rem;
+
   }
 
 label {

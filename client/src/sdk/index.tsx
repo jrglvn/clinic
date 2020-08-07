@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import moment from "moment";
-import { useField, useFormikContext } from "formik";
+import { useField, useFormikContext, Field } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -82,20 +82,37 @@ export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
     : null;
 };
 
-export const DatePickerField = ({ ...props }) => {
+export const DatePickerField = (props) => {
   const { setFieldValue } = useFormikContext();
-  const [field] = useField(props as any);
+  const [field, { touched, error }] = useField(props as any);
   return (
-    <DatePicker
-      {...field}
-      {...props}
-      dateFormat="dd.MM.yyyy"
-      autocomplete="off"
-      name="fake"
-      selected={(field.value && new Date(field.value)) || null}
-      onChange={(val) => {
-        setFieldValue(field.name, val);
-      }}
-    />
+    <>
+      <DatePicker
+        {...field}
+        {...props}
+        dateFormat="dd.MM.yyyy"
+        autocomplete="off"
+        selected={(field.value && new Date(field.value)) || new Date()}
+        onChange={(val) => {
+          setFieldValue(field.name, val);
+        }}
+      />
+      {error && touched && <div>{error}</div>}
+    </>
+  );
+};
+
+export const SelectField = (props) => {
+  return (
+    <>
+      <label htmlFor={props.name}>{props.name}</label>
+      <Field name={props.name} as="select">
+        {props.data?.map((d) => (
+          <option key={d.value} value={d.value}>
+            {d.label}
+          </option>
+        ))}
+      </Field>
+    </>
   );
 };

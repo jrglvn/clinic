@@ -3,7 +3,7 @@ import { Formik, Field } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
-import { DatePickerField } from "../../../sdk";
+import { DatePickerField, SelectField } from "../../../sdk";
 
 import * as yup from "yup";
 
@@ -15,6 +15,8 @@ export const AppointmentDetails = ({ appointment }) => {
   const { data, error, loading } = useQuery(QUERYALL);
   const [userId, setUserId] = useState<number>();
 
+  const [values, setValues] = useState({});
+
   const userCategories: number[] = useMemo(() => {
     const user = data?.users?.getUsers.find((user) => user.id === userId);
     return user?.assigned_categories?.map((category) => category.id);
@@ -23,6 +25,10 @@ export const AppointmentDetails = ({ appointment }) => {
   useEffect(() => {
     setUserId(data?.users?.getUsers[0].id);
   }, [data]);
+
+  const usersData = data?.users?.getUsers?.map((user) => {
+    return { value: user.id, label: `${user.first_name} ${user.last_name}` };
+  });
 
   return (
     <Ui.AppointmentDetails>
@@ -33,8 +39,8 @@ export const AppointmentDetails = ({ appointment }) => {
           clients: appointment?.client.id,
           categories: appointment?.category.id,
         }}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(val) => {
+          setValues(val);
         }}
       >
         <Ui.Form>
@@ -81,9 +87,12 @@ export const AppointmentDetails = ({ appointment }) => {
               ))}
           </Field>
 
+          <SelectField data={usersData} name="test2"></SelectField>
+
           <button type="submit">Sačuvaj</button>
         </Ui.Form>
       </Formik>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
     </Ui.AppointmentDetails>
   );
 };
