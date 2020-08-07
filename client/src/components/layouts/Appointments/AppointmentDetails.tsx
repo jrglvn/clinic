@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Formik, Field } from "formik";
+import { Formik, Field, Form } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
+<<<<<<< HEAD
 import { DatePickerField, SelectField } from "../../../sdk";
+=======
+import { DatePickerField, MyInputField } from "../../../sdk";
+>>>>>>> 87de8b75daeed43688ae720016e31da00744a7d8
 
 import * as yup from "yup";
 
@@ -45,7 +49,7 @@ export const AppointmentDetails = ({ appointment }) => {
       >
         <Ui.Form>
           <label htmlFor="schedule_date">vrijeme termina</label>
-          <DatePickerField name="schedule_date" />
+          <Field name="schedule_date" as={DatePickerField} />
 
           <label htmlFor="users">doktor</label>
           <Field

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
-import { Formik, Field, Form as FormikForm, FormikHelpers } from "formik";
+import { Form as FormikForm } from "formik";
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
