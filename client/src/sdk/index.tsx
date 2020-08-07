@@ -83,7 +83,7 @@ export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
 };
 
 export const DatePickerField = ({ ...props }) => {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue, } = useFormikContext();
   const [field] = useField(props as any);
   return (
     <DatePicker
@@ -92,10 +92,29 @@ export const DatePickerField = ({ ...props }) => {
       dateFormat="dd.MM.yyyy"
       autocomplete="off"
       name="fake"
-      selected={(field.value && new Date(field.value)) || null}
+      selected={(field.value && new Date(field.value)) || new Date()}
       onChange={(val) => {
         setFieldValue(field.name, val);
       }}
     />
   );
+};
+
+export const MyInputField = ({ label, ...props }) => {
+  const [field, meta, helpers] = useField(props as any);
+  return (
+    <>
+      <label htmlFor={field.name}>{label}</label>
+      <input {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
+
+export const MySelectField = (props) => {
+  return <select>
+
+  </select>;
 };
