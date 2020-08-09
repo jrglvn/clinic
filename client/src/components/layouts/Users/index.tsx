@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import * as Ui from "../common/styles";
+import * as Ui from "../../common/styles";
 import { useQuery, gql } from "@apollo/client";
-import { MainComponent } from "../common/MainComponent";
+import { QUERYUSERS } from "./gql";
 
 export const Users = (props) => {
   const { data, error, loading } = useQuery(QUERYUSERS);
@@ -20,17 +20,3 @@ export const Users = (props) => {
     </Ui.UsersContainer>
   );
 };
-
-export const QUERYUSERS = gql`
-  query queryUsers {
-    users {
-      getUsers {
-        id
-        first_name
-        last_name
-        email
-        role
-      }
-    }
-  }
-`;

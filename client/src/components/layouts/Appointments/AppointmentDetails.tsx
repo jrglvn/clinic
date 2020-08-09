@@ -3,11 +3,7 @@ import { Formik, Field, Form } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
-<<<<<<< HEAD
-import { DatePickerField, SelectField } from "../../../sdk";
-=======
-import { DatePickerField, MyInputField } from "../../../sdk";
->>>>>>> 87de8b75daeed43688ae720016e31da00744a7d8
+import { MyDatePickerField, MySelectField } from "../../../sdk";
 
 import * as yup from "yup";
 
@@ -34,6 +30,19 @@ export const AppointmentDetails = ({ appointment }) => {
     return { value: user.id, label: `${user.first_name} ${user.last_name}` };
   });
 
+  const clientsData = data?.clients?.map((client) => {
+    return {
+      value: client.id,
+      label: `${client.first_name} ${client.last_name}`,
+    };
+  });
+
+  const userCategoriesData = data?.categories
+    ?.filter((category) => userCategories?.includes(category.id))
+    .map((category) => {
+      return { value: category.id, label: category.name };
+    });
+
   return (
     <Ui.AppointmentDetails>
       <Formik
@@ -42,6 +51,8 @@ export const AppointmentDetails = ({ appointment }) => {
           users: appointment?.user.id,
           clients: appointment?.client.id,
           categories: appointment?.category.id,
+          schedule_date:
+            appointment?.schedule_date || new Date().toLocaleString(),
         }}
         onSubmit={(val) => {
           setValues(val);
@@ -49,49 +60,24 @@ export const AppointmentDetails = ({ appointment }) => {
       >
         <Ui.Form>
           <label htmlFor="schedule_date">vrijeme termina</label>
-          <Field name="schedule_date" as={DatePickerField} />
+          <Field name="schedule_date" as={MyDatePickerField} />
 
-          <label htmlFor="users">doktor</label>
-          <Field
+          <MySelectField
+            options={clientsData}
+            name="clients"
+            label="pacijent"
+          />
+          <MySelectField
+            options={usersData}
             name="users"
-            as="select"
-            placeholder="izaberite dr."
-            onChange={(e) => setUserId(e.target.value)}
-          >
-            {data?.users?.getUsers.map((user, index) => (
-              <option
-                key={index}
-                value={user.id}
-              >{`${user.first_name} ${user.last_name}`}</option>
-            ))}
-          </Field>
-
-          <label htmlFor="clients">pacijent</label>
-          <Field name="clients" as="select" placeholder="izaberite pacijenta">
-            {data?.clients?.map((client, index) => (
-              <option
-                key={index}
-                value={client.id}
-              >{`${client.first_name} ${client.last_name}`}</option>
-            ))}
-          </Field>
-
-          <label htmlFor="categories">kategorija</label>
-          <Field
+            label="doktor"
+            onChange={(val) => setUserId(val)}
+          />
+          <MySelectField
+            options={userCategoriesData}
             name="categories"
-            as="select"
-            placeholder="izaberite kategoriju"
-          >
-            {data?.categories
-              ?.filter((category) => userCategories?.includes(category.id))
-              .map((category, index) => (
-                <option key={index} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-          </Field>
-
-          <SelectField data={usersData} name="test2"></SelectField>
+            label="kategorija"
+          />
 
           <button type="submit">Sačuvaj</button>
         </Ui.Form>

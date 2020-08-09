@@ -166,6 +166,24 @@ export const ClientsContainer = styled(FlexColumn)`
   padding-top: 4rem;
 `;
 
+export const NewClient = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0.5rem 0;
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+  }
+
+  padding: 0.5rem;
+
+  transition: 0.1s;
+`;
+
 export const ClientsGrid = styled.div`
   display: grid;
   width: 80%;
@@ -214,9 +232,9 @@ export const AppointmentsGrid = styled.div`
 export const Modal = styled.div`
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: 999;
   outline: 0;
   margin: 0;
