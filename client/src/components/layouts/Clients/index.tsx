@@ -5,6 +5,7 @@ import { QUERYCLIENTS } from "./gql";
 import { Modal, useModal } from "../../../sdk";
 import { ClientDetails } from "./ClientDetails";
 import { Client } from "../common/types";
+import { FaUserPlus } from "react-icons/fa";
 
 export const Clients = (props) => {
   const { data, error, loading } = useQuery(QUERYCLIENTS);
@@ -14,7 +15,14 @@ export const Clients = (props) => {
   return (
     <Ui.ClientsContainer>
       {loading && <div>loading users...</div>}
-      <Ui.NewClient>+</Ui.NewClient>
+      <Ui.NewClient
+        onClick={() => {
+          setSelectedClient(undefined);
+          toggleModal();
+        }}
+      >
+        <FaUserPlus />
+      </Ui.NewClient>
       {data?.clients?.map((client) => (
         <Ui.ClientsGrid
           key={client.id}

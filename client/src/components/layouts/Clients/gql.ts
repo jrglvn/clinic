@@ -27,3 +27,18 @@ export const UPDATECLIENT = gql`
     }
   }
 `;
+
+export const CREATECLIENT = gql`
+  mutation CREATECLIENT($input: ClientInput!) {
+    clients {
+      createClient(input: $input) {
+        id
+        first_name
+        last_name
+        email
+        address
+        phone_number
+      }
+    }
+  }
+`;

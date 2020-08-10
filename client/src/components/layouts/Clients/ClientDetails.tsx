@@ -4,7 +4,7 @@ import * as Ui from "../../common/styles";
 import { MyInputField } from "../../../sdk";
 import { Client } from "../common/types";
 import { useMutation } from "@apollo/client";
-import { UPDATECLIENT } from "./gql";
+import { UPDATECLIENT, CREATECLIENT, QUERYCLIENTS } from "./gql";
 
 import * as yup from "yup";
 
@@ -18,7 +18,8 @@ const validationSchema = yup.object().shape({
 
 export const ClientDetails = (props: { client?: Client }) => {
   const [temp, setTemp] = useState({});
-  const [updateClient, { loading }] = useMutation(UPDATECLIENT);
+  const [updateClient, { loading: updateLoading }] = useMutation(UPDATECLIENT);
+  const [createClient, { loading: createLoading }] = useMutation(CREATECLIENT);
 
   const { client } = props;
   return (
@@ -33,9 +34,16 @@ export const ClientDetails = (props: { client?: Client }) => {
           phone_number: client?.phone_number,
         }}
         onSubmit={async (values) => {
-          await updateClient({
-            variables: { id: client?.id, input: { ...values } },
-          });
+          if (client?.id) {
+            await updateClient({
+              variables: { id: client?.id, input: { ...values } },
+            });
+          } else {
+            await createClient({
+              variables: { input: { ...values } },
+              refetchQueries([{query:QUERYCLIENTS])
+            });
+          }
           setTemp(values);
         }}
       >
@@ -46,8 +54,8 @@ export const ClientDetails = (props: { client?: Client }) => {
           <MyInputField name="email" label="e-mail" />
           <MyInputField name="phone_number" label="telefonski broj" />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Izmjene se spremaju" : "Sačuvaj"}
+          <button type="submit" disabled={createLoading || updateLoading}>
+            {createLoading || updateLoading ? "Izmjene se spremaju" : "Sačuvaj"}
           </button>
         </Ui.Form>
       </Formik>

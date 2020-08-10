@@ -174,6 +174,9 @@ export const NewClient = styled.div`
   margin: 0.5rem 0;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
+  svg {
+    fill: ${(props) => props.theme.colors.primary};
+  }
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};

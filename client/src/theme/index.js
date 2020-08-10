@@ -5,6 +5,8 @@ import { createGlobalStyle } from "styled-components";
 export const theme = {
   colors: {
     primary: "#3f72af", //blueish
+    danger: "#df4759", //bootstrap danger red
+    new: "#5cb85c", //bootstrap green
   },
 };
 
