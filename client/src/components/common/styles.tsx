@@ -271,3 +271,5 @@ export const Form = styled(FormikForm)`
     width: 100%;
   }
 `;
+
+export const RemoveUser = styled.div``;

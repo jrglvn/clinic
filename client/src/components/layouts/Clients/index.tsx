@@ -5,7 +5,7 @@ import { QUERYCLIENTS } from "./gql";
 import { Modal, useModal } from "../../../sdk";
 import { ClientDetails } from "./ClientDetails";
 import { Client } from "../common/types";
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserPlus, FaUserMinus } from "react-icons/fa";
 
 export const Clients = (props) => {
   const { data, error, loading } = useQuery(QUERYCLIENTS);
@@ -35,6 +35,7 @@ export const Clients = (props) => {
           <div>{client.email}</div>
           <div>{client.address}</div>
           <div>{client.phone_number}</div>
+          <Ui.RemoveUser></Ui.RemoveUser>
         </Ui.ClientsGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>

@@ -6,6 +6,7 @@ import { Client } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATECLIENT, CREATECLIENT, QUERYCLIENTS } from "./gql";
 
+
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
@@ -19,7 +20,10 @@ const validationSchema = yup.object().shape({
 export const ClientDetails = (props: { client?: Client }) => {
   const [temp, setTemp] = useState({});
   const [updateClient, { loading: updateLoading }] = useMutation(UPDATECLIENT);
-  const [createClient, { loading: createLoading }] = useMutation(CREATECLIENT);
+  const [createClient, { loading: createLoading }] = useMutation(CREATECLIENT, {
+    refetchQueries: [{ query: QUERYCLIENTS }],
+    awaitRefetchQueries: true,
+  });
 
   const { client } = props;
   return (
@@ -41,7 +45,6 @@ export const ClientDetails = (props: { client?: Client }) => {
           } else {
             await createClient({
               variables: { input: { ...values } },
-              refetchQueries([{query:QUERYCLIENTS])
             });
           }
           setTemp(values);
