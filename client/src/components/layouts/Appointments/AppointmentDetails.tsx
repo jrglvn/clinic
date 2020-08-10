@@ -44,7 +44,7 @@ export const AppointmentDetails = ({ appointment }) => {
     });
 
   return (
-    <Ui.AppointmentDetails>
+    <Ui.FlexColumn>
       <Formik
         validationSchema={appointmentSchema}
         initialValues={{
@@ -83,6 +83,6 @@ export const AppointmentDetails = ({ appointment }) => {
         </Ui.Form>
       </Formik>
       <pre>{JSON.stringify(values, null, 2)}</pre>
-    </Ui.AppointmentDetails>
+    </Ui.FlexColumn>
   );
 };

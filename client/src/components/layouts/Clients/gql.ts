@@ -42,3 +42,11 @@ export const CREATECLIENT = gql`
     }
   }
 `;
+
+export const DELETECLIENT = gql`
+  mutation DELETECLIENT($id: ID!) {
+    clients {
+      deleteClient(id: $id)
+    }
+  }
+`;

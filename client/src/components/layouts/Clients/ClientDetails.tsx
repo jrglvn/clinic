@@ -6,7 +6,6 @@ import { Client } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATECLIENT, CREATECLIENT, QUERYCLIENTS } from "./gql";
 
-
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({

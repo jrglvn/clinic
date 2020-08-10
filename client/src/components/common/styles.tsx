@@ -174,16 +174,17 @@ export const NewClient = styled.div`
   margin: 0.5rem 0;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
-  svg {
-    fill: ${(props) => props.theme.colors.primary};
-  }
+  color: ${(props) => props.theme.colors.primary};
+  font-size: 1.25rem;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
   }
-
+  & > svg:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
   padding: 0.5rem;
-
   transition: 0.1s;
 `;
 
@@ -191,15 +192,13 @@ export const ClientsGrid = styled.div`
   display: grid;
   width: 80%;
   margin: 0.5rem 0;
-
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1.5fr 1.5fr 1fr 40px;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
   }
-
   & > div {
     padding: 0.5rem;
   }
@@ -252,7 +251,7 @@ export const Modal = styled.div`
 export const ModalContent = styled.div`
   width: 400px;
   background: white;
-  border: 4px solid ${(props) => props.theme.colors.primary};
+  box-shadow: 0 0 20px 2px ${(props) => props.theme.colors.primary};
 `;
 
 export const AppointmentDetails = styled(FlexColumn)``;
@@ -272,4 +271,14 @@ export const Form = styled(FormikForm)`
   }
 `;
 
-export const RemoveUser = styled.div``;
+export const DeleteClient = styled(Flex)<{ showDelete: boolean }>`
+  transform: ${(props) => (props.showDelete ? "scale(1)" : "scale(0)")};
+  transition: 0.1s;
+  color: ${(props) => props.theme.colors.danger};
+  margin: 0;
+  font-size: 1.25rem;
+  & > svg:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+`;
