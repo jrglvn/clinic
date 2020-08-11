@@ -21,15 +21,17 @@ export const Clients = (props) => {
 
   return (
     <Ui.ClientsContainer>
-      {loading && <div>loading users...</div>}
-      <Ui.NewClient
-        onClick={() => {
-          setSelectedClient(undefined);
-          toggleModal();
-        }}
-      >
-        <FaUserPlus />
-      </Ui.NewClient>
+      {loading && <div>loading clients...</div>}
+      {!loading && (
+        <Ui.NewClient
+          onClick={() => {
+            setSelectedClient(undefined);
+            toggleModal();
+          }}
+        >
+          <FaUserPlus />
+        </Ui.NewClient>
+      )}
       {data?.clients?.map((client) => (
         <Ui.ClientsGrid
           key={client.id}
@@ -44,7 +46,7 @@ export const Clients = (props) => {
           <div>{client.email}</div>
           <div>{client.address}</div>
           <div>{client.phone_number}</div>
-          <Ui.DeleteClient
+          <Ui.DeletePerson
             showDelete={hoverItem === client.id}
             onClick={(e) => {
               e.stopPropagation();
@@ -52,7 +54,7 @@ export const Clients = (props) => {
             }}
           >
             <FaUserMinus />
-          </Ui.DeleteClient>
+          </Ui.DeletePerson>
         </Ui.ClientsGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>

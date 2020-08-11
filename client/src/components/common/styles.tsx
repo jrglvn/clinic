@@ -145,14 +145,13 @@ export const UsersGrid = styled.div`
   display: grid;
   width: 80%;
   margin: 0.5rem 0;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr) 40px;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
   }
-
   & > div {
     padding: 0.5rem;
   }
@@ -185,7 +184,7 @@ export const NewClient = styled.div`
     transform: scale(1.1);
   }
   padding: 0.5rem;
-  transition: 0.1s;
+  transition: 0.2s;
 `;
 
 export const ClientsGrid = styled.div`
@@ -271,7 +270,7 @@ export const Form = styled(FormikForm)`
   }
 `;
 
-export const DeleteClient = styled(Flex)<{ showDelete: boolean }>`
+export const DeletePerson = styled(Flex)<{ showDelete: boolean }>`
   transform: ${(props) => (props.showDelete ? "scale(1)" : "scale(0)")};
   transition: 0.1s;
   color: ${(props) => props.theme.colors.danger};
@@ -281,4 +280,5 @@ export const DeleteClient = styled(Flex)<{ showDelete: boolean }>`
     opacity: 0.8;
     transform: scale(1.1);
   }
+  transition: 0.2s;
 `;

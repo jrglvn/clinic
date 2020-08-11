@@ -21,6 +21,8 @@ export const usersTypeDefs = gql`
     first_name: String!
     last_name: String!
     email: String!
+    address: String
+    phone_number: String
     role: ROLES!
     assigned_categories: [Category]
   }
@@ -29,6 +31,8 @@ export const usersTypeDefs = gql`
     first_name: String
     last_name: String
     email: String
+    address: String
+    phone_number: String
     password: String
     role: ROLES
     assigned_categories: [Int]
@@ -39,14 +43,16 @@ export const usersTypeDefs = gql`
     first_name: String
     last_name: String
     email: String
+    address: String
+    phone_number: String
     role: ROLES
     assigned_categories: [Int]
   }
 
   type UsersMutation {
-    createUser(input: UserInput!): User! @auth
-    updateUser(id: ID!, input: UserInput!): User! @auth
-    deleteUser(id: ID!): Boolean! @auth
+    createUser(input: UserInput!): User!
+    updateUser(id: ID!, input: UserInput!): User!
+    deleteUser(id: ID!): Boolean!
     login(email: String, password: String): Boolean!
     logout: Boolean!
   }

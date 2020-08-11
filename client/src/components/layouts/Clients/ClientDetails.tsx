@@ -11,7 +11,7 @@ import * as yup from "yup";
 const validationSchema = yup.object().shape({
   first_name: yup.string().required("ime je obvezno polje"),
   last_name: yup.string().required("prezime je obvezno polje"),
-  email: yup.string().email("upisano nije ispravna email adresa").nullable(),
+  email: yup.string().email("email adresa nije ispravna").nullable(),
   address: yup.string().nullable(),
   phone_number: yup.string().nullable(),
 });
@@ -37,7 +37,7 @@ export const ClientDetails = (props: { client?: Client }) => {
           phone_number: client?.phone_number,
         }}
         onSubmit={async (values) => {
-          if (client?.id) {
+          if (client) {
             await updateClient({
               variables: { id: client?.id, input: { ...values } },
             });

@@ -233,6 +233,8 @@ export type User = {
   first_name: Scalars["String"];
   last_name: Scalars["String"];
   email: Scalars["String"];
+  address?: Maybe<Scalars["String"]>;
+  phone_number?: Maybe<Scalars["String"]>;
   role: Roles;
   assigned_categories?: Maybe<Array<Maybe<Category>>>;
 };
@@ -241,6 +243,8 @@ export type UserInput = {
   first_name?: Maybe<Scalars["String"]>;
   last_name?: Maybe<Scalars["String"]>;
   email?: Maybe<Scalars["String"]>;
+  address?: Maybe<Scalars["String"]>;
+  phone_number?: Maybe<Scalars["String"]>;
   password?: Maybe<Scalars["String"]>;
   role?: Maybe<Roles>;
   assigned_categories?: Maybe<Array<Maybe<Scalars["Int"]>>>;
@@ -251,6 +255,8 @@ export type UserSearchInput = {
   first_name?: Maybe<Scalars["String"]>;
   last_name?: Maybe<Scalars["String"]>;
   email?: Maybe<Scalars["String"]>;
+  address?: Maybe<Scalars["String"]>;
+  phone_number?: Maybe<Scalars["String"]>;
   role?: Maybe<Roles>;
   assigned_categories?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
@@ -698,6 +704,12 @@ export type UserResolvers<
   first_name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   last_name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  address?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  phone_number?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
   role?: Resolver<ResolversTypes["ROLES"], ParentType, ContextType>;
   assigned_categories?: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Category"]>>>,
