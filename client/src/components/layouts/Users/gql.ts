@@ -30,6 +30,11 @@ export const UPDATEUSER = gql`
         email
         address
         phone_number
+        role
+        assigned_categories {
+          id
+          name
+        }
       }
     }
   }
@@ -45,6 +50,11 @@ export const CREATEUSER = gql`
         email
         address
         phone_number
+        role
+        assigned_categories {
+          id
+          name
+        }
       }
     }
   }

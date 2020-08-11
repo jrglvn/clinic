@@ -165,7 +165,7 @@ export const ClientsContainer = styled(FlexColumn)`
   padding-top: 4rem;
 `;
 
-export const NewClient = styled.div`
+export const NewPerson = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,8 +270,8 @@ export const Form = styled(FormikForm)`
   }
 `;
 
-export const DeletePerson = styled(Flex)<{ showDelete: boolean }>`
-  transform: ${(props) => (props.showDelete ? "scale(1)" : "scale(0)")};
+export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
+  transform: ${(props) => (props.showDeleteIcon ? "scale(1)" : "scale(0)")};
   transition: 0.1s;
   color: ${(props) => props.theme.colors.danger};
   margin: 0;

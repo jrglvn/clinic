@@ -97,9 +97,10 @@ export const usersResolvers = {
       return queryResults[0];
     },
     updateUser: async (_, { id, input }, { knex }) => {
+      const { assigned_categories, ...userInput } = input;
       const queryResults = await knex("users")
         .returning("*")
-        .update({ ...input })
+        .update({ ...userInput })
         .where({ id });
       return queryResults[0];
     },

@@ -26,7 +26,7 @@ export const ClientDetails = (props: { client?: Client }) => {
 
   const { client } = props;
   return (
-    <Ui.AppointmentDetails>
+    <Ui.FlexColumn>
       <Formik
         validationSchema={validationSchema}
         initialValues={{
@@ -62,6 +62,6 @@ export const ClientDetails = (props: { client?: Client }) => {
         </Ui.Form>
       </Formik>
       <pre>{JSON.stringify({ id: client?.id, ...temp }, null, 2)}</pre>
-    </Ui.AppointmentDetails>
+    </Ui.FlexColumn>
   );
 };
