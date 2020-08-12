@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { query } from "express";
 import { KnownDirectives } from "graphql/validation/rules/KnownDirectives";
+import { Console } from "console";
 
 export const usersTypeDefs = gql`
   type Query {
@@ -94,6 +95,14 @@ export const usersResolvers = {
     },
     updateUser: async (_, { id, input }, { knex }) => {
       const { assigned_categories, ...userInput } = input;
+      await knex("users_categories").where({ users_id: id }).del();
+      assigned_categories.forEach(async (cat) => {
+        await knex("users_categories").insert({
+          users_id: id,
+          categories_id: cat,
+        });
+      });
+      console.log("assigned_categories input: ", assigned_categories);
       const queryResults = await knex("users")
         .returning("*")
         .update({ ...userInput })
