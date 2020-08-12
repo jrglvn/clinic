@@ -2,6 +2,7 @@ import { gql, UserInputError, AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { query } from "express";
+import { KnownDirectives } from "graphql/validation/rules/KnownDirectives";
 
 export const usersTypeDefs = gql`
   type Query {
@@ -76,20 +77,11 @@ export const usersResolvers = {
   User: {
     assigned_categories: async ({ id }, _, { knex }) => {
       const queryResults = await knex("users_categories")
-        .select("categories_id")
-        .where({
-          users_id: id,
-        });
-      const queryResults2 = await knex("categories").whereIn(
-        "id",
-        queryResults.map((item) => item.categories_id)
-      );
-      console.log(queryResults2);
-      return queryResults2;
+        .join("categories", "users_categories.categories_id", "categories.id")
+        .select("categories.id", "categories.name")
+        .where({ "users_categories.users_id": id });
 
-      /**
-       * await knex("users").join("users_categories", "users.id", "users_categories.users_id").join("categories", "users_categories.categories_id","categories.id")
-       */
+      return queryResults;
     },
   },
   UsersMutation: {

@@ -31,6 +31,8 @@ var knex = require("knex")({
   },
 });
 
+knex.on("query", (e) => console.log("query: ", e));
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
