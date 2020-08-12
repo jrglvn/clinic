@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import * as Ui from "../components/common/styles";
+import { FaWindowClose } from "react-icons/fa";
 
 export const parseServerDate = (date: number): string => {
   return moment(date, "x").format("DD.MM.YYYY hh:mm");
@@ -75,7 +76,12 @@ export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
   return showModal
     ? createPortal(
         <Ui.Modal>
-          <Ui.ModalContent ref={modalRef as any}>{children}</Ui.ModalContent>
+          <Ui.ModalContainer ref={modalRef as any}>
+            <Ui.ModalHeader>
+              <FaWindowClose size={"1.5rem"} onClick={() => toggleModal()} />
+            </Ui.ModalHeader>
+            <Ui.ModalContent>{children}</Ui.ModalContent>
+          </Ui.ModalContainer>
         </Ui.Modal>,
         document.getElementById("portal") as any
       )

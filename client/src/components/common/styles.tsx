@@ -129,6 +129,7 @@ export const Flex = styled.div`
 
 export const FlexColumn = styled(Flex)`
   flex-direction: column;
+  overflow-y: auto;
 `;
 
 export const Header = styled(FlexColumn)`
@@ -233,25 +234,36 @@ export const AppointmentsGrid = styled.div`
 export const Modal = styled.div`
   position: fixed;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 999;
-  outline: 0;
-  margin: 0;
-  padding: 0;
   backdrop-filter: blur(1px);
   cursor: default;
-  display: grid;
-  justify-content: center;
-  align-items: center;
+  display: flex;
 `;
 
-export const ModalContent = styled.div`
+export const ModalContainer = styled.div`
+  margin: auto auto;
   width: 400px;
-  background: white;
   box-shadow: 0 0 20px 2px ${(props) => props.theme.colors.primary};
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
 `;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  background: #eee;
+  color: ${(props) => props.theme.colors.danger};
+  & > svg {
+    cursor: pointer;
+  }
+`;
+
+export const ModalContent = styled.div``;
 
 export const AppointmentDetails = styled(FlexColumn)``;
 
