@@ -86,6 +86,10 @@ export const usersResolvers = {
       );
       console.log(queryResults2);
       return queryResults2;
+
+      /**
+       * await knex("users").join("users_categories", "users.id", "users_categories.users_id").join("categories", "users_categories.categories_id","categories.id")
+       */
     },
   },
   UsersMutation: {
