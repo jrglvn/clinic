@@ -125,7 +125,6 @@ export const MySelectField = (props: {
         name={props.name}
         as="select"
         onChange={(e) => {
-          console.log(e.target.value);
           props.onChange && props.onChange(e.target.value);
           setFieldValue(props.name, e.target.value);
         }}
@@ -156,6 +155,22 @@ export const MyInputField = (props: {
           {meta.error}
         </div>
       ) : null}
+    </>
+  );
+};
+
+export const MyCheckboxField = (props: {
+  name: string;
+  options: Array<{ value: string; label: string }>;
+}) => {
+  return (
+    <>
+      {props.options.map((o) => (
+        <label>
+          <Field type="checkbox" name={props.name} value={o.value} />
+          {o.label}
+        </label>
+      ))}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Ui from "../../common/styles";
-import { MyInputField, MySelectField } from "../../../sdk";
+import { MyInputField, MySelectField, MyCheckboxField } from "../../../sdk";
 import { User } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATEUSER, CREATEUSER, QUERYUSERS } from "./gql";
@@ -14,9 +14,10 @@ const validationSchema = yup.object().shape({
   email: yup.string().email("email adresa nije ispravna").nullable(),
   address: yup.string().nullable(),
   phone_number: yup.string().nullable(),
-  password: yup.string(),
+  password: yup.string().nullable(),
   password_repeat: yup
     .string()
+    .nullable()
     .oneOf([yup.ref("password"), null], "ponovljena lozinka nije ispravna"),
 });
 
@@ -90,6 +91,14 @@ export const UserDetails = (props: { user?: User }) => {
               { value: "", label: "" },
               { value: "ADMIN", label: "administrator" },
               { value: "USER", label: "korisnik" },
+            ]}
+          />
+
+          <MyCheckboxField
+            name="categories"
+            options={[
+              { value: "1", label: "ortpedija" },
+              { value: "2", label: "ginekologija" },
             ]}
           />
 
