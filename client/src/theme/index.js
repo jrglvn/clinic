@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
     color:white;
   }
   button:hover {
-    background-color: #bbb;
+    opacity:.8;
     box-shadow:0 0 4px 0 #ccc;
   }
 
@@ -50,6 +50,15 @@ label {
   font-style:italic;
 }
 
+svg:hover{
+opacity:.8;
+transform:scale(1.05);
+}
 
+transition:.2;
+
+input:focus, select:focus{
+  box-shadow: 0 0 4px 0 tomato inset;
+}
 
 `;

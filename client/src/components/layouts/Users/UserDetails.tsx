@@ -14,7 +14,13 @@ const validationSchema = yup.object().shape({
   email: yup.string().email("email adresa nije ispravna").nullable(),
   address: yup.string().nullable(),
   phone_number: yup.string().nullable(),
+  password: yup.string(),
+  password_repeat: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "ponovljena lozinka nije ispravna"),
 });
+
+const schemaWithPassword = yup.object().shape({});
 
 export const UserDetails = (props: { user?: User }) => {
   const [temp, setTemp] = useState({});
@@ -38,9 +44,9 @@ export const UserDetails = (props: { user?: User }) => {
           role: user?.role,
           assigned_categories: user?.assigned_categories,
         }}
-        onSubmit={async (values) => {
+        onSubmit={async ({ assigned_categories, ...values }) => {
           if (user) {
-            const categories = values?.assigned_categories?.map((cat) => {
+            const categories = assigned_categories?.map((cat) => {
               if (cat) return parseInt(cat.id);
             });
             console.log("users: ", categories);
@@ -72,7 +78,7 @@ export const UserDetails = (props: { user?: User }) => {
           )}
           {!user && (
             <MyInputField
-              name="password-repeat"
+              name="password_repeat"
               label="ponovite lozinku"
               type="password"
             />
@@ -81,6 +87,7 @@ export const UserDetails = (props: { user?: User }) => {
             name="role"
             label="razina ovlaštenja"
             options={[
+              { value: "", label: "" },
               { value: "ADMIN", label: "administrator" },
               { value: "USER", label: "korisnik" },
             ]}

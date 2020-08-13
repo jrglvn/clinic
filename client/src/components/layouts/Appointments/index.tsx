@@ -5,7 +5,7 @@ import { Modal, useModal } from "../../../sdk";
 import { QUERYAPPOINTMENTS } from "./gql";
 import { AppointmentDetails } from "./AppointmentDetails";
 import * as Ui from "../../common/styles";
-import DatePicker from "react-datepicker";
+import { FaCalendarPlus } from "react-icons/fa";
 
 export const Appointments = (props) => {
   const { data, error, loading } = useQuery(QUERYAPPOINTMENTS);
@@ -14,7 +14,17 @@ export const Appointments = (props) => {
 
   return (
     <Ui.AppointmentsContainer>
-      {loading && <div>loading appointments...</div>}
+      {loading && <div>učitavanje dogovorenih termina...</div>}
+      {!loading && (
+        <Ui.NewItem
+          onClick={() => {
+            setSelectedAppointment(undefined);
+            toggleModal();
+          }}
+        >
+          <FaCalendarPlus />
+        </Ui.NewItem>
+      )}
       {data?.appointments?.map((appointment) => (
         <Ui.AppointmentsGrid
           key={appointment.id}

@@ -166,7 +166,7 @@ export const ClientsContainer = styled(FlexColumn)`
   padding-top: 4rem;
 `;
 
-export const NewPerson = styled.div`
+export const NewItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,10 +179,6 @@ export const NewPerson = styled.div`
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
-  }
-  & > svg:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
   }
   padding: 0.5rem;
   transition: 0.2s;
@@ -288,9 +284,5 @@ export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
   color: ${(props) => props.theme.colors.danger};
   margin: 0;
   font-size: 1.25rem;
-  & > svg:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
   transition: 0.2s;
 `;

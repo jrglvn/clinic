@@ -23,14 +23,14 @@ export const Clients = (props) => {
     <Ui.ClientsContainer>
       {loading && <div>loading clients...</div>}
       {!loading && (
-        <Ui.NewPerson
+        <Ui.NewItem
           onClick={() => {
             setSelectedClient(undefined);
             toggleModal();
           }}
         >
           <FaUserPlus />
-        </Ui.NewPerson>
+        </Ui.NewItem>
       )}
       {data?.clients?.map((client) => (
         <Ui.ClientsGrid

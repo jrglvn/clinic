@@ -23,14 +23,14 @@ export const Users = (props) => {
     <Ui.UsersContainer>
       {loading && <div>loading users...</div>}
       {!loading && (
-        <Ui.NewPerson
+        <Ui.NewItem
           onClick={() => {
             setSelectedUser(undefined);
             toggleModal();
           }}
         >
           <FaUserPlus />
-        </Ui.NewPerson>
+        </Ui.NewItem>
       )}
       {data?.users?.getUsers.map((user) => (
         <Ui.UsersGrid

@@ -18,7 +18,7 @@ export const usersTypeDefs = gql`
   type Mutation {
     users: UsersMutation!
   }
-  
+
   type User {
     id: ID!
     first_name: String!
@@ -97,7 +97,7 @@ export const usersResolvers = {
     updateUser: async (_, { id, input }, { knex }) => {
       const { assigned_categories, ...userInput } = input;
       await knex("users_categories").where({ users_id: id }).del();
-      assigned_categories.forEach(async (cat) => {
+      assigned_categories?.forEach(async (cat) => {
         await knex("users_categories").insert({
           users_id: id,
           categories_id: cat,
