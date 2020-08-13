@@ -149,7 +149,12 @@ export const MyInputField = (props: {
   return (
     <>
       <label htmlFor={field.name}>{props.label || field.name}</label>
-      <input {...field} {...props} value={field.value} autoComplete="none" />
+      <input
+        {...field}
+        {...props}
+        value={field.value || ""}
+        autoComplete="none"
+      />
       {meta.touched && meta.error ? (
         <div className="error" style={{ color: "red", fontSize: ".75rem" }}>
           {meta.error}
@@ -163,13 +168,17 @@ export const MyCheckboxField = (props: {
   name: string;
   options: Array<{ value: string; label: string }>;
 }) => {
+  const { setFieldValue } = useFormikContext();
+  const [field, { touched, error }] = useField(props as any);
   return (
     <>
       {props.options.map((o) => (
-        <label>
-          <Field type="checkbox" name={props.name} value={o.value} />
-          {o.label}
-        </label>
+        <>
+          <label htmlFor={o.label} key={o.value}>
+            {o.label}
+          </label>
+          <input type="checkbox" id={o.label} name={o.label} />
+        </>
       ))}
     </>
   );
