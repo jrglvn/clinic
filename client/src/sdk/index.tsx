@@ -141,7 +141,11 @@ export const MySelectField = (props: {
   );
 };
 
-export const MyInputField = (props: { name: string; label: string }) => {
+export const MyInputField = (props: {
+  name: string;
+  label: string;
+  type?: string;
+}) => {
   const [field, meta] = useField(props as any);
   return (
     <>

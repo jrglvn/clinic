@@ -67,6 +67,16 @@ export const UserDetails = (props: { user?: User }) => {
           <MyInputField name="email" label="e-mail" />
           <MyInputField name="address" label="adresa" />
           <MyInputField name="phone_number" label="telefonski broj" />
+          {!user && (
+            <MyInputField name="password" label="lozinka" type="password" />
+          )}
+          {!user && (
+            <MyInputField
+              name="password-repeat"
+              label="ponovite lozinku"
+              type="password"
+            />
+          )}
           <MySelectField
             name="role"
             label="razina ovlaštenja"

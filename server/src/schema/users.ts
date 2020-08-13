@@ -18,6 +18,7 @@ export const usersTypeDefs = gql`
   type Mutation {
     users: UsersMutation!
   }
+  
   type User {
     id: ID!
     first_name: String!
