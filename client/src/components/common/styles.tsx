@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
-import { Form as FormikForm } from "formik";
+import { Form as FormikForm, Field as FormikField } from "formik";
 
 export const Content = styled.div`
   display: flex;
@@ -278,6 +278,10 @@ export const Form = styled(FormikForm)`
   }
 `;
 
+export const Field = styled(FormikField)`
+  width: 40px;
+`;
+
 export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
   transform: ${(props) => (props.showDeleteIcon ? "scale(1)" : "scale(0)")};
   transition: 0.1s;
@@ -285,4 +289,18 @@ export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
   margin: 0;
   font-size: 1.25rem;
   transition: 0.2s;
+`;
+
+export const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  & > input {
+    width: 20px;
+  }
+  & > label {
+    margin-top: 0 !important;
+    flex: 1;
+    padding: 4px;
+  }
 `;

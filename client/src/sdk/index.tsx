@@ -173,7 +173,15 @@ export const MyCheckboxField = (props: {
   return (
     <>
       {props.options?.map((o) => (
-        <Field type="checkbox" name={props.name} value={o.value} />
+        <Ui.CheckboxContainer>
+          <input
+            type="checkbox"
+            id={o.label}
+            name={props.name}
+            value={o.value}
+          />
+          <label htmlFor={o.label}>{o.label}</label>
+        </Ui.CheckboxContainer>
       ))}
     </>
   );
