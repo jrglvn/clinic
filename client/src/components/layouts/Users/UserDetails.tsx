@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Formik } from "formik";
 import * as Ui from "../../common/styles";
 import { MyInputField, MySelectField, MyCheckboxField } from "../../../sdk";
-import { User } from "../common/types";
+import { User, Category } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATEUSER, CREATEUSER, QUERYUSERS } from "./gql";
 
@@ -23,15 +23,18 @@ const validationSchema = yup.object().shape({
 
 const schemaWithPassword = yup.object().shape({});
 
-export const UserDetails = (props: { user?: User }) => {
+export const UserDetails = (props: {
+  user?: User;
+  categories?: Array<Category>;
+}) => {
   const [temp, setTemp] = useState({});
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATEUSER);
   const [createUser, { loading: createLoading }] = useMutation(CREATEUSER, {
     refetchQueries: [{ query: QUERYUSERS }],
     awaitRefetchQueries: true,
   });
-
   const { user } = props;
+
   return (
     <Ui.FlexColumn>
       <Formik
@@ -96,10 +99,9 @@ export const UserDetails = (props: { user?: User }) => {
 
           <MyCheckboxField
             name="categories"
-            options={[
-              { value: "1", label: "ortpedija" },
-              { value: "2", label: "ginekologija" },
-            ]}
+            options={props.categories?.map((category) => {
+              return { value: category.id!, label: category.name! };
+            })}
           />
 
           <button type="submit" disabled={createLoading || updateLoading}>

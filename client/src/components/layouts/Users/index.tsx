@@ -6,9 +6,15 @@ import { FaUserPlus, FaUserMinus } from "react-icons/fa";
 import { useModal, Modal } from "../../../sdk";
 import { User } from "../common/types";
 import { UserDetails } from "./UserDetails";
+import { QUERYCATEGORIES } from "../common/gql";
 
 export const Users = (props) => {
   const { data, error: queryError, loading } = useQuery(QUERYUSERS);
+  const {
+    data: dataCategories,
+    error: errorCategories,
+    loading: loadingCategories,
+  } = useQuery(QUERYCATEGORIES);
   const { showModal, toggleModal } = useModal();
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const [hoverItem, setHoverItem] = useState<number | null>(null);
@@ -58,7 +64,10 @@ export const Users = (props) => {
         </Ui.UsersGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
-        <UserDetails user={selectedUser} />
+        <UserDetails
+          user={selectedUser}
+          categories={dataCategories?.categories}
+        />
       </Modal>
     </Ui.UsersContainer>
   );
