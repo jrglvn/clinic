@@ -46,29 +46,25 @@ export const UserDetails = (props: {
           address: user?.address,
           phone_number: user?.phone_number,
           role: user?.role,
-          assigned_categories: user?.assigned_categories,
+          categories: user?.assigned_categories?.map((cat) => cat?.id),
         }}
-        onSubmit={async ({ assigned_categories, ...values }) => {
-          // if (user) {
-          //   const categories = assigned_categories?.map((cat) => {
-          //     if (cat) return parseInt(cat.id);
-          //   });
-          //   console.log("users: ", categories);
-          //   await updateUser({
-          //     variables: {
-          //       id: user?.id,
-          //       input: {
-          //         ...values,
-          //         assigned_categories: categories,
-          //       },
-          //     },
-          //   });
-          // } else {
-          //   await createUser({
-          //     variables: { input: { ...values } },
-          //   });
-          // }
-          setTemp(values);
+        onSubmit={async ({ categories, ...values }) => {
+          if (user) {
+            await updateUser({
+              variables: {
+                id: user?.id,
+                input: {
+                  ...values,
+                  assigned_categories: categories?.map((cat) => +cat!),
+                },
+              },
+            });
+          } else {
+            await createUser({
+              variables: { input: { ...values } },
+            });
+          }
+          setTemp({ values, categories });
         }}
       >
         <Ui.Form>

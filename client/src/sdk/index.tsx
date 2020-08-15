@@ -168,21 +168,15 @@ export const MyCheckboxField = (props: {
   name: string;
   options?: Array<{ value: string; label: string }>;
 }) => {
-  const { setFieldValue } = useFormikContext();
   const [field, { touched, error }] = useField(props as any);
   return (
-    <>
+    <Ui.MyCheckboxField>
       {props.options?.map((o) => (
-        <Ui.CheckboxContainer>
-          <input
-            type="checkbox"
-            id={o.label}
-            name={props.name}
-            value={o.value}
-          />
-          <label htmlFor={o.label}>{o.label}</label>
-        </Ui.CheckboxContainer>
+        <Ui.Checkbox>
+          <Field type="checkbox" name={props.name} value={o.value} />
+          {o.label}
+        </Ui.Checkbox>
       ))}
-    </>
+    </Ui.MyCheckboxField>
   );
 };

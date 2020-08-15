@@ -291,16 +291,16 @@ export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
   transition: 0.2s;
 `;
 
-export const CheckboxContainer = styled.div`
+export const Checkbox = styled.label`
   display: flex;
   align-items: center;
-  border: 1px solid black;
-  & > input {
-    width: 20px;
+  margin: 0.25rem !important;
+  & input {
+    width: 1rem;
   }
-  & > label {
-    margin-top: 0 !important;
-    flex: 1;
-    padding: 4px;
-  }
+`;
+
+export const MyCheckboxField = styled(FlexColumn)`
+  align-items: start;
+  margin-top: 1rem;
 `;
