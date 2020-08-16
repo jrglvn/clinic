@@ -3,8 +3,7 @@ import { Formik, Field, Form } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
-import { MyDatePickerField, MySelectField } from "../../../sdk";
-
+import { MyDatePickerField, MySelectField, MySelect } from "../../../sdk";
 import * as yup from "yup";
 
 const appointmentSchema = yup.object().shape({
@@ -62,18 +61,14 @@ export const AppointmentDetails = ({ appointment }) => {
           <label htmlFor="schedule_date">vrijeme termina</label>
           <Field name="schedule_date" as={MyDatePickerField} />
 
-          <MySelectField
-            options={clientsData}
-            name="clients"
-            label="pacijent"
-          />
-          <MySelectField
+          <MySelect options={clientsData} name="clients" label="pacijent" />
+          <MySelect
             options={usersData}
             name="users"
             label="doktor"
             onChange={(val) => setUserId(val)}
           />
-          <MySelectField
+          <MySelect
             options={userCategoriesData}
             name="categories"
             label="kategorija"

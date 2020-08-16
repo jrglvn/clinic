@@ -26,6 +26,12 @@ export const LeftSidebar = (props) => {
       >
         Klijenti
       </div>
+      <div
+        is-active={location.pathname === "/categories" ? "true" : "false"}
+        onClick={() => navigate("/categories")}
+      >
+        Kategorije
+      </div>
     </Ui.LeftSidebarContainer>
   );
 };

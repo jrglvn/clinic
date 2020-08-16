@@ -4,9 +4,9 @@ import moment from "moment";
 import { useField, useFormikContext, Field, FieldProps } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import * as Ui from "../components/common/styles";
 import { FaWindowClose } from "react-icons/fa";
+import Select from "react-select";
 
 export const parseServerDate = (date: number): string => {
   return moment(date, "x").format("DD.MM.YYYY hh:mm");
@@ -172,11 +172,34 @@ export const MyCheckboxField = (props: {
   return (
     <Ui.MyCheckboxField>
       {props.options?.map((o) => (
-        <Ui.Checkbox>
+        <Ui.Checkbox key={o.value}>
           <Field type="checkbox" name={props.name} value={o.value} />
           {o.label}
         </Ui.Checkbox>
       ))}
     </Ui.MyCheckboxField>
+  );
+};
+
+export const MySelect = (props: {
+  name: string;
+  label?: string;
+  options: Array<{ value: string; label: string }>;
+  onChange?: (any) => any;
+}) => {
+  const { setFieldValue } = useFormikContext();
+
+  return (
+    <>
+      <label htmlFor={props.name}>{props.label || props.name}</label>
+      <Select
+        {...props}
+        id={props.name}
+        onChange={(e: any) => {
+          props.onChange && props.onChange(e.value);
+          setFieldValue(props.name, e.value);
+        }}
+      />
+    </>
   );
 };

@@ -5,6 +5,7 @@ import { MyInputField, MySelectField, MyCheckboxField } from "../../../sdk";
 import { User, Category } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATEUSER, CREATEUSER, QUERYUSERS } from "./gql";
+import Select from "react-select";
 
 import * as yup from "yup";
 
@@ -87,7 +88,6 @@ export const UserDetails = (props: {
             name="role"
             label="razina ovlaštenja"
             options={[
-              { value: "", label: "" },
               { value: "ADMIN", label: "administrator" },
               { value: "USER", label: "korisnik" },
             ]}

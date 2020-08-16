@@ -136,12 +136,6 @@ export const Header = styled(FlexColumn)`
   padding: 0.5rem;
 `;
 
-export const UsersContainer = styled(FlexColumn)`
-  justify-content: start;
-  overflow-y: auto;
-  padding: 0 0.5rem;
-  padding-top: 4rem;
-`;
 export const UsersGrid = styled.div`
   display: grid;
   width: 80%;
@@ -157,13 +151,6 @@ export const UsersGrid = styled.div`
     padding: 0.5rem;
   }
   transition: 0.1s;
-`;
-
-export const ClientsContainer = styled(FlexColumn)`
-  justify-content: start;
-  overflow-y: auto;
-  padding: 0 0.5rem;
-  padding-top: 4rem;
 `;
 
 export const NewItem = styled.div`
@@ -199,13 +186,6 @@ export const ClientsGrid = styled.div`
     padding: 0.5rem;
   }
   transition: 0.1s;
-`;
-
-export const AppointmentsContainer = styled(FlexColumn)`
-  justify-content: start;
-  overflow-y: auto;
-  padding: 0 0.5rem;
-  padding-top: 4rem;
 `;
 
 export const AppointmentsGrid = styled.div`
@@ -282,7 +262,7 @@ export const Field = styled(FormikField)`
   width: 40px;
 `;
 
-export const DeletePerson = styled(Flex)<{ showDeleteIcon: boolean }>`
+export const DeleteContainer = styled(Flex)<{ showDeleteIcon: boolean }>`
   transform: ${(props) => (props.showDeleteIcon ? "scale(1)" : "scale(0)")};
   transition: 0.1s;
   color: ${(props) => props.theme.colors.danger};
@@ -303,4 +283,28 @@ export const Checkbox = styled.label`
 export const MyCheckboxField = styled(FlexColumn)`
   align-items: start;
   margin-top: 1rem;
+`;
+
+export const BasicLayout = styled(FlexColumn)`
+  justify-content: start;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+  padding-top: 4rem;
+`;
+
+export const CategoriesGrid = styled.div`
+  display: grid;
+  width: 80%;
+  margin: 0.5rem 0;
+  grid-template-columns: 1fr 40px;
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+  }
+  & > div {
+    padding: 0.5rem;
+  }
+  transition: 0.1s;
 `;

@@ -20,7 +20,7 @@ export const Clients = (props) => {
   if (mutationError || queryError) return <div>apollo error</div>;
 
   return (
-    <Ui.ClientsContainer>
+    <Ui.BasicLayout>
       {loading && <div>loading clients...</div>}
       {!loading && (
         <Ui.NewItem
@@ -46,7 +46,7 @@ export const Clients = (props) => {
           <div>{client.email}</div>
           <div>{client.address}</div>
           <div>{client.phone_number}</div>
-          <Ui.DeletePerson
+          <Ui.DeleteContainer
             showDeleteIcon={hoverItem === client.id}
             onClick={(e) => {
               e.stopPropagation();
@@ -54,12 +54,12 @@ export const Clients = (props) => {
             }}
           >
             <FaUserMinus />
-          </Ui.DeletePerson>
+          </Ui.DeleteContainer>
         </Ui.ClientsGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
         <ClientDetails client={selectedClient} />
       </Modal>
-    </Ui.ClientsContainer>
+    </Ui.BasicLayout>
   );
 };

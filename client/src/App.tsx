@@ -3,7 +3,13 @@ import { ThemeProvider } from "styled-components";
 import { Router } from "@reach/router";
 import { theme, GlobalStyle } from "./theme";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Clients, Home, Users, Appointments } from "./components/layouts";
+import {
+  Clients,
+  Home,
+  Users,
+  Appointments,
+  Categories,
+} from "./components/layouts";
 import { MainComponent } from "./components/common/MainComponent";
 
 const client = new ApolloClient({
@@ -23,6 +29,7 @@ export const App = (props) => {
             <Users path="/users" />
             <Clients path="/clients" />
             <Appointments path="/appointments" />
+            <Categories path="/categories" />
           </MainComponent>
         </Router>
       </ThemeProvider>

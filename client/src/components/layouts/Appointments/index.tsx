@@ -13,7 +13,7 @@ export const Appointments = (props) => {
   const { showModal, toggleModal } = useModal();
 
   return (
-    <Ui.AppointmentsContainer>
+    <Ui.BasicLayout>
       {loading && <div>učitavanje dogovorenih termina...</div>}
       {!loading && (
         <Ui.NewItem
@@ -45,7 +45,7 @@ export const Appointments = (props) => {
       <Modal showModal={showModal} toggleModal={toggleModal}>
         <AppointmentDetails appointment={selectedAppointment} />
       </Modal>
-    </Ui.AppointmentsContainer>
+    </Ui.BasicLayout>
   );
 };
 

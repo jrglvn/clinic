@@ -26,7 +26,7 @@ export const Users = (props) => {
   if (mutationError || queryError) return <div>apollo error</div>;
 
   return (
-    <Ui.UsersContainer>
+    <Ui.BasicLayout>
       {loading && <div>loading users...</div>}
       {!loading && (
         <Ui.NewItem
@@ -52,7 +52,7 @@ export const Users = (props) => {
           <div>{user.email}</div>
           <div>{user.phone_number || "tel. broj"}</div>
           <div>{user.role}</div>
-          <Ui.DeletePerson
+          <Ui.DeleteContainer
             showDeleteIcon={hoverItem === user.id}
             onClick={(e) => {
               e.stopPropagation();
@@ -60,7 +60,7 @@ export const Users = (props) => {
             }}
           >
             <FaUserMinus />
-          </Ui.DeletePerson>
+          </Ui.DeleteContainer>
         </Ui.UsersGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
@@ -69,6 +69,6 @@ export const Users = (props) => {
           categories={dataCategories?.categories}
         />
       </Modal>
-    </Ui.UsersContainer>
+    </Ui.BasicLayout>
   );
 };
