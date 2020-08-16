@@ -8,3 +8,33 @@ export const QUERYCATEGORIES = gql`
     }
   }
 `;
+
+export const UPDATECATEGORY = gql`
+  mutation UPDATECATEGORY($id: ID!, $input: CategoryInput!) {
+    categories {
+      updateCategory(id: $id, input: $input) {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const CREATECATEGORY = gql`
+  mutation CREATECATEGORY($input: CategoryInput!) {
+    categories {
+      createCategory(input: $input) {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETECATEGORY = gql`
+  mutation DELETECATEGORY($id: ID!) {
+    categories {
+      deleteCategory(id: $id)
+    }
+  }
+`;

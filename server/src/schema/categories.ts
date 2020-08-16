@@ -44,10 +44,10 @@ export const categoriesResolvers = {
       return result[0];
     },
 
-    updateCategory: async (_, { id, name }, { knex }) => {
+    updateCategory: async (_, { id, input }, { knex }) => {
       const result = await knex("categories")
         .returning("*")
-        .update({ name })
+        .update({ ...input })
         .where({ id });
       return result[0];
     },
