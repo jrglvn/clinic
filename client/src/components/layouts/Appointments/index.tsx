@@ -12,6 +12,15 @@ export const Appointments = (props) => {
   const [selectedAppointment, setSelectedAppointment] = useState<any>({});
   const { showModal, closeModal } = useModal();
 
+  useEffect(
+    () =>
+      console.log(
+        "index, scheduled_for [0]: ",
+        data?.appointments[0].scheduled_for
+      ),
+    [data]
+  );
+
   return (
     <Ui.BasicLayout>
       {loading && <div>učitavanje dogovorenih termina...</div>}

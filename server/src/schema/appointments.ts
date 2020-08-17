@@ -51,8 +51,9 @@ export const appointmentsTypeDefs = gql`
 export const appointmentsResolvers = {
   Query: {
     appointments: async (_, { input }, { knex }) => {
-      const result = await knex("appointments").where({ ...input });
-      return result;
+      const results = await knex("appointments").where({ ...input });
+      console.log("apointments 0: ", results[0]);
+      return results;
     },
   },
   Mutation: {

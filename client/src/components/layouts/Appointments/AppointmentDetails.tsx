@@ -3,7 +3,7 @@ import { Formik, Field, Form } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
-import { MyDatePickerField, MySelect } from "../../../sdk";
+import { MyDatePickerField, MySelect, parseServerDate } from "../../../sdk";
 import * as yup from "yup";
 
 const appointmentSchema = yup.object().shape({
@@ -14,7 +14,7 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
   const { data, error, loading } = useQuery(QUERYALL);
   const [userId, setUserId] = useState<number>();
 
-  const [values, setValues] = useState({});
+  const [temp, setTemp] = useState({});
 
   const userCategories: number[] = useMemo(() => {
     const user = data?.users?.getUsers.find((user) => user.id === userId);
@@ -42,8 +42,6 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
       return { value: category.id, label: category.name };
     });
 
-  console.log("a.sch_for: ", appointment.scheduled_for);
-
   return (
     <Ui.FlexColumn>
       <Formik
@@ -52,10 +50,12 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
           users: appointment?.user.id,
           clients: appointment?.client.id,
           categories: appointment?.category.id,
+          scheduled_for: new Date(parseInt(appointment?.scheduled_for)),
+          created_at: new Date(parseInt(appointment?.created_at)),
         }}
         onSubmit={(values) => {
-          setValues(values);
-          closeModal();
+          setTemp(values);
+          //closeModal();
         }}
       >
         <Ui.Form>
@@ -78,11 +78,18 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
             name="categories"
             label="kategorija"
           />
+          {appointment && (
+            <MyDatePickerField
+              name="created_at"
+              label="vrijeme dogovora termina"
+              disabled
+            />
+          )}
 
           <button type="submit">Sačuvaj</button>
         </Ui.Form>
       </Formik>
-      <pre>{JSON.stringify(values, null, 2)}</pre>
+      <pre>{JSON.stringify(temp, null, 2)}</pre>
     </Ui.FlexColumn>
   );
 };

@@ -8,7 +8,7 @@ import * as Ui from "../components/common/styles";
 import { FaWindowClose } from "react-icons/fa";
 import Select from "react-select";
 
-export const parseServerDate = (date: number): string => {
+export const parseServerDate = (date: string): string => {
   return moment(date, "x").format("DD.MM.YYYY hh:mm");
 };
 
@@ -98,8 +98,12 @@ export const MyDatePickerField = (props) => {
         {...props}
         selected={(field.value && new Date(field.value)) || null}
         onChange={(val) => {
+          console.log("date picker, onchange: ", val);
           setFieldValue(field.name, val);
         }}
+        showTimeSelect
+        dateFormat="dd.MM.y HH:mm"
+        autoComlete="new-password"
       />
       {error && touched && <div>{error}</div>}
     </>
@@ -146,7 +150,7 @@ export const MyInputField = (props: { name: string; label: string } & any) => {
         {...field}
         {...props}
         value={field.value || ""}
-        autocomplete="off"
+        autoComplete="off"
       />
       {meta.touched && meta.error ? (
         <div className="error" style={{ color: "red", fontSize: ".75rem" }}>
