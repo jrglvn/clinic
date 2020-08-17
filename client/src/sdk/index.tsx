@@ -89,16 +89,15 @@ export const Modal = ({ showModal, closeModal, children }: IModalProps) => {
 export const MyDatePickerField = (props) => {
   const { setFieldValue } = useFormikContext();
   const [field, { touched, error }] = useField(props as any);
+
   return (
     <>
+      <label htmlFor={props.name}>{props.label || props.name}</label>
       <DatePicker
         {...field}
         {...props}
-        dateFormat="dd.MM.yyyy"
-        autocomplete="off"
-        selected={(field.value && new Date(field.value)) || new Date()}
+        selected={(field.value && new Date(field.value)) || null}
         onChange={(val) => {
-          console.log("datepicker: ", val);
           setFieldValue(field.name, val);
         }}
       />
@@ -147,7 +146,7 @@ export const MyInputField = (props: { name: string; label: string } & any) => {
         {...field}
         {...props}
         value={field.value || ""}
-        autoComplete="off"
+        autocomplete="off"
       />
       {meta.touched && meta.error ? (
         <div className="error" style={{ color: "red", fontSize: ".75rem" }}>

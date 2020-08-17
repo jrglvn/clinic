@@ -7,7 +7,7 @@ import { MyDatePickerField, MySelect } from "../../../sdk";
 import * as yup from "yup";
 
 const appointmentSchema = yup.object().shape({
-  schedule_date: yup.date().required("obavezno polje"),
+  scheduled_for: yup.date().required("obavezno polje"),
 });
 
 export const AppointmentDetails = ({ appointment, closeModal }) => {
@@ -42,6 +42,8 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
       return { value: category.id, label: category.name };
     });
 
+  console.log("a.sch_for: ", appointment.scheduled_for);
+
   return (
     <Ui.FlexColumn>
       <Formik
@@ -50,8 +52,6 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
           users: appointment?.user.id,
           clients: appointment?.client.id,
           categories: appointment?.category.id,
-          schedule_date:
-            appointment?.schedule_date || new Date().toLocaleString(),
         }}
         onSubmit={(values) => {
           setValues(values);
@@ -59,8 +59,7 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
         }}
       >
         <Ui.Form>
-          <label htmlFor="schedule_date">vrijeme termina</label>
-          <Field name="schedule_date" as={MyDatePickerField} />
+          <MyDatePickerField name="scheduled_for" label="vrijeme termina" />
 
           <MySelect
             options={clientsData}
