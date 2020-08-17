@@ -67,6 +67,7 @@ export const Users = (props) => {
         <UserDetails
           user={selectedUser}
           categories={dataCategories?.categories}
+          toggleModal={toggleModal}
         />
       </Modal>
     </Ui.BasicLayout>

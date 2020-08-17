@@ -43,7 +43,10 @@ export const Appointments = (props) => {
         </Ui.AppointmentsGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
-        <AppointmentDetails appointment={selectedAppointment} />
+        <AppointmentDetails
+          appointment={selectedAppointment}
+          toggleModal={toggleModal}
+        />
       </Modal>
     </Ui.BasicLayout>
   );

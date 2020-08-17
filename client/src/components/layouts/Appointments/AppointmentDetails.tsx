@@ -10,7 +10,7 @@ const appointmentSchema = yup.object().shape({
   schedule_date: yup.date().required("obavezno polje"),
 });
 
-export const AppointmentDetails = ({ appointment }) => {
+export const AppointmentDetails = ({ appointment, toggleModal }) => {
   const { data, error, loading } = useQuery(QUERYALL);
   const [userId, setUserId] = useState<number>();
 
@@ -55,6 +55,7 @@ export const AppointmentDetails = ({ appointment }) => {
         }}
         onSubmit={(val) => {
           setValues(val);
+          toggleModal();
         }}
       >
         <Ui.Form>

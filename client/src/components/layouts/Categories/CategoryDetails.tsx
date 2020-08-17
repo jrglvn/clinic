@@ -12,7 +12,10 @@ const validationSchema = yup.object().shape({
   name: yup.string().required("naziv je obvezno polje"),
 });
 
-export const CategoryDetails = (props: { category?: Category }) => {
+export const CategoryDetails = (props: {
+  category?: Category;
+  toggleModal: any;
+}) => {
   const [temp, setTemp] = useState({});
   const [updateCategory, { loading: updateLoading }] = useMutation(
     UPDATECATEGORY
@@ -43,6 +46,7 @@ export const CategoryDetails = (props: { category?: Category }) => {
               variables: { input: { ...values } },
             });
           }
+          props.toggleModal();
           setTemp(values);
         }}
       >

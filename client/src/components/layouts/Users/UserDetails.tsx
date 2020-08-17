@@ -27,6 +27,7 @@ const schemaWithPassword = yup.object().shape({});
 export const UserDetails = (props: {
   user?: User;
   categories?: Array<Category>;
+  toggleModal: any;
 }) => {
   const [temp, setTemp] = useState({});
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATEUSER);
@@ -65,6 +66,7 @@ export const UserDetails = (props: {
               variables: { input: { ...values } },
             });
           }
+          props.toggleModal();
           setTemp({ values, categories });
         }}
       >

@@ -61,7 +61,10 @@ export const Categories = (props) => {
         </Ui.CategoriesGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
-        <CategoryDetails category={selectedCategory} />
+        <CategoryDetails
+          category={selectedCategory}
+          toggleModal={toggleModal}
+        />
       </Modal>
     </Ui.BasicLayout>
   );

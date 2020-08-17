@@ -58,7 +58,7 @@ export const Clients = (props) => {
         </Ui.ClientsGrid>
       ))}
       <Modal showModal={showModal} toggleModal={toggleModal}>
-        <ClientDetails client={selectedClient} />
+        <ClientDetails client={selectedClient} toggleModal={toggleModal} />
       </Modal>
     </Ui.BasicLayout>
   );

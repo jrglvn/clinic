@@ -63,6 +63,12 @@ export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
   const modalRef = useRef<any>();
   useClickOutside(modalRef, toggleModal);
 
+  useEffect(() => {
+    const onKeyPress = (e) => e.keyCode == 27 && toggleModal();
+    document.addEventListener("keydown", onKeyPress);
+    return document.removeEventListener("keydown", onKeyPress);
+  }, []);
+
   // useEffect(() => {
   //   if (isShowing) {
   //     const temp = document.body.style.overflow;

@@ -16,7 +16,7 @@ const validationSchema = yup.object().shape({
   phone_number: yup.string().nullable(),
 });
 
-export const ClientDetails = (props: { client?: Client }) => {
+export const ClientDetails = (props: { client?: Client; toggleModal: any }) => {
   const [temp, setTemp] = useState({});
   const [updateClient, { loading: updateLoading }] = useMutation(UPDATECLIENT);
   const [createClient, { loading: createLoading }] = useMutation(CREATECLIENT, {
@@ -46,6 +46,7 @@ export const ClientDetails = (props: { client?: Client }) => {
               variables: { input: { ...values } },
             });
           }
+          props.toggleModal();
           setTemp(values);
         }}
       >
