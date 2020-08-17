@@ -9,7 +9,7 @@ import { FaTrash, FaPlus } from "react-icons/fa";
 
 export const Categories = (props) => {
   const { data, error: queryError, loading } = useQuery(QUERYCATEGORIES);
-  const { showModal, toggleModal } = useModal();
+  const { showModal, closeModal } = useModal();
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
   >();
@@ -31,7 +31,7 @@ export const Categories = (props) => {
         <Ui.NewItem
           onClick={() => {
             setSelectedCategory(undefined);
-            toggleModal();
+            closeModal();
           }}
         >
           <FaPlus />
@@ -43,7 +43,7 @@ export const Categories = (props) => {
           key={category.id}
           onClick={() => {
             setSelectedCategory(category);
-            toggleModal();
+            closeModal();
           }}
           onMouseEnter={() => setHoverItem(category.id)}
           onMouseLeave={() => setHoverItem(null)}
@@ -60,11 +60,8 @@ export const Categories = (props) => {
           </Ui.DeleteContainer>
         </Ui.CategoriesGrid>
       ))}
-      <Modal showModal={showModal} toggleModal={toggleModal}>
-        <CategoryDetails
-          category={selectedCategory}
-          toggleModal={toggleModal}
-        />
+      <Modal showModal={showModal} closeModal={closeModal}>
+        <CategoryDetails category={selectedCategory} closeModal={closeModal} />
       </Modal>
     </Ui.BasicLayout>
   );

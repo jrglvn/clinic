@@ -3,14 +3,14 @@ import { Formik, Field, Form } from "formik";
 import { useQuery } from "@apollo/client";
 import { QUERYALL } from "./gql";
 import * as Ui from "../../common/styles";
-import { MyDatePickerField, MySelectField, MySelect } from "../../../sdk";
+import { MyDatePickerField, MySelect } from "../../../sdk";
 import * as yup from "yup";
 
 const appointmentSchema = yup.object().shape({
   schedule_date: yup.date().required("obavezno polje"),
 });
 
-export const AppointmentDetails = ({ appointment, toggleModal }) => {
+export const AppointmentDetails = ({ appointment, closeModal }) => {
   const { data, error, loading } = useQuery(QUERYALL);
   const [userId, setUserId] = useState<number>();
 
@@ -53,16 +53,21 @@ export const AppointmentDetails = ({ appointment, toggleModal }) => {
           schedule_date:
             appointment?.schedule_date || new Date().toLocaleString(),
         }}
-        onSubmit={(val) => {
-          setValues(val);
-          toggleModal();
+        onSubmit={(values) => {
+          setValues(values);
+          closeModal();
         }}
       >
         <Ui.Form>
           <label htmlFor="schedule_date">vrijeme termina</label>
           <Field name="schedule_date" as={MyDatePickerField} />
 
-          <MySelect options={clientsData} name="clients" label="pacijent" />
+          <MySelect
+            options={clientsData}
+            name="clients"
+            label="pacijent"
+            autoFocus
+          />
           <MySelect
             options={usersData}
             name="users"

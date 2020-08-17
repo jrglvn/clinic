@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Formik } from "formik";
 import * as Ui from "../../common/styles";
-import { MyInputField, MySelectField, MyCheckboxField } from "../../../sdk";
+import { MyInputField, MySelect, MyCheckboxField } from "../../../sdk";
 import { User, Category } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATEUSER, CREATEUSER, QUERYUSERS } from "./gql";
@@ -27,7 +27,7 @@ const schemaWithPassword = yup.object().shape({});
 export const UserDetails = (props: {
   user?: User;
   categories?: Array<Category>;
-  toggleModal: any;
+  closeModal: any;
 }) => {
   const [temp, setTemp] = useState({});
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATEUSER);
@@ -66,12 +66,12 @@ export const UserDetails = (props: {
               variables: { input: { ...values } },
             });
           }
-          props.toggleModal();
           setTemp({ values, categories });
+          props.closeModal();
         }}
       >
         <Ui.Form>
-          <MyInputField name="first_name" label="ime" />
+          <MyInputField name="first_name" label="ime" autoFocus />
           <MyInputField name="last_name" label="prezime" />
           <MyInputField name="email" label="e-mail" />
           <MyInputField name="address" label="adresa" />
@@ -86,7 +86,7 @@ export const UserDetails = (props: {
               type="password"
             />
           )}
-          <MySelectField
+          <MySelect
             name="role"
             label="razina ovlaštenja"
             options={[

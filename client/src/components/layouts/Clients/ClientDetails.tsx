@@ -16,7 +16,7 @@ const validationSchema = yup.object().shape({
   phone_number: yup.string().nullable(),
 });
 
-export const ClientDetails = (props: { client?: Client; toggleModal: any }) => {
+export const ClientDetails = (props: { client?: Client; closeModal: any }) => {
   const [temp, setTemp] = useState({});
   const [updateClient, { loading: updateLoading }] = useMutation(UPDATECLIENT);
   const [createClient, { loading: createLoading }] = useMutation(CREATECLIENT, {
@@ -46,12 +46,12 @@ export const ClientDetails = (props: { client?: Client; toggleModal: any }) => {
               variables: { input: { ...values } },
             });
           }
-          props.toggleModal();
           setTemp(values);
+          props.closeModal();
         }}
       >
         <Ui.Form>
-          <MyInputField name="first_name" label="ime" />
+          <MyInputField name="first_name" label="ime" autoFocus />
           <MyInputField name="last_name" label="prezime" />
           <MyInputField name="address" label="adresa" />
           <MyInputField name="email" label="e-mail" />

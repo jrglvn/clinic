@@ -9,7 +9,7 @@ import { FaUserPlus, FaUserMinus } from "react-icons/fa";
 
 export const Clients = (props) => {
   const { data, error: queryError, loading } = useQuery(QUERYCLIENTS);
-  const { showModal, toggleModal } = useModal();
+  const { showModal, closeModal } = useModal();
   const [selectedClient, setSelectedClient] = useState<Client | undefined>();
   const [hoverItem, setHoverItem] = useState<number | null>(null);
   const [deleteClient, { error: mutationError }] = useMutation(DELETECLIENT, {
@@ -26,7 +26,7 @@ export const Clients = (props) => {
         <Ui.NewItem
           onClick={() => {
             setSelectedClient(undefined);
-            toggleModal();
+            closeModal();
           }}
         >
           <FaUserPlus />
@@ -37,7 +37,7 @@ export const Clients = (props) => {
           key={client.id}
           onClick={() => {
             setSelectedClient(client);
-            toggleModal();
+            closeModal();
           }}
           onMouseEnter={() => setHoverItem(client.id)}
           onMouseLeave={() => setHoverItem(null)}
@@ -57,8 +57,8 @@ export const Clients = (props) => {
           </Ui.DeleteContainer>
         </Ui.ClientsGrid>
       ))}
-      <Modal showModal={showModal} toggleModal={toggleModal}>
-        <ClientDetails client={selectedClient} toggleModal={toggleModal} />
+      <Modal showModal={showModal} closeModal={closeModal}>
+        <ClientDetails client={selectedClient} closeModal={closeModal} />
       </Modal>
     </Ui.BasicLayout>
   );

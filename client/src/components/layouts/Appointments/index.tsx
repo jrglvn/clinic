@@ -10,7 +10,7 @@ import { FaCalendarPlus } from "react-icons/fa";
 export const Appointments = (props) => {
   const { data, error, loading } = useQuery(QUERYAPPOINTMENTS);
   const [selectedAppointment, setSelectedAppointment] = useState<any>({});
-  const { showModal, toggleModal } = useModal();
+  const { showModal, closeModal } = useModal();
 
   return (
     <Ui.BasicLayout>
@@ -19,7 +19,7 @@ export const Appointments = (props) => {
         <Ui.NewItem
           onClick={() => {
             setSelectedAppointment(undefined);
-            toggleModal();
+            closeModal();
           }}
         >
           <FaCalendarPlus />
@@ -30,7 +30,7 @@ export const Appointments = (props) => {
           key={appointment.id}
           onClick={() => {
             setSelectedAppointment(appointment);
-            toggleModal();
+            closeModal();
           }}
         >
           <div>{parseServerDate(appointment.scheduled_for)}</div>
@@ -42,10 +42,10 @@ export const Appointments = (props) => {
           <div>{parseServerDate(appointment.created_at)}</div>
         </Ui.AppointmentsGrid>
       ))}
-      <Modal showModal={showModal} toggleModal={toggleModal}>
+      <Modal showModal={showModal} closeModal={closeModal}>
         <AppointmentDetails
           appointment={selectedAppointment}
-          toggleModal={toggleModal}
+          closeModal={closeModal}
         />
       </Modal>
     </Ui.BasicLayout>

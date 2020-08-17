@@ -43,48 +43,40 @@ export const useClickOutside = (ref, onClickOutside, refExtra?) => {
 export const useModal = () => {
   const [showModal, setShowModal] = useState(false);
 
-  function toggleModal() {
+  function closeModal() {
     setShowModal(!showModal);
   }
 
   return {
     showModal,
-    toggleModal,
+    closeModal,
   };
 };
 
 interface IModalProps {
   showModal: boolean;
-  toggleModal: () => any;
+  closeModal: () => any;
   children?: React.ReactNode;
 }
 
-export const Modal = ({ showModal, toggleModal, children }: IModalProps) => {
+export const Modal = ({ showModal, closeModal, children }: IModalProps) => {
   const modalRef = useRef<any>();
-  useClickOutside(modalRef, toggleModal);
+  useClickOutside(modalRef, closeModal);
 
   useEffect(() => {
-    const onKeyPress = (e) => e.keyCode == 27 && toggleModal();
-    document.addEventListener("keydown", onKeyPress);
-    return document.removeEventListener("keydown", onKeyPress);
-  }, []);
-
-  // useEffect(() => {
-  //   if (isShowing) {
-  //     const temp = document.body.style.overflow;
-  //     document.body.style.overflow = "hidden";
-  //     return function cleanup() {
-  //       document.body.style.overflow = temp;
-  //     };
-  //   }
-  // }, [isShowing]);
+    modalRef?.current?.focus();
+  }, [modalRef]);
 
   return showModal
     ? createPortal(
         <Ui.Modal>
-          <Ui.ModalContainer ref={modalRef as any}>
+          <Ui.ModalContainer
+            ref={modalRef as any}
+            tabIndex={-1}
+            onKeyDown={(e) => e.key === "Escape" && closeModal()}
+          >
             <Ui.ModalHeader>
-              <FaWindowClose size={"1.5rem"} onClick={() => toggleModal()} />
+              <FaWindowClose size={"1.5rem"} onClick={() => closeModal()} />
             </Ui.ModalHeader>
             <Ui.ModalContent>{children}</Ui.ModalContent>
           </Ui.ModalContainer>
@@ -115,42 +107,38 @@ export const MyDatePickerField = (props) => {
   );
 };
 
-export const MySelectField = (props: {
-  name: string;
-  label?: string;
-  options: Array<{ value: string; label: string }>;
-  onChange?: (any) => any;
-}) => {
-  const { setFieldValue } = useFormikContext();
-  const [field, { touched, error }] = useField(props as any);
+// export const MySelectField = (props: {
+//   name: string;
+//   label?: string;
+//   options: Array<{ value: string; label: string }>;
+//   onChange?: (any) => any;
+// }) => {
+//   const { setFieldValue } = useFormikContext();
+//   const [field, { touched, error }] = useField(props as any);
 
-  return (
-    <>
-      <label htmlFor={field.name}>{props.label || props.name}</label>
-      <Field
-        name={props.name}
-        as="select"
-        onChange={(e) => {
-          props.onChange && props.onChange(e.target.value);
-          setFieldValue(props.name, e.target.value);
-        }}
-      >
-        {props.options?.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </Field>
-      {touched && error && <div>{error}</div>}
-    </>
-  );
-};
+//   return (
+//     <>
+//       <label htmlFor={field.name}>{props.label || props.name}</label>
+//       <Field
+//         name={props.name}
+//         as="select"
+//         onChange={(e) => {
+//           props.onChange && props.onChange(e.target.value);
+//           setFieldValue(props.name, e.target.value);
+//         }}
+//       >
+//         {props.options?.map((o) => (
+//           <option key={o.value} value={o.value}>
+//             {o.label}
+//           </option>
+//         ))}
+//       </Field>
+//       {touched && error && <div>{error}</div>}
+//     </>
+//   );
+// };
 
-export const MyInputField = (props: {
-  name: string;
-  label: string;
-  type?: string;
-}) => {
+export const MyInputField = (props: { name: string; label: string } & any) => {
   const [field, meta] = useField(props as any);
   return (
     <>
@@ -159,7 +147,7 @@ export const MyInputField = (props: {
         {...field}
         {...props}
         value={field.value || ""}
-        autoComplete="none"
+        autoComplete="off"
       />
       {meta.touched && meta.error ? (
         <div className="error" style={{ color: "red", fontSize: ".75rem" }}>
@@ -187,18 +175,22 @@ export const MyCheckboxField = (props: {
   );
 };
 
-export const MySelect = (props: {
-  name: string;
-  label?: string;
-  options: Array<{ value: string; label: string }>;
-  onChange?: (any) => any;
-}) => {
+export const MySelect = (
+  props: {
+    name: string;
+    label?: string;
+    options: Array<{ value: string; label: string }>;
+    onChange?: (any) => any;
+  } & any
+) => {
   const { setFieldValue } = useFormikContext();
+  const [{ value }] = useField(props);
 
   return (
     <>
       <label htmlFor={props.name}>{props.label || props.name}</label>
       <Select
+        value={props.options?.filter((option) => option.value === value)}
         {...props}
         id={props.name}
         onChange={(e: any) => {

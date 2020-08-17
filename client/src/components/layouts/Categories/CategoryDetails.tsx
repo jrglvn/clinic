@@ -14,7 +14,7 @@ const validationSchema = yup.object().shape({
 
 export const CategoryDetails = (props: {
   category?: Category;
-  toggleModal: any;
+  closeModal: any;
 }) => {
   const [temp, setTemp] = useState({});
   const [updateCategory, { loading: updateLoading }] = useMutation(
@@ -46,12 +46,12 @@ export const CategoryDetails = (props: {
               variables: { input: { ...values } },
             });
           }
-          props.toggleModal();
           setTemp(values);
+          props.closeModal();
         }}
       >
         <Ui.Form>
-          <MyInputField name="name" label="naziv kategorije" />
+          <MyInputField name="name" label="naziv kategorije" autoFocus />
 
           <button type="submit" disabled={createLoading || updateLoading}>
             {createLoading || updateLoading ? "Izmjene se spremaju" : "Sačuvaj"}

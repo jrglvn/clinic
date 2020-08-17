@@ -226,6 +226,7 @@ export const ModalContainer = styled.div`
   max-height: 90vh;
   overflow-y: auto;
   background: white;
+  outline: none;
 `;
 
 export const ModalHeader = styled.div`

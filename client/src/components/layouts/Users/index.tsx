@@ -15,7 +15,7 @@ export const Users = (props) => {
     error: errorCategories,
     loading: loadingCategories,
   } = useQuery(QUERYCATEGORIES);
-  const { showModal, toggleModal } = useModal();
+  const { showModal, closeModal } = useModal();
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const [hoverItem, setHoverItem] = useState<number | null>(null);
   const [deleteUser, { error: mutationError }] = useMutation(DELETEUSER, {
@@ -32,7 +32,7 @@ export const Users = (props) => {
         <Ui.NewItem
           onClick={() => {
             setSelectedUser(undefined);
-            toggleModal();
+            closeModal();
           }}
         >
           <FaUserPlus />
@@ -43,7 +43,7 @@ export const Users = (props) => {
           key={user.id}
           onClick={() => {
             setSelectedUser(user);
-            toggleModal();
+            closeModal();
           }}
           onMouseEnter={() => setHoverItem(user.id)}
           onMouseLeave={() => setHoverItem(null)}
@@ -63,11 +63,11 @@ export const Users = (props) => {
           </Ui.DeleteContainer>
         </Ui.UsersGrid>
       ))}
-      <Modal showModal={showModal} toggleModal={toggleModal}>
+      <Modal showModal={showModal} closeModal={closeModal}>
         <UserDetails
           user={selectedUser}
           categories={dataCategories?.categories}
-          toggleModal={toggleModal}
+          closeModal={closeModal}
         />
       </Modal>
     </Ui.BasicLayout>
