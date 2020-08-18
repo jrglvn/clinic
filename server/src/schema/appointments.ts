@@ -21,11 +21,11 @@ export const appointmentsTypeDefs = gql`
   }
 
   input AppointmentInput {
-    users_id: ID
-    clients_id: ID
-    categories_id: ID
+    users_id: ID!
+    clients_id: ID!
+    categories_id: ID!
     created_at: String
-    scheduled_for: String
+    scheduled_for: String!
     result: String
     previous_appointment_id: ID
   }

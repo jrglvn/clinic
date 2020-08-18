@@ -33,11 +33,11 @@ export type Appointment = {
 };
 
 export type AppointmentInput = {
-  users_id?: Maybe<Scalars["ID"]>;
-  clients_id?: Maybe<Scalars["ID"]>;
-  categories_id?: Maybe<Scalars["ID"]>;
+  users_id: Scalars["ID"];
+  clients_id: Scalars["ID"];
+  categories_id: Scalars["ID"];
   created_at?: Maybe<Scalars["String"]>;
-  scheduled_for?: Maybe<Scalars["String"]>;
+  scheduled_for: Scalars["String"];
   result?: Maybe<Scalars["String"]>;
   previous_appointment_id?: Maybe<Scalars["ID"]>;
 };

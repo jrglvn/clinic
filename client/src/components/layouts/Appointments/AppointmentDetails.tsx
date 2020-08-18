@@ -1,17 +1,38 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Formik, Field, Form } from "formik";
-import { useQuery } from "@apollo/client";
-import { QUERYALL } from "./gql";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  QUERYALL,
+  CREATEAPPOINTMENT,
+  QUERYAPPOINTMENTS,
+  UPDATEAPPOINTMENT,
+} from "./gql";
 import * as Ui from "../../common/styles";
 import { MyDatePickerField, MySelect, parseServerDate } from "../../../sdk";
 import * as yup from "yup";
+import { AppointmentInput, Appointment } from "../common/types";
 
 const appointmentSchema = yup.object().shape({
   scheduled_for: yup.date().required("obavezno polje"),
 });
 
-export const AppointmentDetails = ({ appointment, closeModal }) => {
+export const AppointmentDetails: React.FC<{
+  appointment: Appointment;
+  closeModal: () => any;
+}> = ({ appointment, closeModal }) => {
   const { data, error, loading } = useQuery(QUERYALL);
+  const [updateAppointment, { loading: updateLoading }] = useMutation<
+    Appointment,
+    { id: String; input: AppointmentInput }
+  >(UPDATEAPPOINTMENT);
+  const [createAppointment, { loading: createLoading }] = useMutation<
+    Appointment,
+    { input: AppointmentInput }
+  >(CREATEAPPOINTMENT, {
+    refetchQueries: [{ query: QUERYAPPOINTMENTS }],
+    awaitRefetchQueries: true,
+  });
+
   const [userId, setUserId] = useState<number>();
 
   const [temp, setTemp] = useState({});
@@ -47,15 +68,40 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
       <Formik
         validationSchema={appointmentSchema}
         initialValues={{
-          users: appointment?.user.id,
-          clients: appointment?.client.id,
-          categories: appointment?.category.id,
-          scheduled_for: new Date(parseInt(appointment?.scheduled_for)),
-          created_at: new Date(parseInt(appointment?.created_at)),
+          users_id: appointment?.user?.id,
+          clients_id: appointment?.client?.id,
+          categories_id: appointment?.category?.id,
+          scheduled_for: appointment?.scheduled_for
+            ? new Date(parseInt(appointment?.scheduled_for))
+            : new Date(),
+          created_at: appointment?.created_at
+            ? new Date(parseInt(appointment?.created_at))
+            : new Date(),
         }}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           setTemp(values);
-          //closeModal();
+          if (appointment) {
+            const { created_at, ...rest } = values;
+            updateAppointment({
+              variables: {
+                id: appointment?.id,
+                input: {
+                  ...rest,
+                  scheduled_for: values.scheduled_for.toISOString(),
+                } as AppointmentInput,
+              },
+            });
+          } else {
+            createAppointment({
+              variables: {
+                input: {
+                  ...values,
+                  created_at: new Date().toISOString(),
+                  scheduled_for: values.scheduled_for.toISOString(),
+                } as AppointmentInput,
+              },
+            });
+          }
         }}
       >
         <Ui.Form>
@@ -63,19 +109,19 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
 
           <MySelect
             options={clientsData}
-            name="clients"
+            name="clients_id"
             label="pacijent"
             autoFocus
           />
           <MySelect
             options={usersData}
-            name="users"
+            name="users_id"
             label="doktor"
             onChange={(val) => setUserId(val)}
           />
           <MySelect
             options={userCategoriesData}
-            name="categories"
+            name="categories_id"
             label="kategorija"
           />
           {appointment && (
@@ -89,7 +135,16 @@ export const AppointmentDetails = ({ appointment, closeModal }) => {
           <button type="submit">Sačuvaj</button>
         </Ui.Form>
       </Formik>
-      <pre>{JSON.stringify(temp, null, 2)}</pre>
+      <pre>
+        {JSON.stringify(
+          {
+            ...temp,
+            created_at_iso: new Date().toISOString(),
+          },
+          null,
+          2
+        )}
+      </pre>
     </Ui.FlexColumn>
   );
 };

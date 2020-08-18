@@ -90,19 +90,28 @@ export const MyDatePickerField = (props) => {
   const { setFieldValue } = useFormikContext();
   const [field, { touched, error }] = useField(props as any);
 
+  console.log(
+    "sdk/mdp, new Date(field.value): ",
+    field.value && new Date(field.value),
+    " field.value: ",
+    field.value
+  );
+
   return (
     <>
       <label htmlFor={props.name}>{props.label || props.name}</label>
       <DatePicker
         {...field}
         {...props}
-        selected={(field.value && new Date(field.value)) || null}
+        selected={(field.value && new Date(field.value)) || new Date()}
         onChange={(val) => {
           console.log("date picker, onchange: ", val);
           setFieldValue(field.name, val);
         }}
         showTimeSelect
+        timeIntervals={5}
         dateFormat="dd.MM.y HH:mm"
+        timeFormat="HH:mm"
         autoComlete="new-password"
       />
       {error && touched && <div>{error}</div>}
