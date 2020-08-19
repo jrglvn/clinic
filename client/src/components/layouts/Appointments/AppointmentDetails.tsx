@@ -139,7 +139,6 @@ export const AppointmentDetails: React.FC<{
         {JSON.stringify(
           {
             ...temp,
-            created_at_iso: new Date().toISOString(),
           },
           null,
           2

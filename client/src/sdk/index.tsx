@@ -9,7 +9,7 @@ import { FaWindowClose } from "react-icons/fa";
 import Select from "react-select";
 
 export const parseServerDate = (date: string): string => {
-  return moment(date, "x").format("DD.MM.YYYY hh:mm");
+  return moment(date, "x").format("DD.MM.YYYY HH:mm");
 };
 
 export const useClickOutside = (ref, onClickOutside, refExtra?) => {
