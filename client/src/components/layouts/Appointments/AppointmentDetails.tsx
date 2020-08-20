@@ -13,7 +13,10 @@ import * as yup from "yup";
 import { AppointmentInput, Appointment } from "../common/types";
 
 const appointmentSchema = yup.object().shape({
-  scheduled_for: yup.date().required("obavezno polje"),
+  scheduled_for: yup.date().required("obvezno polje"),
+  users_id: yup.string().required("obvezno polje"),
+  clients_id: yup.string().required("obvezno polje"),
+  categories_id: yup.string().required("obvezno polje"),
 });
 
 export const AppointmentDetails: React.FC<{
@@ -132,7 +135,9 @@ export const AppointmentDetails: React.FC<{
             />
           )}
 
-          <button type="submit">Sačuvaj</button>
+          <Ui.Button type="submit" buttonStyle={appointment ? "change" : "new"}>
+            {appointment ? "spremi promjenu" : "spremi termin"}
+          </Ui.Button>
         </Ui.Form>
       </Formik>
       <pre>

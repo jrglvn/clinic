@@ -251,9 +251,10 @@ export const Form = styled(FormikForm)`
   width: 100%;
   padding: 1rem;
   & label:not(:first-child),
-  button {
+  & button {
     margin-top: 1rem;
   }
+
   & input {
     width: 100%;
   }
@@ -308,4 +309,17 @@ export const CategoriesGrid = styled.div`
     padding: 0.5rem;
   }
   transition: 0.1s;
+`;
+
+export const Button = styled.button<{ buttonStyle: "new" | "change" }>`
+  background: ${(props) =>
+    props.buttonStyle === "new" && props.theme.colors.bs_new};
+  background: ${(props) =>
+    props.buttonStyle === "change" && props.theme.colors.bs_warning};
+  color: ${(props) => props.buttonStyle === "change" && "black"};
+`;
+
+export const Error = styled.div`
+  color: ${(props) => props.theme.colors.bs_danger};
+  font-style: italic;
 `;

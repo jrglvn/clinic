@@ -114,7 +114,7 @@ export const MyDatePickerField = (props) => {
         timeFormat="HH:mm"
         autoComlete="new-password"
       />
-      {error && touched && <div>{error}</div>}
+      {error && touched && <Ui.Error>{error}</Ui.Error>}
     </>
   );
 };
@@ -196,7 +196,7 @@ export const MySelect = (
   } & any
 ) => {
   const { setFieldValue } = useFormikContext();
-  const [{ value }] = useField(props);
+  const [{ value }, { error, touched }] = useField(props);
 
   return (
     <>
@@ -210,6 +210,7 @@ export const MySelect = (
           setFieldValue(props.name, e.value);
         }}
       />
+      {error && touched && <Ui.Error>{error}</Ui.Error>}
     </>
   );
 };

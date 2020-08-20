@@ -12,25 +12,25 @@ export const LeftSidebar = (props) => {
         is-active={location.pathname === "/appointments" ? "true" : "false"}
         onClick={() => navigate("/appointments")}
       >
-        Termini
+        svi termini
       </div>
       <div
         is-active={location.pathname === "/users" ? "true" : "false"}
         onClick={() => navigate("/users")}
       >
-        Korisnici
+        doktori
       </div>
       <div
         is-active={location.pathname === "/clients" ? "true" : "false"}
         onClick={() => navigate("/clients")}
       >
-        Klijenti
+        pacijenti
       </div>
       <div
         is-active={location.pathname === "/categories" ? "true" : "false"}
         onClick={() => navigate("/categories")}
       >
-        Kategorije
+        kategorije
       </div>
     </Ui.LeftSidebarContainer>
   );

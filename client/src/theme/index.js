@@ -46,6 +46,7 @@ export const GlobalStyle = createGlobalStyle`
   textarea, input, select {   
     outline: none; 
     padding:.5rem;
+  border: light solid black;
   }
 
 label {
@@ -61,7 +62,7 @@ transform:scale(1.05);
 transition:.2;
 
 input:focus, select:focus{
-  outline: medium solid #df4759;
+  outline: medium solid rgba(240,173,78,.5);
 }
 
 `;
