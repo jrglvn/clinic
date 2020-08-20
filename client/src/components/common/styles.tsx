@@ -161,11 +161,11 @@ export const NewItem = styled.div`
   margin: 0.5rem 0;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.bs_primary};
   font-size: 1.25rem;
   cursor: pointer;
   &:hover {
-    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.bs_primary};
   }
   padding: 0.5rem;
   transition: 0.2s;
@@ -222,7 +222,7 @@ export const Modal = styled.div`
 export const ModalContainer = styled.div`
   margin: auto auto;
   width: 400px;
-  box-shadow: 0 0 20px 2px ${(props) => props.theme.colors.primary};
+  box-shadow: 0 0 20px 2px ${(props) => props.theme.colors.bs_primary};
   max-height: 90vh;
   overflow-y: auto;
   background: white;
@@ -234,7 +234,7 @@ export const ModalHeader = styled.div`
   justify-content: flex-end;
   padding: 0.5rem;
   background: #eee;
-  color: ${(props) => props.theme.colors.danger};
+  color: ${(props) => props.theme.colors.bs_danger};
   & > svg {
     cursor: pointer;
   }
@@ -266,7 +266,7 @@ export const Field = styled(FormikField)`
 export const DeleteContainer = styled(Flex)<{ showDeleteIcon: boolean }>`
   transform: ${(props) => (props.showDeleteIcon ? "scale(1)" : "scale(0)")};
   transition: 0.1s;
-  color: ${(props) => props.theme.colors.danger};
+  color: ${(props) => props.theme.colors.bs_danger};
   margin: 0;
   font-size: 1.25rem;
   transition: 0.2s;
@@ -302,7 +302,7 @@ export const CategoriesGrid = styled.div`
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.color5};
+    box-shadow: 0 0 8px 0 ${(props) => props.theme.colors.bs_inverse};
   }
   & > div {
     padding: 0.5rem;

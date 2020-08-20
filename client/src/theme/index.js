@@ -4,9 +4,12 @@ import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   colors: {
-    primary: "#3f72af", //blueish
-    danger: "#df4759", //bootstrap danger red
-    new: "#5cb85c", //bootstrap green
+    bs_primary: "#0275d8", //blueish
+    bs_danger: "#df4759", //bootstrap danger red
+    bs_new: "#5cb85c", //bootstrap green
+    bs_warning: "#f0ad4e", // orange
+    bs_info: "#5bc0de",
+    bs_inverse: "#292b2c",
   },
 };
 
@@ -58,7 +61,7 @@ transform:scale(1.05);
 transition:.2;
 
 input:focus, select:focus{
-  box-shadow: 0 0 4px 0 tomato inset;
+  outline: medium solid #df4759;
 }
 
 `;
