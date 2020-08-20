@@ -9,6 +9,12 @@ export const LeftSidebar = (props) => {
   return (
     <Ui.LeftSidebarContainer>
       <div
+        is-active={location.pathname === "/calendar" ? "true" : "false"}
+        onClick={() => navigate("/calendar")}
+      >
+        kalendar termina
+      </div>
+      <div
         is-active={location.pathname === "/appointments" ? "true" : "false"}
         onClick={() => navigate("/appointments")}
       >

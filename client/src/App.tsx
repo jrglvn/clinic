@@ -9,6 +9,7 @@ import {
   Users,
   Appointments,
   Categories,
+  Calendar,
 } from "./components/layouts";
 import { MainComponent } from "./components/common/MainComponent";
 
@@ -30,6 +31,7 @@ export const App = (props) => {
             <Clients path="/clients" />
             <Appointments path="/appointments" />
             <Categories path="/categories" />
+            <Calendar path="/calendar" />
           </MainComponent>
         </Router>
       </ThemeProvider>
