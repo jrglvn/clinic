@@ -109,7 +109,7 @@ export const MyDatePickerField = (props) => {
           setFieldValue(field.name, val);
         }}
         showTimeSelect
-        timeIntervals={5}
+        timeIntervals={15}
         dateFormat="dd.MM.y HH:mm"
         timeFormat="HH:mm"
         autoComlete="new-password"

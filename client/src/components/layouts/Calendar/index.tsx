@@ -9,9 +9,9 @@ export const Calendar = (props) => {
   const { showModal, closeModal } = useModal();
 
   return (
-    <Ui.BasicLayout>
+    <>
       <Modal showModal={showModal} closeModal={closeModal}></Modal>
-    </Ui.BasicLayout>
+    </>
   );
 };
 

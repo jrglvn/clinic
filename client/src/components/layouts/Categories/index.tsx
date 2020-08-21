@@ -25,7 +25,7 @@ export const Categories = (props) => {
   if (queryError) return <div>apollo error</div>;
 
   return (
-    <Ui.BasicLayout>
+    <>
       {loading && <div>loading clients...</div>}
       {!loading && (
         <Ui.NewItem
@@ -63,6 +63,6 @@ export const Categories = (props) => {
       <Modal showModal={showModal} closeModal={closeModal}>
         <CategoryDetails category={selectedCategory} closeModal={closeModal} />
       </Modal>
-    </Ui.BasicLayout>
+    </>
   );
 };

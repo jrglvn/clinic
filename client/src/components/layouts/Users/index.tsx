@@ -26,7 +26,7 @@ export const Users = (props) => {
   if (mutationError || queryError) return <div>apollo error</div>;
 
   return (
-    <Ui.BasicLayout>
+    <>
       {loading && <div>loading users...</div>}
       {!loading && (
         <Ui.NewItem
@@ -70,6 +70,6 @@ export const Users = (props) => {
           closeModal={closeModal}
         />
       </Modal>
-    </Ui.BasicLayout>
+    </>
   );
 };

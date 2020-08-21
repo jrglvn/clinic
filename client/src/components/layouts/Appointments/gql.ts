@@ -115,3 +115,11 @@ export const UPDATEAPPOINTMENT = gql`
     }
   }
 `;
+
+export const DELETEAPPOINTMENT = gql`
+  mutation DELETEAPPOINTMENT($id: ID!) {
+    appointments {
+      deleteAppointment(id: $id)
+    }
+  }
+`;

@@ -64,10 +64,10 @@ export const StyledArrow = styled(RightArrow)<{
 export const MainContainer = styled.div`
   margin: 0 auto;
   display: grid;
-  width: 70vw;
+  width: 75vw;
   height: 100vh;
-  grid-template-columns: 160px auto 160px;
-  grid-template-rows: 80px auto 40px;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-rows: auto 1fr auto;
   grid-gap: 2px;
   background-color: white;
 `;
@@ -138,7 +138,7 @@ export const Header = styled(FlexColumn)`
 
 export const UsersGrid = styled.div`
   display: grid;
-  width: 80%;
+
   margin: 0.5rem 0;
   grid-template-columns: repeat(4, 1fr) 40px;
   box-shadow: 0 0 4px 0 gray;
@@ -157,7 +157,7 @@ export const NewItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+
   margin: 0.5rem 0;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
@@ -173,7 +173,7 @@ export const NewItem = styled.div`
 
 export const ClientsGrid = styled.div`
   display: grid;
-  width: 80%;
+
   margin: 0.5rem 0;
   grid-template-columns: 1fr 1.5fr 1.5fr 1fr 40px;
   box-shadow: 0 0 4px 0 gray;
@@ -190,10 +190,8 @@ export const ClientsGrid = styled.div`
 
 export const AppointmentsGrid = styled.div`
   display: grid;
-  width: 80%;
   margin: 0.5rem 0;
-
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr) 40px;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
   cursor: pointer;
@@ -289,14 +287,17 @@ export const MyCheckboxField = styled(FlexColumn)`
 
 export const BasicLayout = styled(FlexColumn)`
   justify-content: start;
-  overflow-y: auto;
   padding: 0 0.5rem;
   padding-top: 4rem;
+  overflow-y: auto;
+  & > div {
+    width: 80%;
+  }
 `;
 
 export const CategoriesGrid = styled.div`
   display: grid;
-  width: 80%;
+
   margin: 0.5rem 0;
   grid-template-columns: 1fr 40px;
   box-shadow: 0 0 4px 0 gray;

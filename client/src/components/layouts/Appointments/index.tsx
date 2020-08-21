@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { parseServerDate } from "../../../sdk";
 import { Modal, useModal } from "../../../sdk";
-import { QUERYAPPOINTMENTS } from "./gql";
+import { QUERYAPPOINTMENTS, DELETEAPPOINTMENT } from "./gql";
 import { AppointmentDetails } from "./AppointmentDetails";
 import * as Ui from "../../common/styles";
-import { FaCalendarPlus } from "react-icons/fa";
+import { FaCalendarPlus, FaCalendarMinus } from "react-icons/fa";
 
 export const Appointments = (props) => {
   const { data, error, loading } = useQuery(QUERYAPPOINTMENTS);
   const [selectedAppointment, setSelectedAppointment] = useState<any>({});
   const { showModal, closeModal } = useModal();
-
-  useEffect(
-    () =>
-      console.log(
-        "index, scheduled_for [0]: ",
-        data?.appointments[0].scheduled_for
-      ),
-    [data]
+  const [hoverItem, setHoverItem] = useState<number | null>(null);
+  const [deleteAppointment, { error: mutationError }] = useMutation(
+    DELETEAPPOINTMENT,
+    {
+      refetchQueries: [{ query: QUERYAPPOINTMENTS }],
+      awaitRefetchQueries: true,
+    }
   );
 
   return (
-    <Ui.BasicLayout>
+    <>
       {loading && <div>učitavanje dogovorenih termina...</div>}
       {!loading && (
         <Ui.NewItem
@@ -41,6 +40,8 @@ export const Appointments = (props) => {
             setSelectedAppointment(appointment);
             closeModal();
           }}
+          onMouseEnter={() => setHoverItem(appointment.id)}
+          onMouseLeave={() => setHoverItem(null)}
         >
           <div>{parseServerDate(appointment.scheduled_for)}</div>
           <div>
@@ -49,6 +50,15 @@ export const Appointments = (props) => {
           <div>{`${appointment.user.first_name} ${appointment.user.last_name}`}</div>
           <div>{appointment.category.name}</div>
           <div>{parseServerDate(appointment.created_at)}</div>
+          <Ui.DeleteContainer
+            showDeleteIcon={hoverItem === appointment.id}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteAppointment({ variables: { id: appointment.id } });
+            }}
+          >
+            <FaCalendarMinus />
+          </Ui.DeleteContainer>
         </Ui.AppointmentsGrid>
       ))}
       <Modal showModal={showModal} closeModal={closeModal}>
@@ -57,7 +67,7 @@ export const Appointments = (props) => {
           closeModal={closeModal}
         />
       </Modal>
-    </Ui.BasicLayout>
+    </>
   );
 };
 

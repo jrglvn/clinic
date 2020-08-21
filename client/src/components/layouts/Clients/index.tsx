@@ -20,7 +20,7 @@ export const Clients = (props) => {
   if (mutationError || queryError) return <div>apollo error</div>;
 
   return (
-    <Ui.BasicLayout>
+    <>
       {loading && <div>loading clients...</div>}
       {!loading && (
         <Ui.NewItem
@@ -60,6 +60,6 @@ export const Clients = (props) => {
       <Modal showModal={showModal} closeModal={closeModal}>
         <ClientDetails client={selectedClient} closeModal={closeModal} />
       </Modal>
-    </Ui.BasicLayout>
+    </>
   );
 };

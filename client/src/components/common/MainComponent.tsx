@@ -12,7 +12,7 @@ export const MainComponent = (props) => {
     <Ui.MainContainer>
       <Header />
       <LeftSidebar />
-      {props.children}
+      <Ui.BasicLayout>{props.children}</Ui.BasicLayout>
       <RightSidebar />
       <Footer />
     </Ui.MainContainer>
