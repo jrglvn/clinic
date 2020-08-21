@@ -332,9 +332,10 @@ export const WeekInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   justify-items: stretch;
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 4px;
 
   & > div {
-    border: 1px solid black;
   }
 
   & div {
@@ -344,15 +345,20 @@ export const WeekInfo = styled.div`
 
 export const WeekSelector = styled(Flex)`
   font-size: 1.25rem;
+  box-shadow: 0 0 4px 0 gray;
+  border-radius: 4px;
+
   & > svg {
     cursor: pointer;
     fill: ${(props) => props.theme.colors.bs_primary};
   }
   & > div {
-    width: 30%;
     text-align: center;
   }
   margin: 0.5rem 0;
   padding: 0.5rem;
   user-select: none;
+  & * {
+    margin: 0 0.5rem;
+  }
 `;

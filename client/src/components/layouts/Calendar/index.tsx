@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import {} from "../../../sdk";
 import { Modal, useModal } from "../../../sdk";
 import * as Ui from "../../common/styles";
-import { FaStepForward, FaStepBackward } from "react-icons/fa";
+import { FaStepForward, FaStepBackward, FaUndo } from "react-icons/fa";
 import moment from "moment";
 
 export const Calendar = (props) => {
@@ -20,6 +20,7 @@ export const Calendar = (props) => {
           tjedan {date.week()} / {date.year()} godine
         </div>
         <FaStepForward onClick={() => setDate(date.clone().add(1, "week"))} />
+        <FaUndo onClick={() => setDate(moment())} />
       </Ui.WeekSelector>
       <Ui.WeekInfo>
         <div>
