@@ -287,6 +287,7 @@ export const MyCheckboxField = styled(FlexColumn)`
 
 export const BasicLayout = styled(FlexColumn)`
   justify-content: start;
+  align-items: center;
   padding: 0 0.5rem;
   padding-top: 4rem;
   overflow-y: auto;
