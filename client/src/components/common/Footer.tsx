@@ -10,10 +10,6 @@ export const Footer = (props) => {
         style={{
           fontFamily: "times-new-roman",
           textAlign: "center",
-          borderTop: "1px solid gray",
-          padding: ".25rem",
-          margin: 0,
-          marginTop: ".25rem",
         }}
       >
         footer

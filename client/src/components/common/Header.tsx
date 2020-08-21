@@ -12,7 +12,6 @@ export const Header = (props) => {
         style={{
           fontFamily: "times-new-roman",
           textAlign: "center",
-          borderBottom: "1px solid gray",
         }}
       >
         POLIKLINIKA

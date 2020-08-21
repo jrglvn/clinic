@@ -75,10 +75,12 @@ export const MainContainer = styled.div`
 export const HeaderContainer = styled.div`
   grid-column: 1/-1;
   overflow: hidden;
+  background: #eee;
 `;
 export const FooterContainer = styled.div`
   grid-column: 1/-1;
   overflow: hidden;
+  background: #eee;
 `;
 export const LeftSidebarContainer = styled.div`
   display: flex;
@@ -324,4 +326,33 @@ export const Button = styled.button<{ buttonStyle: "new" | "change" }>`
 export const Error = styled.div`
   color: ${(props) => props.theme.colors.bs_danger};
   font-style: italic;
+`;
+
+export const WeekInfo = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: stretch;
+
+  & > div {
+    border: 1px solid black;
+  }
+
+  & div {
+    text-align: center;
+  }
+`;
+
+export const WeekSelector = styled(Flex)`
+  font-size: 1.25rem;
+  & > svg {
+    cursor: pointer;
+    fill: ${(props) => props.theme.colors.bs_primary};
+  }
+  & > div {
+    width: 30%;
+    text-align: center;
+  }
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  user-select: none;
 `;
