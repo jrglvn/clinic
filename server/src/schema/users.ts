@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { query } from "express";
 import { KnownDirectives } from "graphql/validation/rules/KnownDirectives";
-import { Console } from "console";
 
 export const usersTypeDefs = gql`
   type Query {
@@ -88,10 +87,19 @@ export const usersResolvers = {
   },
   UsersMutation: {
     createUser: async (_, { input }, { knex }) => {
-      const hashedPassword = await bcrypt.hash(input.password, 10);
+      const { assigned_categories, ...userInput } = input;
+
+      const hashedPassword = await bcrypt.hash(userInput.password, 10);
       const queryResults = await knex("users")
         .returning("*")
-        .insert({ ...input, password: hashedPassword });
+        .insert({ ...userInput, password: hashedPassword });
+      assigned_categories?.forEach(async (cat) => {
+        await knex("users_categories").insert({
+          users_id: queryResults[0].id,
+          categories_id: cat,
+        });
+      });
+
       return queryResults[0];
     },
     updateUser: async (_, { id, input }, { knex }) => {
@@ -103,7 +111,6 @@ export const usersResolvers = {
           categories_id: cat,
         });
       });
-      console.log("assigned_categories input: ", assigned_categories);
       const queryResults = await knex("users")
         .returning("*")
         .update({ ...userInput })

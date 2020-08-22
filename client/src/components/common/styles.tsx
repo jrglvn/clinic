@@ -352,6 +352,11 @@ export const WeekSelector = styled(Flex)`
     cursor: pointer;
     fill: ${(props) => props.theme.colors.bs_primary};
   }
+
+  & > svg:last-child {
+    fill: ${(props) => props.theme.colors.bs_warning};
+  }
+
   & > div {
     text-align: center;
   }

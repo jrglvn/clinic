@@ -14,7 +14,7 @@ export const Header = (props) => {
           textAlign: "center",
         }}
       >
-        POLIKLINIKA
+        KLINIKA
       </h2>
     </Ui.HeaderContainer>
   );

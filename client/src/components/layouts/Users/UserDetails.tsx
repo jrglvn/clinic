@@ -2,10 +2,9 @@ import React, { useState, useMemo } from "react";
 import { Formik } from "formik";
 import * as Ui from "../../common/styles";
 import { MyInputField, MySelect, MyCheckboxField } from "../../../sdk";
-import { User, Category } from "../common/types";
+import { User, Category, UserInput } from "../common/types";
 import { useMutation } from "@apollo/client";
 import { UPDATEUSER, CREATEUSER, QUERYUSERS } from "./gql";
-import Select from "react-select";
 
 import * as yup from "yup";
 
@@ -31,7 +30,10 @@ export const UserDetails = (props: {
 }) => {
   const [temp, setTemp] = useState({});
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATEUSER);
-  const [createUser, { loading: createLoading }] = useMutation(CREATEUSER, {
+  const [createUser, { loading: createLoading }] = useMutation<
+    User,
+    { input: UserInput }
+  >(CREATEUSER, {
     refetchQueries: [{ query: QUERYUSERS }],
     awaitRefetchQueries: true,
   });
@@ -62,8 +64,14 @@ export const UserDetails = (props: {
               },
             });
           } else {
+            delete values["password_repeat"];
             await createUser({
-              variables: { input: { ...values } },
+              variables: {
+                input: {
+                  ...values,
+                  assigned_categories: categories?.map((cat) => +cat!),
+                },
+              },
             });
           }
           setTemp({ values, categories });

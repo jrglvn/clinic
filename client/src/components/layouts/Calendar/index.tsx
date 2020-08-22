@@ -33,11 +33,11 @@ export const Calendar = (props) => {
         </div>
         <div>
           <div>srijeda</div>
-          <div>{date.day("wednsday").week(date.week()).format("DD.MM")} </div>
+          <div>{date.day("wednesday").week(date.week()).format("DD.MM")}</div>
         </div>
         <div>
           <div>četvrtak</div>
-          <div>{date.day("thursday").week(date.week()).format("DD.MM")} </div>
+          <div>{date.day("thursday").week(date.week()).format("DD.MM")}</div>
         </div>
         <div>
           <div>petak</div>
