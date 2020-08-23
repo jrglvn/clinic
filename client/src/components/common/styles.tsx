@@ -86,7 +86,7 @@ export const LeftSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  box-shadow: 4px 0 4px 0 lightgray;
+  box-shadow: 4px 0 4px -4px gray;
   margin-top: 4rem;
   width: 100%;
   border-top-right-radius: 4px;
@@ -107,7 +107,7 @@ export const RightSidebarContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
   padding: 0 0.5rem;
-  box-shadow: -4px 0 4px 0 lightgray;
+  box-shadow: -4px 0 4px -4px gray;
   width: 100%;
   margin-top: 4rem;
   border-top-left-radius: 4px;
@@ -332,15 +332,17 @@ export const WeekInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   justify-items: stretch;
-  box-shadow: 0 0 4px 0 gray;
-  border-radius: 4px;
-
+  grid-gap: 0.5rem;
   & > div {
+    border-radius: 4px;
+
+    box-shadow: 0 0 4px 0 gray;
   }
 
   & div {
     text-align: center;
   }
+  user-select: none;
 `;
 
 export const WeekSelector = styled(Flex)`

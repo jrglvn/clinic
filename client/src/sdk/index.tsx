@@ -12,6 +12,10 @@ export const parseServerDate = (date: string): string => {
   return moment(date, "x").format("DD.MM.YYYY HH:mm");
 };
 
+export const parseServerDateToTime = (date: string): string => {
+  return moment(date, "x").format("HH:mm");
+};
+
 export const useClickOutside = (ref, onClickOutside, refExtra?) => {
   /**
    * Alert if clicked on outside of element
