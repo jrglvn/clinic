@@ -75,7 +75,7 @@ export const UserDetails = (props: {
             });
           }
           setTemp({ values, categories });
-          props.closeModal();
+          // props.closeModal();
         }}
       >
         <Ui.Form>

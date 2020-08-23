@@ -1,40 +1,35 @@
 import { gql } from "@apollo/client";
 
-export const QUERYCATEGORIES = gql`
-  query QUERYCATEGORIES {
-    categories {
-      id
-      name
-    }
-  }
-`;
-
-export const UPDATECATEGORY = gql`
-  mutation UPDATECATEGORY($id: ID!, $input: CategoryInput!) {
-    categories {
-      updateCategory(id: $id, input: $input) {
+export const QUERYWEEKAPPOINTMENTS = gql`
+  query QUERYWEEKAPPOINTMENTS($input: AppointmentsWeekInput!) {
+    appointments {
+      appointmentsForWeek(input: $input) {
         id
-        name
+        user {
+          id
+          first_name
+          last_name
+          email
+          role
+        }
+        client {
+          id
+          first_name
+          last_name
+          email
+          address
+          phone_number
+        }
+        category {
+          id
+          name
+        }
+        created_at
+        scheduled_for
+        previous_appointment {
+          id
+        }
       }
-    }
-  }
-`;
-
-export const CREATECATEGORY = gql`
-  mutation CREATECATEGORY($input: CategoryInput!) {
-    categories {
-      createCategory(input: $input) {
-        id
-        name
-      }
-    }
-  }
-`;
-
-export const DELETECATEGORY = gql`
-  mutation DELETECATEGORY($id: ID!) {
-    categories {
-      deleteCategory(id: $id)
     }
   }
 `;

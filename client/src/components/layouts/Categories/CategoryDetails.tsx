@@ -47,7 +47,7 @@ export const CategoryDetails = (props: {
             });
           }
           setTemp(values);
-          props.closeModal();
+          // props.closeModal();
         }}
       >
         <Ui.Form>

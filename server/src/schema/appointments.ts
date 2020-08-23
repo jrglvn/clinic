@@ -1,9 +1,15 @@
 import { gql } from "apollo-server";
 import { AppointmentsMutationResolvers } from "./types";
+import moment from "moment";
 
 export const appointmentsTypeDefs = gql`
   type Query {
-    appointments(input: AppointmentSearchInput): [Appointment]!
+    appointments: AppointmentsQuery!
+  }
+
+  type AppointmentsQuery {
+    allAppointments(input: AppointmentSearchInput): [Appointment]!
+    appointmentsForWeek(input: AppointmentsWeekInput): [Appointment]!
   }
 
   type Mutation {
@@ -41,6 +47,11 @@ export const appointmentsTypeDefs = gql`
     previous_appointment_id: ID
   }
 
+  input AppointmentsWeekInput {
+    year: Int!
+    week: Int!
+  }
+
   type AppointmentsMutation {
     createAppointment(input: AppointmentInput!): Appointment!
     updateAppointment(id: ID!, input: AppointmentInput): Appointment!
@@ -50,11 +61,7 @@ export const appointmentsTypeDefs = gql`
 
 export const appointmentsResolvers = {
   Query: {
-    appointments: async (_, { input }, { knex }) => {
-      const results = await knex("appointments").where({ ...input });
-      console.log("apointments 0: ", results[0]);
-      return results;
-    },
+    appointments: () => ({}),
   },
   Mutation: {
     appointments: () => ({}),
@@ -80,6 +87,20 @@ export const appointmentsResolvers = {
         id: parent.previous_appointment_id,
       });
       return result[0];
+    },
+  },
+  AppointmentsQuery: {
+    allAppointments: async (_, { input }, { knex }) => {
+      const results = await knex("appointments").where({ ...input });
+      console.log("apointments 0: ", results[0]);
+      return results;
+    },
+    appointmentsForWeek: async (_, { input: { year, week } }, { knex }) => {
+      const date = moment().year(year).week(week).day("monday");
+      const results = await knex("appointments")
+        .where("scheduled_for", ">=", date.format("YYYY-MM-DD"))
+        .where("scheduled_for", "<", date.add(1, "week").format("YYYY-MM-DD"));
+      return results;
     },
   },
   AppointmentsMutation: <AppointmentsMutationResolvers>{

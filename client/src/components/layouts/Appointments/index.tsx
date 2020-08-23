@@ -33,7 +33,7 @@ export const Appointments = (props) => {
           <FaCalendarPlus />
         </Ui.NewItem>
       )}
-      {data?.appointments?.map((appointment) => (
+      {data?.appointments?.allAppointments.map((appointment) => (
         <Ui.AppointmentsGrid
           key={appointment.id}
           onClick={() => {

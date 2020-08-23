@@ -47,7 +47,7 @@ export const ClientDetails = (props: { client?: Client; closeModal: any }) => {
             });
           }
           setTemp(values);
-          props.closeModal();
+          // props.closeModal();
         }}
       >
         <Ui.Form>

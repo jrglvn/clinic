@@ -69,6 +69,27 @@ export type AppointmentsMutationDeleteAppointmentArgs = {
   id: Scalars['ID'];
 };
 
+export type AppointmentsQuery = {
+  __typename?: 'AppointmentsQuery';
+  allAppointments: Array<Maybe<Appointment>>;
+  appointmentsForWeek: Array<Maybe<Appointment>>;
+};
+
+
+export type AppointmentsQueryAllAppointmentsArgs = {
+  input?: Maybe<AppointmentSearchInput>;
+};
+
+
+export type AppointmentsQueryAppointmentsForWeekArgs = {
+  input?: Maybe<AppointmentsWeekInput>;
+};
+
+export type AppointmentsWeekInput = {
+  year: Scalars['Int'];
+  week: Scalars['Int'];
+};
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
@@ -205,7 +226,7 @@ export type Query = {
   __typename?: 'Query';
   clients: Array<Maybe<Client>>;
   users?: Maybe<UsersQuery>;
-  appointments: Array<Maybe<Appointment>>;
+  appointments: AppointmentsQuery;
   images: Array<Maybe<Image>>;
   categories: Array<Maybe<Category>>;
 };
@@ -213,11 +234,6 @@ export type Query = {
 
 export type QueryClientsArgs = {
   input?: Maybe<ClientSearchInput>;
-};
-
-
-export type QueryAppointmentsArgs = {
-  input?: Maybe<AppointmentSearchInput>;
 };
 
 
@@ -401,8 +417,10 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
   Category: ResolverTypeWrapper<Category>;
+  AppointmentsQuery: ResolverTypeWrapper<AppointmentsQuery>;
   AppointmentSearchInput: AppointmentSearchInput;
   Appointment: ResolverTypeWrapper<Appointment>;
+  AppointmentsWeekInput: AppointmentsWeekInput;
   Image: ResolverTypeWrapper<Image>;
   CategorySearchInput: CategorySearchInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -433,8 +451,10 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   User: User;
   Category: Category;
+  AppointmentsQuery: AppointmentsQuery;
   AppointmentSearchInput: AppointmentSearchInput;
   Appointment: Appointment;
+  AppointmentsWeekInput: AppointmentsWeekInput;
   Image: Image;
   CategorySearchInput: CategorySearchInput;
   Mutation: {};
@@ -468,6 +488,12 @@ export type AppointmentsMutationResolvers<ContextType = any, ParentType extends 
   createAppointment?: Resolver<ResolversTypes['Appointment'], ParentType, ContextType, RequireFields<AppointmentsMutationCreateAppointmentArgs, 'input'>>;
   updateAppointment?: Resolver<ResolversTypes['Appointment'], ParentType, ContextType, RequireFields<AppointmentsMutationUpdateAppointmentArgs, 'id'>>;
   deleteAppointment?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<AppointmentsMutationDeleteAppointmentArgs, 'id'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type AppointmentsQueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['AppointmentsQuery'] = ResolversParentTypes['AppointmentsQuery']> = {
+  allAppointments?: Resolver<Array<Maybe<ResolversTypes['Appointment']>>, ParentType, ContextType, RequireFields<AppointmentsQueryAllAppointmentsArgs, never>>;
+  appointmentsForWeek?: Resolver<Array<Maybe<ResolversTypes['Appointment']>>, ParentType, ContextType, RequireFields<AppointmentsQueryAppointmentsForWeekArgs, never>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -526,7 +552,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   clients?: Resolver<Array<Maybe<ResolversTypes['Client']>>, ParentType, ContextType, RequireFields<QueryClientsArgs, never>>;
   users?: Resolver<Maybe<ResolversTypes['UsersQuery']>, ParentType, ContextType>;
-  appointments?: Resolver<Array<Maybe<ResolversTypes['Appointment']>>, ParentType, ContextType, RequireFields<QueryAppointmentsArgs, never>>;
+  appointments?: Resolver<ResolversTypes['AppointmentsQuery'], ParentType, ContextType>;
   images?: Resolver<Array<Maybe<ResolversTypes['Image']>>, ParentType, ContextType, RequireFields<QueryImagesArgs, never>>;
   categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, never>>;
 };
@@ -565,6 +591,7 @@ export type UsersQueryResolvers<ContextType = any, ParentType extends ResolversP
 export type Resolvers<ContextType = any> = {
   Appointment?: AppointmentResolvers<ContextType>;
   AppointmentsMutation?: AppointmentsMutationResolvers<ContextType>;
+  AppointmentsQuery?: AppointmentsQueryResolvers<ContextType>;
   CategoriesMutation?: CategoriesMutationResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   Client?: ClientResolvers<ContextType>;

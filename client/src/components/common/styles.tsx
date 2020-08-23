@@ -354,7 +354,7 @@ export const WeekSelector = styled(Flex)`
   }
 
   & > svg:last-child {
-    fill: ${(props) => props.theme.colors.bs_warning};
+    fill: ${(props) => props.theme.colors.bs_primary};
   }
 
   & > div {
