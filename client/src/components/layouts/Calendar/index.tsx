@@ -28,6 +28,8 @@ export const Calendar = (props) => {
     variables: { input: { year: date.year(), week: date.week() } },
   });
 
+  console.log("novi datum: ", date.toString());
+
   return (
     <>
       <Ui.WeekSelector>
@@ -53,6 +55,7 @@ export const Calendar = (props) => {
             <div
               is-selected={day === date.format("dddd") ? "true" : "false"}
               key={day}
+              onClick={() => setDate(date.clone().day(day))}
             >
               <div>{daysOfWeek[day]}</div>
               <div>{date.day(day).week(date.week()).format("DD.MM")}</div>
