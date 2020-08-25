@@ -12,6 +12,15 @@ import * as Ui from "../../common/styles";
 import { FaStepForward, FaStepBackward, FaUndo } from "react-icons/fa";
 import moment from "moment";
 
+const daysOfWeek = {
+  Monday: "ponedjeljak",
+  Tuesday: "utorak",
+  Wednesday: "srijeda",
+  Thursday: "četvrtak",
+  Friday: "petak",
+  //  saturday: "subota",
+};
+
 export const Calendar = (props) => {
   const { showModal, closeModal } = useModal();
   const [date, setDate] = useState(moment());
@@ -32,30 +41,28 @@ export const Calendar = (props) => {
         <FaUndo onClick={() => setDate(moment())} />
       </Ui.WeekSelector>
       <Ui.WeekInfo>
-        <div>
-          <div>ponedjeljak</div>
-          <div>{date.day("monday").week(date.week()).format("DD.MM")}</div>
-        </div>
-        <div>
-          <div>utorak</div>
-          <div>{date.day("tuesday").week(date.week()).format("DD.MM")} </div>
-        </div>
-        <div>
-          <div>srijeda</div>
-          <div>{date.day("wednesday").week(date.week()).format("DD.MM")}</div>
-        </div>
-        <div>
-          <div>četvrtak</div>
-          <div>{date.day("thursday").week(date.week()).format("DD.MM")}</div>
-        </div>
-        <div>
-          <div>petak</div>
-          <div>{date.day("friday").week(date.week()).format("DD.MM")}</div>
-        </div>
+        {Object.keys(daysOfWeek).map((day) => {
+          console.log(
+            "object keys: ",
+            day,
+            " / ",
+            date.format("dddd"),
+            date.toString()
+          );
+          return (
+            <div
+              is-selected={day === date.format("dddd") ? "true" : "false"}
+              key={day}
+            >
+              <div>{daysOfWeek[day]}</div>
+              <div>{date.day(day).week(date.week()).format("DD.MM")}</div>
+            </div>
+          );
+        })}
       </Ui.WeekInfo>
       <div>
         {data?.appointments?.appointmentsForWeek?.map((appointment) => (
-          <div>
+          <div key={appointment.id}>
             {parseServerDateToTime(appointment.scheduled_for)}{" "}
             {appointment.user.first_name}
           </div>

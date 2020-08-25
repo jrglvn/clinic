@@ -342,6 +342,11 @@ export const WeekInfo = styled.div`
   & div {
     text-align: center;
   }
+
+  & div[is-selected="true"] {
+    background: gray;
+  }
+
   user-select: none;
 `;
 
