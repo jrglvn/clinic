@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import * as Ui from "../../common/styles";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERYCLIENTS, DELETECLIENT } from "./gql";
-import { Modal, useModal } from "../../../sdk";
+import { Modal, useModal, Table } from "../../../sdk";
 import { ClientDetails } from "./ClientDetails";
 import { Client } from "../common/types";
 import { FaUserPlus, FaUserMinus } from "react-icons/fa";
@@ -17,7 +17,34 @@ export const Clients = (props) => {
     awaitRefetchQueries: true,
   });
 
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Ime",
+        accessor: "first_name",
+      },
+      {
+        Header: "Prezime",
+        accessor: "last_name",
+      },
+      {
+        Header: "Adresa",
+        accessor: "address",
+      },
+      {
+        Header: "E-mail",
+        accessor: "email",
+      },
+      {
+        Header: "Tel.broj",
+        accessor: "phone_number",
+      },
+    ],
+    []
+  );
   if (mutationError || queryError) return <div>apollo error</div>;
+
+  const clients = data?.clients;
 
   return (
     <>
@@ -32,7 +59,9 @@ export const Clients = (props) => {
           <FaUserPlus />
         </Ui.NewItem>
       )}
-      {data?.clients?.map((client) => (
+      {clients && <Table columns={columns} data={clients} />}
+
+      {/* {data?.clients?.map((client) => (
         <Ui.ClientsGrid
           key={client.id}
           onClick={() => {
@@ -56,7 +85,7 @@ export const Clients = (props) => {
             <FaUserMinus />
           </Ui.DeleteContainer>
         </Ui.ClientsGrid>
-      ))}
+      ))} */}
       <Modal showModal={showModal} closeModal={closeModal}>
         <ClientDetails client={selectedClient} closeModal={closeModal} />
       </Modal>

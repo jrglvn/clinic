@@ -49,6 +49,7 @@ export const SidebarContainer = styled(FlexColumn)`
 export const ContentContainer = styled(FlexColumn)`
   grid-area: content;
   overflow-y: auto;
+  align-items: center;
 `;
 export const FooterContainer = styled.div`
   overflow: hidden;

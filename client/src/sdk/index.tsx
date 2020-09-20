@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as Ui from "../components/common/styles";
 import { FaWindowClose } from "react-icons/fa";
 import Select from "react-select";
+export { Table } from "./Table";
 
 export const parseServerDate = (date: string): string => {
   return moment(date, "x").format("DD.MM.YYYY HH:mm");
