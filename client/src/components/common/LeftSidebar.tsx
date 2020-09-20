@@ -7,7 +7,7 @@ export const LeftSidebar = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Ui.LeftSidebarContainer>
+    <Ui.SidebarContainer>
       <div
         is-active={location.pathname === "/calendar" ? "true" : "false"}
         onClick={() => navigate("/calendar")}
@@ -38,6 +38,6 @@ export const LeftSidebar = (props) => {
       >
         kategorije
       </div>
-    </Ui.LeftSidebarContainer>
+    </Ui.SidebarContainer>
   );
 };

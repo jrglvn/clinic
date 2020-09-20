@@ -12,6 +12,8 @@ export const Header = (props) => {
         style={{
           fontFamily: "times-new-roman",
           textAlign: "center",
+          margin: 0,
+          padding: 0,
         }}
       >
         KLINIKA

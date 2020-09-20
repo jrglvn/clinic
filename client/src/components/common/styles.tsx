@@ -2,141 +2,64 @@ import styled from "styled-components";
 import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
 import { Form as FormikForm, Field as FormikField } from "formik";
 
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: none;
-    margin: 1rem;
-    background-color: ${(props) => props.theme.colors.green};
-    color: white;
-    padding: 1rem;
-    border-radius: 99px;
-    cursor: pointer;
-    :hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 4px 0 ${(props) => props.theme.colors.gray};
-    }
-    transition: 0.1s;
-  }
-
-  & img {
-  }
-`;
-
-export const StyledToolContainer = styled.div<{}>`
-  padding-left: 0.5rem;
-  overflow: hidden;
-`;
-
-export const StyledTool = styled.div<{ expanded: boolean }>`
-  display: flex;
-  align-items: center;
-  height: ${(props) => (props.expanded ? "20px" : "0px")};
-  user-select: none;
-  cursor: pointer;
-  & > * {
-    margin: 0 0.125rem;
-  }
-  :hover {
-    transform: translateX(2px);
-  }
-  transition: all 0.2s;
-`;
-
-export const StyledArrow = styled(RightArrow)<{
-  rotate: string;
-  visibility: string;
-}>`
-  width: 0.5rem;
-  height: 0.5rem;
-  fill: ${(props) => props.theme.colors.green};
-  transform: rotate(${(props) => props.rotate}deg);
-  visibility: ${(props) => props.visibility};
-  transition: all 0.2s;
-`;
-
-export const MainContainer = styled.div`
-  margin: 0 auto;
-  display: grid;
-  width: 75vw;
-  height: 100vh;
-  grid-template-columns: 160px 1fr 160px;
-  grid-template-rows: auto 1fr auto;
-  grid-gap: 2px;
-  background-color: white;
-`;
-
-export const HeaderContainer = styled.div`
-  grid-column: 1/-1;
-  overflow: hidden;
-  background: #eee;
-`;
-export const FooterContainer = styled.div`
-  grid-column: 1/-1;
-  overflow: hidden;
-  background: #eee;
-`;
-export const LeftSidebarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  box-shadow: 4px 0 4px -4px gray;
-  margin-top: 4rem;
-  width: 100%;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  & > div {
-    padding: 1rem;
-    cursor: pointer;
-    transition: 0.25s;
-  }
-
-  & > div[is-active="true"] {
-    background-color: #eee;
-    transition: 0.25s;
-  }
-`;
-export const RightSidebarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  padding: 0 0.5rem;
-  box-shadow: -4px 0 4px -4px gray;
-  width: 100%;
-  margin-top: 4rem;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  & div {
-    padding: 1rem;
-  }
-`;
-
-export const ContentContainer = styled.div`
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-`;
-
 export const Flex = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const FlexColumn = styled(Flex)`
   flex-direction: column;
-  overflow-y: auto;
 `;
 
-export const Header = styled(FlexColumn)`
-  padding: 0.5rem;
+export const MainContainer = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+  gap: 0.5rem;
+  & > div {
+    background: #eee;
+    padding: 0.5rem;
+  }
 `;
+
+export const HeaderContainer = styled.div`
+  overflow: hidden;
+  grid-area: header;
+`;
+export const SidebarContainer = styled(FlexColumn)`
+  grid-area: sidebar;
+  align-items: stretch;
+  padding: 0 !important;
+
+  & > div {
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  & > div[is-active="true"] {
+    background-color: #ddd;
+  }
+  transition: 0.25s;
+`;
+
+export const ContentContainer = styled(FlexColumn)`
+  grid-area: content;
+  overflow-y: auto;
+`;
+export const FooterContainer = styled.div`
+  overflow: hidden;
+  grid-area: footer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const Header = styled(FlexColumn)``;
 
 export const UsersGrid = styled.div`
   display: grid;
@@ -287,17 +210,6 @@ export const MyCheckboxField = styled(FlexColumn)`
   margin-top: 1rem;
 `;
 
-export const BasicLayout = styled(FlexColumn)`
-  justify-content: start;
-  align-items: center;
-  padding: 0 0.5rem;
-  padding-top: 4rem;
-  overflow-y: auto;
-  & > div {
-    width: 80%;
-  }
-`;
-
 export const CategoriesGrid = styled.div`
   display: grid;
 
@@ -354,6 +266,7 @@ export const WeekSelector = styled(Flex)`
   font-size: 1.25rem;
   box-shadow: 0 0 4px 0 gray;
   border-radius: 4px;
+  justify-content: center;
 
   & > svg {
     cursor: pointer;
@@ -373,4 +286,11 @@ export const WeekSelector = styled(Flex)`
   & * {
     margin: 0 0.5rem;
   }
+`;
+
+export const FooterDetails = styled.div<any>`
+  width: 60ch;
+  max-height: ${(props) => (props.expanded ? "200px" : 0)};
+  overflow: hidden;
+  transition: all 0.5s;
 `;

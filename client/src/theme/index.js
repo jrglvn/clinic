@@ -22,12 +22,18 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    background: #3f72af ;
+    /* background: #3f72af; */
+    
+
+    font-size:100%;
     }
     a {
       color: inherit; 
       text-decoration: inherit;
     }
+
+
+
 
   button {
     padding:.5rem;
