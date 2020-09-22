@@ -50,42 +50,19 @@ export const Clients = (props) => {
     <>
       {loading && <div>loading clients...</div>}
       {!loading && (
-        <Ui.NewItem
-          onClick={() => {
-            setSelectedClient(undefined);
-            closeModal();
-          }}
-        >
-          <FaUserPlus />
-        </Ui.NewItem>
-      )}
-      {clients && <Table columns={columns} data={clients} />}
-
-      {/* {data?.clients?.map((client) => (
-        <Ui.ClientsGrid
-          key={client.id}
-          onClick={() => {
-            setSelectedClient(client);
-            closeModal();
-          }}
-          onMouseEnter={() => setHoverItem(client.id)}
-          onMouseLeave={() => setHoverItem(null)}
-        >
-          <div>{`${client.first_name} ${client.last_name}`}</div>
-          <div>{client.email}</div>
-          <div>{client.address}</div>
-          <div>{client.phone_number}</div>
-          <Ui.DeleteContainer
-            showDeleteIcon={hoverItem === client.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteClient({ variables: { id: client.id } });
+        <>
+          <Ui.NewItem
+            onClick={() => {
+              setSelectedClient(undefined);
+              closeModal();
             }}
           >
-            <FaUserMinus />
-          </Ui.DeleteContainer>
-        </Ui.ClientsGrid>
-      ))} */}
+            <FaUserPlus />
+          </Ui.NewItem>
+          <Table columns={columns} data={clients} />
+        </>
+      )}
+
       <Modal showModal={showModal} closeModal={closeModal}>
         <ClientDetails client={selectedClient} closeModal={closeModal} />
       </Modal>

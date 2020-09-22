@@ -13,6 +13,9 @@ const Styles = styled.div`
       box-shadow: 0 0 0.25rem 0 gray;
       cursor: pointer;
       border-radius: 0.25rem;
+      :hover {
+        box-shadow: 0 0 0.25rem 0.125rem gray;
+      }
     }
 
     th,
@@ -20,6 +23,9 @@ const Styles = styled.div`
       width: 8rem;
       text-align: center;
       padding: 0.25rem;
+    }
+    tbody {
+      border: 1px solid red;
     }
   }
 `;
