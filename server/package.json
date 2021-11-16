@@ -30,7 +30,7 @@
     "apollo-server": "^2.15.0",
     "apollo-server-express": "^2.16.0",
     "apollo-server-testing": "^2.15.0",
-    "aws-sdk": "^2.585.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
